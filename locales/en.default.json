@@ -1,0 +1,59 @@
+{
+  "general": {
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "pagination": { "previous": "Previous", "next": "Next" },
+    "search": { "placeholder": "Search the atelier", "submit": "Search", "no_results": "No pieces found for “{{ terms }}”." },
+    "newsletter": { "placeholder": "Email address", "submit": "Subscribe", "success": "Thank you — welcome to the atelier." },
+    "404": { "title": "The piece you seek has moved", "subtext": "It may have sold or been retired. Return to the collection.", "link": "Back to shop" }
+  },
+  "accessibility": {
+    "skip_to_content": "Skip to content",
+    "menu": "Menu",
+    "close": "Close",
+    "cart": "Cart"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "quantity": "Quantity",
+      "from_price": "From {{ price }}",
+      "sale": "Sale",
+      "made_to_order": "Made to order",
+      "one_of_one": "One of one",
+      "description": "Description",
+      "dimensions": "Dimensions & specifications",
+      "materials": "Materials & finish",
+      "care": "Care",
+      "shipping": "Shipping & delivery"
+    }
+  },
+  "cart": {
+    "title": "Your cart",
+    "empty": "Your cart is empty.",
+    "empty_cta": "Continue browsing",
+    "subtotal": "Subtotal",
+    "taxes_note": "Shipping & taxes calculated at checkout.",
+    "checkout": "Checkout",
+    "remove": "Remove"
+  },
+  "collections": {
+    "general": {
+      "sort_by": "Sort by",
+      "items_count": "{{ count }} pieces"
+    },
+    "sorting": {
+      "featured": "Featured",
+      "best_selling": "Best selling",
+      "az": "Alphabetically, A–Z",
+      "za": "Alphabetically, Z–A",
+      "price_low": "Price, low to high",
+      "price_high": "Price, high to low",
+      "newest": "Newest"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+<section class="section {{ section.settings.bg }}">
+  <div class="content-width center">
+    <span class="eyebrow" data-reveal>{{ section.settings.eyebrow }}</span>
+    <blockquote class="h2 serif-italic mt-3" data-reveal data-reveal-delay="1" style="font-weight:300;line-height:1.18;">“{{ section.settings.quote }}”</blockquote>
+    {%- if section.settings.attribution != blank -%}
+      <p class="eyebrow eyebrow--ink mt-3" data-reveal data-reveal-delay="2">{{ section.settings.attribution }}</p>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Quote",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "In good company" },
+    { "type": "textarea", "id": "quote", "label": "Quote", "default": "The kind of piece you build a room around — and keep for a lifetime." },
+    { "type": "text", "id": "attribution", "label": "Attribution", "default": "Verified Etsy buyer · 5 stars" },
+    { "type": "select", "id": "bg", "label": "Background", "options": [ {"value":"","label":"Bone"}, {"value":"bg-surface","label":"White"}, {"value":"bg-ink","label":"Ink"} ], "default": "bg-ink" }
+  ],
+  "presets": [{ "name": "Quote" }]
+}
+{% endschema %}

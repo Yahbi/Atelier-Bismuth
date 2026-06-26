@@ -1,0 +1,19 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "newsletter_heading": "The Atelier Letter",
+        "newsletter_text": "Early access to new editions, atelier stories, and private sales. No noise."
+      },
+      "blocks": {
+        "shop": { "type": "menu", "settings": { "heading": "Shop", "menu": "footer-shop" } },
+        "atelier": { "type": "menu", "settings": { "heading": "Atelier", "menu": "footer-atelier" } }
+      },
+      "block_order": ["shop", "atelier"]
+    }
+  },
+  "order": ["footer"]
+}

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="{{ settings.color_ink | default: '#1c1a17' }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64 }}">
+    {%- endif -%}
+
+    <title>{{ page_title }}{% if current_tags %} &ndash; {{ 'general.meta.tags' | t: tags: current_tags | join: ', ' }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
+
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+
+    {% render 'meta-tags' %}
+
+    {%- comment -%} Typography {%- endcomment -%}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+    {{ content_for_header }}
+
+    {%- comment -%} Theme settings → CSS custom properties {%- endcomment -%}
+    {% style %}
+      :root {
+        --color-bg: {{ settings.color_bg | default: '#f4f1ea' }};
+        --color-surface: {{ settings.color_surface | default: '#ffffff' }};
+        --color-surface-alt: {{ settings.color_surface_alt | default: '#ece7dc' }};
+        --color-ink: {{ settings.color_ink | default: '#1c1a17' }};
+        --color-ink-soft: {{ settings.color_ink_soft | default: '#4a463f' }};
+        --color-muted: {{ settings.color_muted | default: '#8a8479' }};
+        --color-line: {{ settings.color_line | default: '#d8d2c4' }};
+        --color-accent: {{ settings.color_accent | default: '#6b5b4a' }};
+        --page-max: {{ settings.page_width | default: 1600 }}px;
+      }
+      {%- if settings.heading_font and settings.heading_font != blank -%}
+      :root { --font-display: {{ settings.heading_font.family }}, {{ settings.heading_font.fallback_families }}; }
+      {{ settings.heading_font | font_face: font_display: 'swap' }}
+      {%- endif -%}
+      {%- if settings.body_font and settings.body_font != blank -%}
+      :root { --font-body: {{ settings.body_font.family }}, {{ settings.body_font.fallback_families }}; }
+      {{ settings.body_font | font_face: font_display: 'swap' }}
+      {%- endif -%}
+    {% endstyle %}
+
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+
+    <script>
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+      window.AB = window.AB || {};
+      window.AB.moneyFormat = {{ shop.money_format | json }};
+      window.AB.routes = { cart_add: "{{ routes.cart_add_url }}", cart_change: "{{ routes.cart_change_url }}", cart: "{{ routes.cart_url }}" };
+    </script>
+    <script src="{{ 'theme.js' | asset_url }}" defer></script>
+  </head>
+
+  <body class="template-{{ request.page_type | handle }}">
+    <a class="visually-hidden" href="#main-content">{{ 'accessibility.skip_to_content' | t | default: 'Skip to content' }}</a>
+
+    {% sections 'header-group' %}
+
+    <main id="main-content" role="main">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    {%- comment -%} Cart drawer (loaded/refreshed via JS) {%- endcomment -%}
+    <div class="drawer" data-cart-drawer aria-hidden="true" role="dialog" aria-label="Cart">
+      <div class="drawer__scrim" data-cart-close></div>
+      <div class="drawer__panel" style="left:auto;right:0;transform:translateX(100%);width:min(92vw,440px);">
+        <div data-cart-drawer-content>{% render 'cart-drawer' %}</div>
+      </div>
+    </div>
+
+    <style>.drawer[data-cart-drawer][aria-hidden="false"] .drawer__panel{transform:none!important;}</style>
+  </body>
+</html>

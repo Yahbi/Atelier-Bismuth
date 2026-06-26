@@ -1,0 +1,28 @@
+<section class="section {{ section.settings.bg }}">
+  <div class="content-width center">
+    <span class="eyebrow {% if section.settings.bg == 'bg-ink' %}{% endif %}" data-reveal>{{ section.settings.eyebrow }}</span>
+    <h2 class="h2 mt-2" data-reveal data-reveal-delay="1" {% if section.settings.bg == 'bg-ink' %}style="color:#efece4;"{% endif %}>{{ section.settings.heading }}</h2>
+    <p class="lead mt-2 measure" data-reveal data-reveal-delay="2">{{ section.settings.text }}</p>
+    <div data-reveal data-reveal-delay="3" style="max-width:440px;margin:1.8rem auto 0;">
+      {%- form 'customer', class: 'newsletter-form', style: 'margin-inline:auto;' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <label class="visually-hidden" for="nl-email">Email</label>
+        <input id="nl-email" type="email" name="contact[email]" placeholder="{{ 'general.newsletter.placeholder' | t }}" required style="{% if section.settings.bg != 'bg-ink' %}color:var(--color-ink);border-color:var(--color-line);{% endif %}">
+        <button type="submit">{{ 'general.newsletter.submit' | t }}</button>
+        {%- if form.posted_successfully? -%}<p class="mt-2" style="font-size:0.85rem;">{{ 'general.newsletter.success' | t }}</p>{%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Atelier Letter" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "First to the new editions" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Join the list for early access to limited pieces, atelier stories, and private sales." },
+    { "type": "select", "id": "bg", "label": "Background", "options": [ {"value":"","label":"Bone"}, {"value":"bg-alt","label":"Oat"}, {"value":"bg-ink","label":"Ink"} ], "default": "bg-alt" }
+  ],
+  "presets": [{ "name": "Newsletter" }]
+}
+{% endschema %}

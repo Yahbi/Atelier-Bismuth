@@ -1,0 +1,22 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "settings": {
+        "text": "Complimentary white-glove delivery on furniture across the contiguous US",
+        "link_text": "",
+        "link": ""
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "transparent_on_home": true,
+        "menu": "main-menu"
+      }
+    }
+  },
+  "order": ["announcement", "header"]
+}

@@ -1,0 +1,43 @@
+{%- liquid
+  assign img = section.settings.image
+  assign reverse = section.settings.layout == 'reverse'
+-%}
+<section class="section {{ section.settings.bg }}">
+  <div class="page-width">
+    <div class="feature {% if reverse %}feature--reverse{% endif %}">
+      <div class="feature__media media {{ section.settings.ratio }} media-zoom" data-reveal>
+        {%- if img -%}
+          <img src="{{ img | image_url: width: 1200 }}" srcset="{{ img | image_url: width: 700 }} 700w, {{ img | image_url: width: 1200 }} 1200w" sizes="(max-width:820px) 90vw, 48vw" width="1200" height="1500" loading="lazy" alt="{{ img.alt | escape | default: section.settings.heading | escape }}">
+        {%- else -%}
+          <div class="placeholder-iri" style="position:absolute;inset:0;"></div>
+        {%- endif -%}
+      </div>
+      <div class="feature__copy" data-reveal data-reveal-delay="1">
+        {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+        <h2 class="h2 mt-2">{{ section.settings.heading }}</h2>
+        <div class="feature__body lead mt-3">{{ section.settings.text }}</div>
+        {%- if section.settings.cta_text != blank -%}
+          <a href="{{ section.settings.cta_link }}" class="btn btn--outline mt-4">{{ section.settings.cta_text }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image with text",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "select", "id": "ratio", "label": "Image ratio", "options": [ {"value":"media--portrait","label":"Portrait"}, {"value":"media--square","label":"Square"}, {"value":"media--landscape","label":"Landscape"}, {"value":"media--tall","label":"Tall"} ], "default": "media--portrait" },
+    { "type": "select", "id": "layout", "label": "Image side", "options": [ {"value":"normal","label":"Left"}, {"value":"reverse","label":"Right"} ], "default": "normal" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Atelier" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Cast in small batches, finished by hand" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Every piece begins as a raw idea and a raw material. We work in limited runs so each object can be considered, weighed, and finished with the care a one-of-one deserves.</p>" },
+    { "type": "text", "id": "cta_text", "label": "Button" },
+    { "type": "url", "id": "cta_link", "label": "Button link" },
+    { "type": "select", "id": "bg", "label": "Background", "options": [ {"value":"","label":"Bone"}, {"value":"bg-surface","label":"White"}, {"value":"bg-alt","label":"Oat"} ], "default": "" }
+  ],
+  "presets": [{ "name": "Image with text" }]
+}
+{% endschema %}
