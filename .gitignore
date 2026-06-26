@@ -1,0 +1,16 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+
+# Node (tooling only — the theme itself has no build step)
+node_modules/
+npm-debug.log*
+
+# Local Shopify CLI
+.shopify/
+
+# Etsy export artifacts (drop your export here; not committed by default)
+tools/atelier-bismuth-etsy.json
+tools/atelier-bismuth-images.txt
+tools/products_shopify_import.csv
