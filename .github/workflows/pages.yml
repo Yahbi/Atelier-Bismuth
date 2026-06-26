@@ -1,10 +1,9 @@
 name: Deploy preview to GitHub Pages
 
 on:
-  push:
-    branches:
-      - claude/atelier-bismuth-shopify-8msznm
-      - main
+  # Manual only: enable Pages once (Settings → Pages → Source: GitHub Actions),
+  # then run this workflow. Avoids red CI on repos where the Actions token
+  # cannot auto-create the Pages site.
   workflow_dispatch:
 
 permissions:
@@ -28,8 +27,6 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Upload preview (/docs)
         uses: actions/upload-pages-artifact@v3
