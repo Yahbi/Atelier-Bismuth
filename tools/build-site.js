@@ -20,6 +20,11 @@ const REVIEWS = JSON.parse(fs.readFileSync(path.join(__dirname, 'reviews.json'),
 const EXCLUDE = /\bfee\b|shipping replacement|custom order for|\bdeposit\b|reserved for|gift ?card|add[- ]?on|payment plan|balance due/i;
 let P = data.products.filter((p) => !EXCLUDE.test(p.title));
 
+// Ensure unique handles — several listings share identical titles (→ identical
+// slugs), which would make different pieces open the same product page.
+const seenH = {};
+P.forEach((p) => { let h = p.handle || 'piece'; if (seenH[h]) { seenH[h] += 1; h = h + '-' + seenH[h]; } else { seenH[h] = 1; } p.handle = h; });
+
 /* ---- sub-category grouping + corrected top-level placement ----
    Furniture: tables/consoles, shelves, pedestals, tubs (+ fireplaces, benches)
    Objects & Decor: mirrors, fountains, candle holders, book ends (+ plates/trays, objects) */
