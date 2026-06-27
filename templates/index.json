@@ -3,6 +3,8 @@
     "hero": {
       "type": "hero",
       "settings": {
+        "image": "shopify://shop_images/isbl_1680x420.78420472_941frbz6.jpg",
+        "image_mobile": "shopify://shop_images/il_1000x794.7028625552_3973.jpg",
         "eyebrow": "Atelier Bismuth · Travertine & Natural Stone",
         "heading": "Carved from a single stone",
         "subheading": "Sculptural travertine furniture and objects — consoles, pedestals, basins and hearths, shaped by hand for the considered home.",
@@ -18,19 +20,20 @@
       "type": "collection-list",
       "settings": { "eyebrow": "The Collections", "heading": "Furniture & objects in stone", "bg": "" },
       "blocks": {
-        "furniture": { "type": "tile", "settings": { "title": "Furniture", "count_label": "Consoles · Desks · Benches", "cta": "Explore furniture" } },
-        "pedestals": { "type": "tile", "settings": { "title": "Pedestals & Columns", "count_label": "Sculptural plinths", "cta": "Explore pedestals" } },
-        "decor": { "type": "tile", "settings": { "title": "Home Decor", "count_label": "Mirrors · Plates · Objects", "cta": "Explore décor" } }
+        "furniture": { "type": "tile", "settings": { "collection": "furniture", "title": "Furniture", "count_label": "Consoles · Desks · Benches", "cta": "Explore furniture" } },
+        "pedestals": { "type": "tile", "settings": { "collection": "pedestals", "title": "Pedestals & Columns", "count_label": "Sculptural plinths", "cta": "Explore pedestals" } },
+        "decor": { "type": "tile", "settings": { "collection": "objects-decor", "title": "Home Decor", "count_label": "Mirrors · Plates · Objects", "cta": "Explore décor" } }
       },
       "block_order": ["furniture", "pedestals", "decor"]
     },
     "featured": {
       "type": "featured-collection",
-      "settings": { "eyebrow": "New & Notable", "heading": "Recent pieces", "limit": 4, "bg": "bg-surface" }
+      "settings": { "collection": "new-arrivals", "eyebrow": "New & Notable", "heading": "Recent pieces", "cta": "View all new arrivals", "limit": 4, "bg": "bg-surface" }
     },
     "story": {
       "type": "image-with-text",
       "settings": {
+        "image": "shopify://shop_images/il_1000x794.7049185714_2pgs.jpg",
         "ratio": "media--portrait",
         "layout": "normal",
         "eyebrow": "The Atelier",
@@ -59,6 +62,7 @@
     "lookbook": {
       "type": "lookbook",
       "settings": {
+        "image": "shopify://shop_images/il_1000x794.7028625552_3973.jpg",
         "height": 78,
         "align": "left",
         "eyebrow": "Lookbook · 2026",
@@ -70,11 +74,11 @@
     },
     "featured_decor": {
       "type": "featured-collection",
-      "settings": { "eyebrow": "Home Decor", "heading": "Objects for the table & shelf", "limit": 4, "bg": "" }
+      "settings": { "collection": "objects-decor", "eyebrow": "Home Decor", "heading": "Objects for the table & shelf", "cta": "View all décor", "limit": 4, "bg": "" }
     },
     "quote": {
       "type": "quote",
-      "settings": { "eyebrow": "445 sales · 464 admirers", "quote": "Exactly as described, down to the last centimetre — and more beautiful in stone than on screen.", "attribution": "Verified Etsy buyer · 5 stars", "bg": "bg-ink" }
+      "settings": { "eyebrow": "445 sales · 64 reviews", "quote": "Exactly as described, down to the last centimetre — and more beautiful in stone than on screen.", "attribution": "Verified Etsy buyer · 5 stars", "bg": "bg-ink" }
     },
     "newsletter": {
       "type": "newsletter",
