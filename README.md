@@ -34,9 +34,13 @@ Or just open `docs/index.html` directly in your browser.
 3. Save. The site publishes at **`https://yahbi.github.io/atelier-bismuth/`**.
 
 Preview pages: `docs/index.html` (home) and `docs/product.html` (product detail with the
-full dimensions/specifications experience).
+full dimensions/specifications experience). Both render from `docs/catalog.js`
+(`window.AB_CATALOG`) — `product.html?handle=<handle>` shows any piece. Regenerate that file
+from an Etsy export with `node tools/build-preview.js` (then `node tools/build-standalone.js`
+to refresh the single-file bundles).
 
-> Imagery in the preview is placeholder stone texture. Your real Atelier Bismuth photography
+> Until the real export is loaded, the preview ships with an 8-piece seed and placeholder
+> stone texture. Real Atelier Bismuth photography (the `i.etsystatic.com` URLs from the export)
 > drops straight into the same slots — see §3.
 
 ---

@@ -1,0 +1,32 @@
+{
+  "shop": "AtelierBismuth",
+  "exported_at": "seed",
+  "count": 8,
+  "note": "Provisional seed mirroring the 8 pieces in the original preview. Replaced by the real export (tools/atelier-bismuth-etsy.json) when it lands.",
+  "products": [
+    { "title": "Travertine Stone Console Table with Chiseled Legs", "price": "3399.15", "currency": "USD",
+      "description": "A solid travertine console cut from a single block and finished with hand-chiselled legs. The honed top carries the natural veining of the stone; every piece is unique.",
+      "details": ["Width 160 cm", "Depth 40 cm", "Height 85 cm", "Weight 95 kg"], "images": [] },
+    { "title": "Asymmetrical Pebble Mirror — Wabi-Sabi Travertine", "price": "679.15", "currency": "USD",
+      "description": "An organic, pebble-shaped travertine mirror with a softly honed edge. Wabi-sabi by nature — no two outlines are alike.",
+      "details": ["Width 60 cm", "Height 75 cm"], "images": [] },
+    { "title": "Travertine Stone Console Desk with Chiseled Detail", "price": "10115.00", "currency": "USD",
+      "description": "A monolithic travertine desk with chiselled detailing, made to order from solid stone.",
+      "details": ["Width 180 cm", "Depth 75 cm", "Height 74 cm"], "images": [] },
+    { "title": "Travertine Pedestal Column — Sculptural Plinth", "price": "297.50", "currency": "USD",
+      "description": "A sculptural travertine plinth for displaying objects, busts, or plants.",
+      "details": ["Width 25 cm", "Depth 25 cm", "Height 60 cm"], "images": [] },
+    { "title": "Travertine Fountain Column — Sculptural Water Feature", "price": "764.15", "currency": "USD",
+      "description": "A quiet travertine water feature, turned from solid stone.",
+      "details": ["Diameter 30 cm", "Height 120 cm"], "images": [] },
+    { "title": "Natural Travertine Solid Stone Gas Fire Table", "price": "11041.50", "currency": "USD",
+      "description": "A solid travertine gas fire table for the terrace or living room.",
+      "details": ["Width 110 cm", "Depth 110 cm", "Height 38 cm"], "images": [] },
+    { "title": "Travertine Solid Stone Bathtub — Luxury Soaking Tub", "price": "14449.15", "currency": "USD",
+      "description": "A freestanding soaking tub carved from a single mass of travertine.",
+      "details": ["Width 170 cm", "Depth 80 cm", "Height 58 cm"], "images": [] },
+    { "title": "Chiseled Travertine Fireplace Hearth — Natural Stone", "price": "3315.00", "currency": "USD",
+      "description": "A chiselled travertine fireplace hearth, finished by hand.",
+      "details": ["Width 140 cm", "Depth 40 cm", "Height 15 cm"], "images": [] }
+  ]
+}

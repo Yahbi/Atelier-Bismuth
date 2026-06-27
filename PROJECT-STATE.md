@@ -1,7 +1,8 @@
 # Atelier Bismuth — project state & handoff
 
-> Read this first in any new session, then continue. Everything is on branch
-> `claude/atelier-bismuth-shopify-8msznm`.
+> Read this first in any new session, then continue. Active work branch is
+> `claude/atelier-bismuth-etsy-catalog-miwrnm` (forked from, and identical history
+> to, `claude/atelier-bismuth-shopify-8msznm`).
 
 ## What we're building
 A luxury e-commerce experience for **Atelier Bismuth** (House-of-Leon-level):
@@ -25,11 +26,19 @@ A luxury e-commerce experience for **Atelier Bismuth** (House-of-Leon-level):
     `specs` metafields), collection, list-collections, cart, page, about, search, 404.
   - Header/footer section groups, cart drawer, reveal animations, variant logic.
 - Static preview: `docs/index.html`, `docs/product.html` (+ `base.css`, `theme.js`, `.nojekyll`).
-- Standalone (double-click) bundles: `atelier-bismuth-home.html`, `atelier-bismuth-product.html`.
+  - **Data-driven:** both pages render from `docs/catalog.js` (`window.AB_CATALOG`).
+    Home shows the first 8 as featured cards; `product.html?handle=<handle>` renders
+    any piece (gallery, full spec table, related). Falls back to textured placeholders
+    when a piece has no images.
+- Standalone (double-click) bundles: `atelier-bismuth-home.html`, `atelier-bismuth-product.html`
+  (inline `catalog.js` + `base.css` + `theme.js`).
 - Tools:
   - `tools/etsy-export.js` — browser-console exporter (run on etsy.com).
-  - `tools/build-catalog.js` — Etsy JSON → `tools/products_shopify_import.csv` (parses dims, maps collections, image URLs).
+  - `tools/build-preview.js` — Etsy JSON → `docs/catalog.js` (parses dims w/ units, maps
+    collections, embeds etsystatic image URLs). **Run this to load the catalog into the preview.**
+  - `tools/build-catalog.js` — Etsy JSON → `tools/products_shopify_import.csv` (Shopify import).
   - `tools/build-standalone.js` — bundles `/docs` into single-file HTML.
+  - `tools/atelier-bismuth-etsy.seed.json` — 8-piece seed (interim fallback until the real export lands).
 - `.github/workflows/pages.yml` — manual Pages deploy. Root `index.html` redirects to `/docs`.
 
 ## Environment constraints (important)
@@ -39,16 +48,27 @@ A luxury e-commerce experience for **Atelier Bismuth** (House-of-Leon-level):
   → Scrape **gently**: reuse collected listing URLs, one at a time, 5–8s randomized delay, save incrementally.
 
 ## Data pipeline
-Local session (Playwright) scrapes the shop → `tools/atelier-bismuth-etsy.json`
-→ `node tools/build-catalog.js tools/atelier-bismuth-etsy.json` → `products_shopify_import.csv`.
-Images stay as `i.etsystatic.com` URLs (…`il_fullxfull`…); browsers render them on the preview,
-and Shopify fetches them server-side at CSV import.
+Local session (Playwright) scrapes the shop → `tools/atelier-bismuth-etsy.json`, then:
+- **Preview:** `node tools/build-preview.js` → `docs/catalog.js`, then
+  `node tools/build-standalone.js` → rebuilt single-file bundles.
+- **Shopify:** `node tools/build-catalog.js tools/atelier-bismuth-etsy.json` → `products_shopify_import.csv`.
+
+Images stay as `i.etsystatic.com` URLs (…`il_fullxfull`…); viewers' browsers render them on the
+preview, and Shopify fetches them server-side at CSV import.
+
+> **Note (this session's environment):** general outbound is still blocked — only GitHub +
+> package registries are allowlisted; `example.com`, Google, `i.etsystatic.com`, and even
+> `*.github.io` return errors from the proxy. So the real scrape must run **locally** and be
+> pushed; this box can't reach Etsy or self-verify the live Pages render (uses the GitHub API instead).
 
 ## Next steps
 1. Finish the gentle Etsy scrape → `tools/atelier-bismuth-etsy.json` (commit it).
-2. Load real products/photos/prices/dimensions into `docs/index.html` + `docs/product.html`;
-   rebuild standalone via `node tools/build-standalone.js`. Theme reads products dynamically.
-3. Push; review at `https://yahbi.github.io/Atelier-Bismuth/` (enable Pages: Settings → Pages → branch → `/docs`).
+2. Load the real catalog into the preview: `node tools/build-preview.js` (writes `docs/catalog.js`),
+   then `node tools/build-standalone.js` (rebuilds the bundles). No HTML edits needed — the
+   pages are data-driven. Shopify theme reads products from the store dynamically.
+3. Push; review at `https://yahbi.github.io/Atelier-Bismuth/`.
+   **Pages must be enabled first:** Settings → Pages → Source → **GitHub Actions** (the `pages.yml`
+   workflow uses the Actions deploy path; its first run failed only because Pages wasn't enabled).
 4. When the Shopify store's API is active, import `products_shopify_import.csv` and set up
    the metafield definitions (namespace `specs`: width, depth, height, diameter, weight,
    materials, finish, edition, origin, lead_time, care).

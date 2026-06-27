@@ -105,7 +105,7 @@
       <div class="page-width">
         <div class="flex items-center justify-between wrap gap-2" style="margin-bottom:clamp(1.5rem,3vw,3rem)" data-reveal>
           <div><span class="eyebrow">New &amp; Notable</span><h2 class="h2 mt-2">Recent pieces</h2></div>
-          <a href="#" class="link-underline link-arrow">View all 101 →</a>
+          <a href="#" class="link-underline link-arrow" data-view-all>View all 101 →</a>
         </div>
         <div class="grid cols-4" id="cards"></div>
       </div>
@@ -220,32 +220,38 @@
     </div>
   </div>
 
+  <script src="./catalog.js"></script>
   <script>
-    // Real pieces from the shop (prices include the running 15% sale)
-    const products = [
-      {t:"Travertine Stone Console Table with Chiseled Legs", p:"$3,399.15", c:"$3,999.00", type:"Furniture", dim:"W160 × D40 × H85 cm"},
-      {t:"Asymmetrical Pebble Mirror — Wabi-Sabi", p:"$679.15", c:"$799.00", type:"Mirror", dim:"W60 × H75 cm"},
-      {t:"Travertine Stone Console Desk with Chiseled Detail", p:"$10,115.00", c:"$11,900.00", type:"Furniture", dim:"W180 × D75 × H74 cm"},
-      {t:"Travertine Pedestal Column — Sculptural Plinth", p:"$297.50", c:"$350.00", type:"Pedestal", dim:"W25 × D25 × H60 cm"},
-      {t:"Travertine Fountain Column — Water Feature", p:"$764.15", c:"$899.00", type:"Fountain", dim:"Ø30 × H120 cm"},
-      {t:"Natural Travertine Solid Stone Gas Fire Table", p:"$11,041.50", c:"$12,990.00", type:"Fire Table", dim:"W110 × D110 × H38 cm"},
-      {t:"Travertine Solid Stone Bathtub — Soaking Tub", p:"$14,449.15", c:"$16,999.00", type:"Bath", dim:"W170 × D80 × H58 cm"},
-      {t:"Chiseled Travertine Fireplace Hearth", p:"$3,315.00", c:"$3,900.00", type:"Fireplace", dim:"W140 × D40 × H15 cm"},
-    ];
-    const wrap = document.getElementById('cards');
-    wrap.innerHTML = products.map((x,i)=>`
-      <article class="product-card" data-reveal data-reveal-delay="${(i%4)+1}">
-        <a href="product.html" class="product-card__media media media-zoom">
-          <span class="product-card__badge">${i%3===0?'Made to order':'15% off'}</span>
-          <div class="placeholder-iri ph ${['','v2','v3','v4'][i%4]}"></div>
+    // Featured pieces from the live Atelier Bismuth catalog (docs/catalog.js,
+    // generated from the Etsy export). Prices include the running 15% sale.
+    const products = (window.AB_CATALOG || []);
+    const esc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    const phv = ['', 'v2', 'v3', 'v4'];
+    const card = (x, i) => {
+      const link = `product.html?handle=${encodeURIComponent(x.handle)}`;
+      const media = (x.images && x.images.length)
+        ? `<img src="${esc(x.images[0])}" alt="${esc(x.title)}" loading="lazy">` +
+          (x.images[1] ? `<img class="alt-img" src="${esc(x.images[1])}" alt="" loading="lazy">` : '')
+        : `<div class="placeholder-iri ph ${phv[i % 4]}"></div>`;
+      const price = x.compareAt
+        ? `<span class="price--was">${esc(x.compareAt)}</span><span class="price--sale">${esc(x.price)}</span>`
+        : `<span>${esc(x.price)}</span>`;
+      return `<article class="product-card" data-reveal data-reveal-delay="${(i % 4) + 1}">
+        <a href="${link}" class="product-card__media media media-zoom">
+          <span class="product-card__badge">${x.compareAt ? '15% off' : 'Made to order'}</span>
+          ${media}
         </a>
         <div class="product-card__body">
-          <a href="product.html"><h3 class="product-card__title">${x.t}</h3></a>
-          <span class="product-card__dims">${x.dim}</span>
-          <div class="product-card__meta"><span class="product-card__type">${x.type}</span>
-          <span class="product-card__price"><span class="price--was">${x.c}</span><span class="price--sale">${x.p}</span></span></div>
+          <a href="${link}"><h3 class="product-card__title">${esc(x.title)}</h3></a>
+          ${x.dims ? `<span class="product-card__dims">${esc(x.dims)}</span>` : ''}
+          <div class="product-card__meta"><span class="product-card__type">${esc(x.type)}</span>
+          <span class="product-card__price">${price}</span></div>
         </div>
-      </article>`).join('');
+      </article>`;
+    };
+    document.getElementById('cards').innerHTML = products.slice(0, 8).map(card).join('');
+    const va = document.querySelector('[data-view-all]');
+    if (va && products.length) va.textContent = `View all ${products.length} →`;
   </script>
   <script src="./theme.js"></script>
 </body>
