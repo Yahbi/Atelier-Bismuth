@@ -81,20 +81,19 @@ const head = (title, desc) => `<!doctype html>
 
 const header = (active) => `
 <header class="site-header" data-header>
-  <div class="page-width header-inner">
-    <nav class="header-nav header-nav--left">
+  <div class="page-width header-top">
+    <div class="header-side">
       <button class="nav-toggle icon-btn" data-drawer-open aria-label="Menu">${ICON.menu}</button>
-      ${NAV.slice(0, 2).map(([t, h]) => `<a href="${h}" class="nav-link${active === h ? ' is-active' : ''}">${t}</a>`).join('')}
-    </nav>
+    </div>
     <a href="index.html" class="brand-wordmark">Atelier Bismuth<small>Travertine · Natural Stone</small></a>
-    <nav class="header-nav header-nav--right">
-      ${NAV.slice(2).map(([t, h]) => `<a href="${h}" class="nav-link${active === h ? ' is-active' : ''}">${t}</a>`).join('')}
-      <div class="header-icons">
-        <button class="icon-btn" aria-label="Search">${ICON.search}</button>
-        <button class="icon-btn" aria-label="Cart">${ICON.cart}<span class="cart-count" style="display:none">0</span></button>
-      </div>
-    </nav>
+    <div class="header-side header-icons" style="justify-content:flex-end">
+      <button class="icon-btn" aria-label="Search">${ICON.search}</button>
+      <button class="icon-btn" aria-label="Cart">${ICON.cart}<span class="cart-count" style="display:none">0</span></button>
+    </div>
   </div>
+  <nav class="header-bar" aria-label="Primary"><div class="page-width header-bar__inner">
+    ${NAV.map(([t, h]) => `<a href="${h}" class="nav-link${active === h ? ' is-active' : ''}">${t}</a>`).join('')}
+  </div></nav>
 </header>
 <div class="drawer" data-drawer aria-hidden="true" role="dialog" aria-label="Menu">
   <div class="drawer__scrim" data-drawer-close></div>
@@ -270,6 +269,15 @@ function productPage() {
 const SITE_CSS = `/* Atelier Bismuth — luxe additions on top of base.css */
 .nav-link.is-active{color:var(--color-ink)}
 .nav-link.is-active::after{width:100%}
+/* two-row header: wordmark on top, category nav bar beneath */
+.header-top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;min-height:66px;gap:1rem}
+.header-side{display:flex;align-items:center;gap:1rem}
+.site-header .brand-wordmark{text-align:center}
+.header-bar{border-top:1px solid var(--color-line)}
+.header-bar__inner{display:flex;justify-content:center;flex-wrap:wrap;gap:clamp(1.3rem,3vw,2.8rem);padding:.9rem 0}
+.header-bar .nav-link{font-size:.72rem}
+.nav-toggle{display:none}
+@media (max-width:900px){.header-bar{display:none}.nav-toggle{display:inline-flex}.header-top{min-height:58px;grid-template-columns:auto 1fr auto}.site-header .brand-wordmark{text-align:left}}
 .hero__scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,13,11,.62),rgba(15,13,11,.1) 45%,rgba(15,13,11,.28))}
 .tile-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,13,11,.55),transparent 55%)}
 .tile-cap{position:absolute;left:1.6rem;right:1.6rem;bottom:1.5rem;color:#f4f1ea}
