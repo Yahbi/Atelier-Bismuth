@@ -33,19 +33,23 @@ function classify(title) {
   const F = 'Furniture', D = 'Objects & Decor';
   const has = (...w) => w.some((x) => t.includes(x));
   // Objects & Decor — specific objects first (order matters: bookend before shelf, tray before jewelry)
+  // Furniture — large pieces first so a bed/vanity isn't caught by a stray decor word
+  if (has('bed frame')) return [F, 'Benches', 'Bed'];
+  if (has('vanity', 'bathtub', 'bath tub', 'soaking tub', 'basin', 'sink console')) return [F, 'Baths & Vanities', 'Bath'];
+  if (has('console', 'coffee table', 'side table', 'dining table', 'banquet', 'waterfall', 'tv stand', 'workstation', 'reception', 'front desk') || (has('desk') && !has('cable'))) return [F, 'Tables & Consoles', 'Console'];
+  if (has('bench', 'sofa', 'settee', 'seating')) return [F, 'Benches', 'Bench'];
+  if (has('fireplace', 'hearth', 'fire pit')) return [F, 'Fireplaces', 'Fireplace'];
+  // Objects & Decor — specific small objects (bookend before shelf; tray before jewelry; card holder before generic "table")
   if (has('mirror')) return [D, 'Mirrors', 'Mirror'];
   if (has('bookend', 'book end', 'bookstop', 'bookshelf')) return [D, 'Book Ends', 'Book end'];
+  if (has('card holder', 'cardholder', 'place card')) return [D, 'Objects', 'Card holder'];
   if (has('fountain', 'water feature', 'water element')) return [D, 'Fountains', 'Fountain'];
   if (has('plate', 'tray', 'trivet', 'board', 'coaster')) return [D, 'Plates & Trays', 'Plate'];
   if (has('candle', 'candlestick')) return [D, 'Candle Holders', 'Candle holder'];
   if (has('cutlery rest', 'chopstick')) return [D, 'Objects', 'Tableware'];
   if (has('jewelry', 'jewellery')) return [D, 'Objects', 'Jewelry stand'];
   if (has('knob', 'door pull', 'hook', 'cable', 'soap', 'blocks', 'chunk', 'boulder', 'accent stone', 'prop', 'wine')) return [D, 'Objects', 'Object'];
-  // Furniture
-  if (has('console', 'coffee table', 'side table', 'dining table', 'banquet', 'waterfall', 'tv stand', 'desk', 'workstation', 'reception', 'front desk')) return [F, 'Tables & Consoles', 'Console'];
-  if (has('bench', 'sofa', 'seating', 'bed frame')) return [F, 'Benches', 'Bench'];
-  if (has('vanity', 'bathtub', 'bath tub', ' tub', 'basin', 'sink')) return [F, 'Tubs & Baths', 'Bath'];
-  if (has('fireplace', 'hearth', 'fire pit')) return [F, 'Fireplaces', 'Fireplace'];
+  // Furniture — sculptural pieces
   if (has('floating shelf', 'shelf', 'mantle', 'mantel')) return [F, 'Shelves', 'Shelf'];
   if (has('pedestal', 'column', 'plinth', 'monolith', 'cylinder')) return [F, 'Pedestals', 'Pedestal'];
   if (has('table')) return [F, 'Tables & Consoles', 'Table'];
@@ -53,7 +57,7 @@ function classify(title) {
   return [D, 'Objects', 'Object'];
 }
 P.forEach((p) => { const [c, g, s] = classify(p.title); p.category = c; p.group = g; p.subtype = s; });
-const FURN_ORDER = ['Tables & Consoles', 'Shelves', 'Pedestals', 'Tubs & Baths', 'Fireplaces', 'Benches'];
+const FURN_ORDER = ['Tables & Consoles', 'Pedestals', 'Shelves', 'Baths & Vanities', 'Fireplaces', 'Benches'];
 const DECOR_ORDER = ['Mirrors', 'Fountains', 'Candle Holders', 'Book Ends', 'Plates & Trays', 'Objects'];
 function groupChips(items, order) {
   const present = [...new Set(items.map((p) => p.group))];
@@ -92,7 +96,7 @@ function paras(desc) {
 // New Arrivals: first 12 in shop/export order (editor-adjustable).
 P.forEach((p, i) => { p.newArrival = i < 12; });
 // Best Sellers: a varied signature cross-section — first piece of each key subtype.
-const bsGroups = ['Tables & Consoles', 'Pedestals', 'Mirrors', 'Fountains', 'Shelves', 'Tubs & Baths', 'Book Ends', 'Candle Holders', 'Plates & Trays', 'Fireplaces', 'Benches'];
+const bsGroups = ['Tables & Consoles', 'Pedestals', 'Mirrors', 'Fountains', 'Shelves', 'Baths & Vanities', 'Book Ends', 'Candle Holders', 'Plates & Trays', 'Fireplaces', 'Benches'];
 const bsPicked = new Set();
 // Best Sellers exclude New Arrivals so the two highlight sections never repeat a piece.
 bsGroups.forEach((g) => { const c = P.find((p) => p.group === g && p.images.length && !p.newArrival && !bsPicked.has(p.handle)); if (c) bsPicked.add(c.handle); });
@@ -241,6 +245,37 @@ function listingPage({ file, nav, eyebrow, title, copy, items, chips }) {
   console.log('wrote', file, '—', items.length, 'pieces');
 }
 
+/* ---------- grouped listing page (labeled sub-sections) ---------- */
+function groupedListingPage({ file, nav, eyebrow, title, copy, items, order }) {
+  const slug = (g) => g.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  const present = order.filter((g) => items.some((p) => p.group === g))
+    .concat([...new Set(items.map((p) => p.group))].filter((g) => !order.includes(g)));
+  const chips = `<a href="#top" class="chip is-active">All ${items.length}</a>`
+    + present.map((g) => `<a href="#g-${slug(g)}" class="chip">${esc(g)}</a>`).join('');
+  const bands = present.map((g) => {
+    const gi = items.filter((p) => p.group === g);
+    return `<section class="sub-band" id="g-${slug(g)}">
+      <div class="sub-band__head"><h2 class="h3">${esc(g)}</h2><span class="cat-hero__count">${gi.length} ${gi.length === 1 ? 'piece' : 'pieces'}</span></div>
+      <div class="grid cols-4">${gi.map((p, i) => card(p, i)).join('')}</div>
+    </section>`;
+  }).join('');
+  const html = head(title, copy) + header(nav) + `
+<main id="top">
+  <section class="cat-hero"><div class="page-width">
+    <span class="eyebrow" data-reveal>${eyebrow}</span>
+    <h1 class="h1 cat-hero__title" data-reveal data-reveal-delay="1">${title}</h1>
+    ${copy ? `<p class="lead measure-wide" data-reveal data-reveal-delay="2">${copy}</p>` : ''}
+    <p class="cat-hero__count" data-reveal data-reveal-delay="2">${items.length} pieces · ${present.length} categories</p>
+  </div></section>
+  <section class="section bg-surface" style="padding-top:clamp(1.5rem,3vw,2.5rem)"><div class="page-width">
+    <div class="filter-chips chips-jump">${chips}</div>
+    ${bands}
+  </div></section>
+</main>` + footer();
+  fs.writeFileSync(path.join(docs, file), html);
+  console.log('wrote', file, '—', items.length, 'pieces in', present.length, 'sub-sections');
+}
+
 /* ---------- HOME ---------- */
 function home() {
   const hero = P.find((p) => p.group === 'Tables & Consoles' && p.images[0]) || P[0];
@@ -250,7 +285,7 @@ function home() {
   const newItems = P.filter((p) => p.newArrival).slice(0, 8);
   const bestItems = P.filter((p) => p.bestSeller).slice(0, 4);
   const story = P.find((p) => p.group === 'Pedestals' && p !== tilePedestal && p.images[0]) || P[3];
-  const lookbook = P.find((p) => (p.group === 'Tubs & Baths' || p.group === 'Tables & Consoles') && p !== hero && p.images[0]) || P[5];
+  const lookbook = P.find((p) => (p.group === 'Baths & Vanities' || p.group === 'Tables & Consoles') && p !== hero && p.images[0]) || P[5];
   const tile = (p, label, link, sub) => `<a href="${link}" class="collection-tile" data-reveal>
     <div class="media media--tall media-zoom"><img src="${p.images[0]}" loading="lazy" alt="${esc(label)}">
       <div class="tile-grad"></div>
@@ -384,6 +419,11 @@ const SITE_CSS = `/* Atelier Bismuth — luxe additions on top of base.css */
 .chip:hover{border-color:var(--color-ink)}
 .chip.is-active{background:var(--color-ink);color:var(--color-bg);border-color:var(--color-ink)}
 .product-card.is-hidden{display:none}
+.sub-band{margin-top:clamp(2.6rem,5vw,5rem)}
+.sub-band:first-of-type{margin-top:0}
+.sub-band__head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;padding-bottom:1rem;margin-bottom:clamp(1.3rem,2.5vw,2.2rem);border-bottom:1px solid var(--color-line)}
+.chips-jump{position:sticky;top:0;background:color-mix(in srgb,var(--color-surface) 92%,transparent);backdrop-filter:blur(8px);z-index:5;padding-block:.9rem;margin-bottom:1.5rem}
+.chips-jump .chip{text-decoration:none}
 /* PDP */
 .pdp-gallery{display:grid;gap:.6rem}
 .pdp-main{aspect-ratio:4/5;position:relative;overflow:hidden;border-radius:var(--radius);background:var(--color-surface-alt)}
@@ -458,9 +498,9 @@ fs.writeFileSync(path.join(docs, 'site.js'), SITE_JS);
 home();
 productPage();
 const furnItems = P.filter((p) => p.category === 'Furniture');
-listingPage({ file: 'furniture.html', nav: 'furniture.html', eyebrow: 'The Collection', title: 'Furniture', copy: 'Tables and consoles, floating shelves, sculptural pedestals, tubs, hearths and benches — each cut from solid travertine and finished by hand.', items: furnItems, chips: groupChips(furnItems, FURN_ORDER) });
+groupedListingPage({ file: 'furniture.html', nav: 'furniture.html', eyebrow: 'The Collection', title: 'Furniture', copy: 'Tables and consoles, sculptural pedestals, floating shelves, baths and vanities, hearths and benches — each cut from solid travertine and finished by hand.', items: furnItems, order: FURN_ORDER });
 const decorItems = P.filter((p) => p.category === 'Objects & Decor');
-listingPage({ file: 'objects-decor.html', nav: 'objects-decor.html', eyebrow: 'The Collection', title: 'Objects &amp; Decor', copy: 'Mirrors, fountains, candle holders, book ends, plates and trays — small stone objects with the same considered hand.', items: decorItems, chips: groupChips(decorItems, DECOR_ORDER) });
+groupedListingPage({ file: 'objects-decor.html', nav: 'objects-decor.html', eyebrow: 'The Collection', title: 'Objects &amp; Decor', copy: 'Mirrors, fountains, candle holders, book ends, plates and trays — small stone objects with the same considered hand.', items: decorItems, order: DECOR_ORDER });
 listingPage({ file: 'new-arrivals.html', nav: 'new-arrivals.html', eyebrow: 'Just added', title: 'New Arrivals', copy: 'The latest pieces to leave the atelier.', items: P.filter((p) => p.newArrival) });
 listingPage({ file: 'best-sellers.html', nav: 'best-sellers.html', eyebrow: 'Signature pieces', title: 'Best Sellers', copy: 'The pieces our collectors return for, across every category.', items: P.filter((p) => p.bestSeller) });
 
