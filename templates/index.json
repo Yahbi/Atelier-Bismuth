@@ -1,0 +1,85 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow": "Atelier Bismuth · Travertine & Natural Stone",
+        "heading": "Carved from a single stone",
+        "subheading": "Sculptural travertine furniture and objects — consoles, pedestals, basins and hearths, shaped by hand for the considered home.",
+        "cta_text": "Shop the collection",
+        "cta_link": "shopify://collections/all",
+        "cta2_text": "Our story",
+        "cta2_link": "shopify://pages/about",
+        "layout": "left",
+        "show_scroll_cue": true
+      }
+    },
+    "collections": {
+      "type": "collection-list",
+      "settings": { "eyebrow": "The Collections", "heading": "Furniture & objects in stone", "bg": "" },
+      "blocks": {
+        "furniture": { "type": "tile", "settings": { "title": "Furniture", "count_label": "Consoles · Desks · Benches", "cta": "Explore furniture" } },
+        "pedestals": { "type": "tile", "settings": { "title": "Pedestals & Columns", "count_label": "Sculptural plinths", "cta": "Explore pedestals" } },
+        "decor": { "type": "tile", "settings": { "title": "Home Decor", "count_label": "Mirrors · Plates · Objects", "cta": "Explore décor" } }
+      },
+      "block_order": ["furniture", "pedestals", "decor"]
+    },
+    "featured": {
+      "type": "featured-collection",
+      "settings": { "eyebrow": "New & Notable", "heading": "Recent pieces", "limit": 4, "bg": "bg-surface" }
+    },
+    "story": {
+      "type": "image-with-text",
+      "settings": {
+        "ratio": "media--portrait",
+        "layout": "normal",
+        "eyebrow": "The Atelier",
+        "heading": "One material, worked by hand",
+        "text": "<p>Atelier Bismuth began on Etsy with a devotion to a single, ancient material: travertine. Each piece is cut from solid stone and finished by hand — chiselled, honed, or left raw — so the grain of the earth stays visible in your home.</p><p>Every measurement is published, so the piece you imagine is the piece that arrives.</p>",
+        "cta_text": "Read our story",
+        "cta_link": "shopify://pages/about",
+        "bg": ""
+      }
+    },
+    "marquee": {
+      "type": "marquee",
+      "settings": { "text": "Solid travertine, Hand chiselled, One of a kind, Wabi-sabi by nature, Made to order, Built to outlast us", "bg": "bg-surface" }
+    },
+    "values": {
+      "type": "values",
+      "settings": { "eyebrow": "Why Atelier Bismuth", "heading": "Heirlooms in stone", "bg": "bg-alt" },
+      "blocks": {
+        "v1": { "type": "value", "settings": { "icon": "hand", "title": "Solid, not veneer", "text": "Cut from solid travertine and finished by hand — no two stones are alike." } },
+        "v2": { "type": "value", "settings": { "icon": "ruler", "title": "Every dimension, exposed", "text": "Full measurements and weights published on every piece, so it fits your space precisely." } },
+        "v3": { "type": "value", "settings": { "icon": "leaf", "title": "A natural material", "text": "Travertine is quarried stone that patinas beautifully and lasts for generations." } },
+        "v4": { "type": "value", "settings": { "icon": "truck", "title": "White-glove delivery", "text": "Insured, crated, room-of-choice delivery for heavy stone pieces." } }
+      },
+      "block_order": ["v1", "v2", "v3", "v4"]
+    },
+    "lookbook": {
+      "type": "lookbook",
+      "settings": {
+        "height": 78,
+        "align": "left",
+        "eyebrow": "Lookbook · 2026",
+        "heading": "Stone, light, and quiet rooms",
+        "text": "A study in mass and warmth — our travertine pieces photographed in lived-in interiors.",
+        "cta_text": "Explore the collection",
+        "cta_link": "shopify://collections/all"
+      }
+    },
+    "featured_decor": {
+      "type": "featured-collection",
+      "settings": { "eyebrow": "Home Decor", "heading": "Objects for the table & shelf", "limit": 4, "bg": "" }
+    },
+    "quote": {
+      "type": "quote",
+      "settings": { "eyebrow": "445 sales · 464 admirers", "quote": "Exactly as described, down to the last centimetre — and more beautiful in stone than on screen.", "attribution": "Verified Etsy buyer · 5 stars", "bg": "bg-ink" }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": { "eyebrow": "The Atelier Letter", "heading": "First to the new pieces", "text": "Join the list for early access to new stone editions, restocks, and private sales.", "bg": "bg-alt" }
+    }
+  },
+  "order": ["hero", "collections", "featured", "story", "marquee", "values", "lookbook", "featured_decor", "quote", "newsletter"]
+}

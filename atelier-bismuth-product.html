@@ -1,0 +1,1032 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travertine Stone Console Table — Atelier Bismuth</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+/* ============================================================================
+   Atelier Bismuth — Luxury Theme Design System
+   A bespoke Online Store 2.0 theme. Warm editorial luxury (House of Leon
+   sensibility) crossed with the iridescent, crystalline identity of bismuth.
+   ========================================================================= */
+
+/* ----------------------------------------------------------------------------
+   Design tokens. Most are overridden from theme settings in theme.liquid via
+   the :root block, but these are the safe, on-brand defaults.
+---------------------------------------------------------------------------- */
+:root {
+  /* Palette */
+  --color-bg: #f4f1ea;          /* warm bone */
+  --color-surface: #ffffff;
+  --color-surface-alt: #ece7dc; /* oat */
+  --color-ink: #1c1a17;         /* near-black warm ink */
+  --color-ink-soft: #4a463f;
+  --color-muted: #8a8479;
+  --color-line: #d8d2c4;
+  --color-accent: #6b5b4a;      /* warm bronze-taupe */
+  --color-accent-ink: #ffffff;
+
+  /* Travertine — warm natural-stone tones for accents/placeholders */
+  --stone-1: #e7ddcb;
+  --stone-2: #d8c9ad;
+  --stone-3: #c5b393;
+  --stone-4: #b09a78;
+  --stone-5: #8a6f4e;
+  --iridescent: linear-gradient(120deg, #ece4d6 0%, #ddd0bb 28%, #cdb79b 54%, #e4dac6 78%, #d3c3a6 100%);
+
+  /* Typography */
+  --font-display: "Cormorant Garamond", "EB Garamond", Garamond, "Times New Roman", serif;
+  --font-body: "Jost", "Assistant", ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --tracking-wide: 0.22em;
+  --tracking-mid: 0.08em;
+
+  /* Type scale (fluid) */
+  --fs-eyebrow: 0.72rem;
+  --fs-body: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem);
+  --fs-lead: clamp(1.1rem, 1rem + 0.6vw, 1.4rem);
+  --fs-h4: clamp(1.15rem, 1rem + 0.7vw, 1.6rem);
+  --fs-h3: clamp(1.5rem, 1.2rem + 1.4vw, 2.4rem);
+  --fs-h2: clamp(2rem, 1.4rem + 2.6vw, 3.5rem);
+  --fs-h1: clamp(2.6rem, 1.6rem + 4.6vw, 6rem);
+  --fs-display: clamp(3.2rem, 1.6rem + 7vw, 9rem);
+
+  /* Spacing & layout */
+  --page-max: 1600px;
+  --content-max: 1180px;
+  --gutter: clamp(1.15rem, 0.6rem + 3vw, 4.5rem);
+  --section-y: clamp(3.5rem, 2rem + 6vw, 9rem);
+  --radius: 2px;
+  --radius-lg: 4px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 0.7s;
+  --header-h: 76px;
+}
+
+/* ----------------------------------------------------------------------------
+   Reset
+---------------------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 360;
+  line-height: 1.65;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+img, svg, video { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; cursor: pointer; background: none; border: none; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+h1, h2, h3, h4, h5, p, figure, blockquote { margin: 0; }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+
+/* ----------------------------------------------------------------------------
+   Typography
+---------------------------------------------------------------------------- */
+.display, h1.display { font-family: var(--font-display); font-weight: 300; line-height: 0.98; letter-spacing: -0.01em; }
+.h1 { font-family: var(--font-display); font-weight: 300; font-size: var(--fs-h1); line-height: 1.02; letter-spacing: -0.01em; }
+.h2 { font-family: var(--font-display); font-weight: 300; font-size: var(--fs-h2); line-height: 1.06; letter-spacing: -0.005em; }
+.h3 { font-family: var(--font-display); font-weight: 300; font-size: var(--fs-h3); line-height: 1.1; }
+.h4 { font-family: var(--font-display); font-weight: 400; font-size: var(--fs-h4); line-height: 1.2; }
+.lead { font-size: var(--fs-lead); line-height: 1.5; color: var(--color-ink-soft); font-weight: 340; }
+
+.eyebrow {
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  font-weight: 500;
+  color: var(--color-muted);
+  display: inline-block;
+}
+.eyebrow--ink { color: var(--color-ink); }
+
+.serif-italic { font-family: var(--font-display); font-style: italic; font-weight: 300; }
+
+/* ----------------------------------------------------------------------------
+   Layout primitives
+---------------------------------------------------------------------------- */
+.page-width { width: 100%; max-width: var(--page-max); margin-inline: auto; padding-inline: var(--gutter); }
+.content-width { width: 100%; max-width: var(--content-max); margin-inline: auto; padding-inline: var(--gutter); }
+.section { padding-block: var(--section-y); }
+.section--tight { padding-block: clamp(2rem, 1rem + 3vw, 4.5rem); }
+.section--flush { padding-block: 0; }
+.bg-surface { background: var(--color-surface); }
+.bg-alt { background: var(--color-surface-alt); }
+.bg-ink { background: var(--color-ink); color: #efece4; }
+.bg-ink .eyebrow, .bg-ink .lead { color: #b9b3a6; }
+
+.stack > * + * { margin-top: var(--stack-gap, 1.2rem); }
+.center { text-align: center; }
+.measure { max-width: 46ch; }
+.measure-wide { max-width: 62ch; }
+.center .measure, .center .measure-wide { margin-inline: auto; }
+
+.grid { display: grid; gap: var(--grid-gap, clamp(1rem, 0.5rem + 2vw, 2.5rem)); }
+.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.cols-4 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 990px) { .cols-3, .cols-4 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .cols-2, .cols-3, .cols-4 { grid-template-columns: 1fr; } }
+
+/* ----------------------------------------------------------------------------
+   Buttons & links
+---------------------------------------------------------------------------- */
+.btn {
+  --btn-bg: var(--color-ink);
+  --btn-fg: #f4f1ea;
+  display: inline-flex; align-items: center; gap: 0.7em;
+  padding: 1.05em 2.3em;
+  background: var(--btn-bg); color: var(--btn-fg);
+  font-size: 0.72rem; text-transform: uppercase; letter-spacing: var(--tracking-wide);
+  font-weight: 500; border-radius: var(--radius);
+  border: 1px solid var(--btn-bg);
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease), transform 0.3s var(--ease);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn--outline { --btn-bg: transparent; --btn-fg: var(--color-ink); border-color: var(--color-ink); }
+.btn--outline:hover { --btn-bg: var(--color-ink); --btn-fg: #f4f1ea; }
+.btn--light { --btn-bg: #f4f1ea; --btn-fg: var(--color-ink); }
+.btn--ghost-light { --btn-bg: transparent; --btn-fg: #f4f1ea; border-color: rgba(244,241,234,0.5); }
+.btn--ghost-light:hover { --btn-bg: #f4f1ea; --btn-fg: var(--color-ink); }
+.btn--block { display: flex; width: 100%; justify-content: center; }
+
+.link-underline {
+  display: inline-flex; align-items: center; gap: 0.6em;
+  font-size: 0.72rem; text-transform: uppercase; letter-spacing: var(--tracking-mid); font-weight: 500;
+  padding-bottom: 4px; position: relative;
+}
+.link-underline::after {
+  content: ""; position: absolute; left: 0; bottom: 0; height: 1px; width: 100%;
+  background: currentColor; transform: scaleX(1); transform-origin: right; transition: transform var(--dur) var(--ease);
+}
+.link-underline:hover::after { transform: scaleX(0); transform-origin: left; }
+.link-arrow svg { transition: transform 0.4s var(--ease); }
+.link-arrow:hover svg { transform: translateX(5px); }
+
+.hairline { height: 1px; background: var(--color-line); border: 0; margin: 0; }
+
+/* ----------------------------------------------------------------------------
+   Reveal-on-scroll animation
+---------------------------------------------------------------------------- */
+[data-reveal] { opacity: 0; transform: translateY(26px); transition: opacity 1s var(--ease), transform 1s var(--ease); will-change: opacity, transform; }
+[data-reveal].is-visible { opacity: 1; transform: none; }
+[data-reveal-delay="1"] { transition-delay: 0.1s; }
+[data-reveal-delay="2"] { transition-delay: 0.2s; }
+[data-reveal-delay="3"] { transition-delay: 0.3s; }
+[data-reveal-delay="4"] { transition-delay: 0.4s; }
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* ----------------------------------------------------------------------------
+   Media frames
+---------------------------------------------------------------------------- */
+.media { position: relative; overflow: hidden; background: var(--color-surface-alt); border-radius: var(--radius); }
+.media img, .media video { width: 100%; height: 100%; object-fit: cover; }
+.media--portrait { aspect-ratio: 4 / 5; }
+.media--square { aspect-ratio: 1 / 1; }
+.media--landscape { aspect-ratio: 3 / 2; }
+.media--tall { aspect-ratio: 3 / 4; }
+.media--wide { aspect-ratio: 16 / 9; }
+.media-zoom img { transition: transform 1.4s var(--ease); }
+.media-zoom:hover img { transform: scale(1.045); }
+
+/* Iridescent placeholder when no image is set */
+.placeholder-iri {
+  background:
+    radial-gradient(120% 120% at 20% 10%, rgba(255,255,255,0.35), transparent 45%),
+    var(--iridescent);
+  background-size: 220% 220%;
+  animation: iri-pan 14s var(--ease) infinite alternate;
+}
+.placeholder-iri::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(60% 40% at 70% 30%, rgba(255,255,255,0.25), transparent 60%),
+    repeating-linear-gradient(58deg, rgba(138,111,78,0.05) 0 1px, transparent 1px 14px);
+  mix-blend-mode: multiply;
+}
+@keyframes iri-pan { from { background-position: 0% 0%; } to { background-position: 100% 100%; } }
+
+/* ----------------------------------------------------------------------------
+   Header
+---------------------------------------------------------------------------- */
+.site-header {
+  position: sticky; top: 0; z-index: 60;
+  background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+  backdrop-filter: saturate(1.2) blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: background 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+.site-header.is-scrolled { background: var(--color-bg); border-bottom-color: var(--color-line); }
+.site-header.is-transparent {
+  position: fixed; left: 0; right: 0; background: transparent; backdrop-filter: none; color: #f4f1ea;
+}
+.site-header.is-transparent.is-scrolled { color: var(--color-ink); }
+.header-inner {
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  min-height: var(--header-h); gap: 1rem;
+}
+.header-nav { display: flex; gap: clamp(1rem, 2vw, 2.4rem); align-items: center; }
+.header-nav--right { justify-content: flex-end; }
+.nav-link {
+  font-size: 0.72rem; text-transform: uppercase; letter-spacing: var(--tracking-mid); font-weight: 500;
+  position: relative; padding-block: 0.4rem;
+}
+.nav-link::after { content: ""; position: absolute; left: 0; bottom: 0; height: 1px; width: 0; background: currentColor; transition: width 0.4s var(--ease); }
+.nav-link:hover::after { width: 100%; }
+.brand-wordmark {
+  font-family: var(--font-display); font-weight: 300; font-size: clamp(1.4rem, 1rem + 1vw, 1.9rem);
+  letter-spacing: 0.16em; text-transform: uppercase; text-align: center; white-space: nowrap;
+}
+.brand-wordmark small { display: block; font-size: 0.46em; letter-spacing: 0.5em; margin-top: 2px; color: var(--color-muted); }
+.is-transparent .brand-wordmark small { color: rgba(244,241,234,0.7); }
+.header-icons { display: flex; gap: 1.1rem; align-items: center; justify-content: flex-end; }
+.header-icons a, .header-icons button { display: inline-flex; }
+.icon-btn { position: relative; }
+.cart-count {
+  position: absolute; top: -8px; right: -10px; min-width: 16px; height: 16px; padding: 0 4px;
+  background: var(--color-ink); color: var(--color-bg); border-radius: 9px;
+  font-size: 0.6rem; line-height: 16px; text-align: center; font-weight: 600;
+}
+.is-transparent .cart-count { background: #f4f1ea; color: var(--color-ink); }
+.nav-toggle { display: none; }
+.announcement {
+  background: var(--color-ink); color: #efece4; text-align: center;
+  font-size: 0.68rem; letter-spacing: var(--tracking-mid); text-transform: uppercase; padding: 0.7rem 1rem;
+}
+@media (max-width: 900px) {
+  .header-nav--left, .header-nav--right .nav-link { display: none; }
+  .header-inner { grid-template-columns: auto 1fr auto; }
+  .brand-wordmark { text-align: left; }
+  .nav-toggle { display: inline-flex; }
+}
+
+/* Mobile drawer */
+.drawer { position: fixed; inset: 0; z-index: 80; visibility: hidden; }
+.drawer[aria-hidden="false"] { visibility: visible; }
+.drawer__scrim { position: absolute; inset: 0; background: rgba(20,18,15,0.4); opacity: 0; transition: opacity 0.4s var(--ease); }
+.drawer[aria-hidden="false"] .drawer__scrim { opacity: 1; }
+.drawer__panel {
+  position: absolute; top: 0; left: 0; height: 100%; width: min(86vw, 400px);
+  background: var(--color-bg); padding: 2rem var(--gutter); transform: translateX(-100%);
+  transition: transform 0.5s var(--ease); display: flex; flex-direction: column; gap: 1.5rem; overflow-y: auto;
+}
+.drawer[aria-hidden="false"] .drawer__panel { transform: none; }
+.drawer__panel .nav-link { font-size: 1.4rem; font-family: var(--font-display); text-transform: none; letter-spacing: 0; }
+
+/* ----------------------------------------------------------------------------
+   Hero
+---------------------------------------------------------------------------- */
+.hero { position: relative; display: flex; align-items: flex-end; min-height: 92vh; color: #f4f1ea; overflow: hidden; }
+.hero__media { position: absolute; inset: 0; z-index: 0; }
+.hero__media img, .hero__media video { width: 100%; height: 100%; object-fit: cover; }
+.hero__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,13,11,0.62) 0%, rgba(15,13,11,0.12) 45%, rgba(15,13,11,0.28) 100%); }
+.hero__inner { position: relative; z-index: 1; width: 100%; padding-bottom: clamp(2.5rem, 4vw, 6rem); }
+.hero__title { font-size: var(--fs-display); }
+.hero__sub { max-width: 40ch; margin-top: 1.4rem; color: rgba(244,241,234,0.86); }
+.hero__actions { margin-top: 2.2rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero--center { align-items: center; text-align: center; }
+.hero--center .hero__sub { margin-inline: auto; }
+.hero--center .hero__actions { justify-content: center; }
+.scroll-cue { position: absolute; bottom: 1.6rem; left: 50%; transform: translateX(-50%); z-index: 1; font-size: 0.62rem; letter-spacing: var(--tracking-wide); text-transform: uppercase; color: rgba(244,241,234,0.8); display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+.scroll-cue span { width: 1px; height: 42px; background: linear-gradient(rgba(244,241,234,0.8), transparent); animation: cue 2.4s var(--ease) infinite; }
+@keyframes cue { 0% { transform: scaleY(0); transform-origin: top; } 45% { transform: scaleY(1); transform-origin: top; } 55% { transform: scaleY(1); transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+
+/* ----------------------------------------------------------------------------
+   Product card
+---------------------------------------------------------------------------- */
+.product-card { display: flex; flex-direction: column; }
+.product-card__media { position: relative; aspect-ratio: 4/5; margin-bottom: 1.1rem; }
+.product-card__media .alt-img { position: absolute; inset: 0; opacity: 0; transition: opacity 0.7s var(--ease); }
+.product-card:hover .alt-img { opacity: 1; }
+.product-card__badge { position: absolute; top: 1rem; left: 1rem; z-index: 2; background: var(--color-bg); color: var(--color-ink); font-size: 0.6rem; letter-spacing: var(--tracking-mid); text-transform: uppercase; padding: 0.4rem 0.7rem; font-weight: 600; }
+.product-card__badge--sold { background: var(--color-ink); color: var(--color-bg); }
+.product-card__title { font-family: var(--font-display); font-weight: 400; font-size: 1.2rem; line-height: 1.2; }
+.product-card__meta { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-top: 0.35rem; }
+.product-card__dims { font-size: 0.72rem; letter-spacing: 0.03em; color: var(--color-muted); margin-top: 0.3rem; }
+.product-card__price { font-size: 0.92rem; letter-spacing: 0.02em; white-space: nowrap; }
+.price--sale { color: var(--color-accent); }
+.price--was { color: var(--color-muted); text-decoration: line-through; margin-right: 0.5em; }
+.quick-add {
+  position: absolute; left: 1rem; right: 1rem; bottom: 1rem; z-index: 2;
+  opacity: 0; transform: translateY(8px); transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+.product-card:hover .quick-add { opacity: 1; transform: none; }
+@media (hover: none) { .quick-add { opacity: 1; transform: none; position: static; margin-top: 0.8rem; } }
+
+/* ----------------------------------------------------------------------------
+   Editorial / image-with-text
+---------------------------------------------------------------------------- */
+.feature { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(1.5rem, 4vw, 6rem); }
+.feature--reverse .feature__media { order: 2; }
+.feature__body { max-width: 38ch; }
+@media (max-width: 820px) { .feature, .feature--reverse { grid-template-columns: 1fr; } .feature--reverse .feature__media { order: 0; } }
+
+/* Marquee */
+.marquee { overflow: hidden; border-block: 1px solid var(--color-line); padding-block: 1.4rem; }
+.marquee__track { display: flex; gap: 3.5rem; width: max-content; animation: marquee 38s linear infinite; }
+.marquee__track span { font-family: var(--font-display); font-size: clamp(1.3rem, 1rem + 1.6vw, 2.2rem); font-style: italic; color: var(--color-ink-soft); display: inline-flex; align-items: center; gap: 3.5rem; }
+.marquee__track span::after { content: "✦"; font-style: normal; font-size: 0.6em; color: var(--color-accent); }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* ----------------------------------------------------------------------------
+   PDP — product detail
+---------------------------------------------------------------------------- */
+.pdp { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(1.5rem, 4vw, 5rem); align-items: start; }
+@media (max-width: 900px) { .pdp { grid-template-columns: 1fr; } }
+.pdp__gallery { display: grid; gap: 0.6rem; }
+.pdp__gallery .media { aspect-ratio: 4/5; }
+@media (min-width: 720px) { .pdp__gallery { grid-template-columns: 1fr 1fr; } .pdp__gallery .media:first-child { grid-column: 1 / -1; aspect-ratio: 3/2; } }
+.pdp__info { position: sticky; top: calc(var(--header-h) + 1.5rem); }
+.pdp__price { font-size: 1.35rem; margin-top: 0.4rem; }
+.pdp__desc { color: var(--color-ink-soft); }
+.pdp__desc p { margin-bottom: 1rem; }
+
+.spec-table { width: 100%; border-collapse: collapse; }
+.spec-table th, .spec-table td { text-align: left; padding: 0.85rem 0; border-bottom: 1px solid var(--color-line); vertical-align: top; font-size: 0.9rem; }
+.spec-table th { width: 42%; font-weight: 500; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.72rem; }
+.spec-table td { color: var(--color-ink); }
+
+.accordion { border-top: 1px solid var(--color-line); }
+.accordion__item { border-bottom: 1px solid var(--color-line); }
+.accordion__trigger { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.25rem 0; text-align: left; font-size: 0.78rem; text-transform: uppercase; letter-spacing: var(--tracking-mid); font-weight: 500; }
+.accordion__icon { position: relative; width: 13px; height: 13px; flex: none; }
+.accordion__icon::before, .accordion__icon::after { content: ""; position: absolute; background: currentColor; transition: transform 0.4s var(--ease); }
+.accordion__icon::before { top: 6px; left: 0; width: 13px; height: 1px; }
+.accordion__icon::after { left: 6px; top: 0; width: 1px; height: 13px; }
+.accordion__item[open] .accordion__icon::after { transform: scaleY(0); }
+.accordion__panel { padding-bottom: 1.4rem; color: var(--color-ink-soft); font-size: 0.92rem; }
+.accordion__trigger::-webkit-details-marker { display: none; }
+details > summary { list-style: none; cursor: pointer; }
+details > summary::-webkit-details-marker { display: none; }
+
+.qty { display: inline-flex; align-items: center; border: 1px solid var(--color-line); border-radius: var(--radius); }
+.qty button { width: 44px; height: 48px; font-size: 1.1rem; }
+.qty input { width: 48px; height: 48px; text-align: center; border: 0; background: transparent; font: inherit; -moz-appearance: textfield; }
+.qty input::-webkit-outer-spin-button, .qty input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+.swatches { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.swatch { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--color-line); cursor: pointer; position: relative; }
+.swatch input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.swatch.is-active { outline: 1px solid var(--color-ink); outline-offset: 2px; }
+.variant-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.variant-pill { padding: 0.6rem 1.1rem; border: 1px solid var(--color-line); border-radius: var(--radius); font-size: 0.8rem; letter-spacing: 0.04em; cursor: pointer; }
+.variant-pill.is-active { border-color: var(--color-ink); background: var(--color-ink); color: var(--color-bg); }
+.variant-pill input { position: absolute; opacity: 0; }
+
+.trust-row { display: flex; flex-wrap: wrap; gap: 1.4rem 2rem; }
+.trust-row li { display: flex; align-items: center; gap: 0.6rem; font-size: 0.78rem; color: var(--color-ink-soft); letter-spacing: 0.02em; }
+.trust-row svg { color: var(--color-accent); flex: none; }
+
+/* ----------------------------------------------------------------------------
+   Collection
+---------------------------------------------------------------------------- */
+.collection-hero { position: relative; min-height: 56vh; display: flex; align-items: center; color: #f4f1ea; overflow: hidden; }
+.collection-hero__media { position: absolute; inset: 0; }
+.collection-hero__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(15,13,11,0.25), rgba(15,13,11,0.5)); }
+.collection-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; padding-block: 1.4rem; border-bottom: 1px solid var(--color-line); }
+.collection-toolbar select { font: inherit; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; border: 1px solid var(--color-line); background: var(--color-surface); padding: 0.7rem 2.4rem 0.7rem 1rem; border-radius: var(--radius); appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%231c1a17' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; }
+
+/* ----------------------------------------------------------------------------
+   Footer
+---------------------------------------------------------------------------- */
+.site-footer { background: var(--color-ink); color: #cfc9bc; }
+.site-footer a:hover { color: #fff; }
+.footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.4fr; gap: clamp(1.5rem, 3vw, 3.5rem); padding-block: clamp(3rem, 5vw, 5.5rem); }
+@media (max-width: 820px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 540px) { .footer-grid { grid-template-columns: 1fr; } }
+.footer-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: var(--tracking-mid); color: #8c8678; margin-bottom: 1.2rem; }
+.footer-links li { margin-bottom: 0.7rem; font-size: 0.92rem; }
+.footer-wordmark { font-family: var(--font-display); font-weight: 300; font-size: 2rem; letter-spacing: 0.14em; text-transform: uppercase; color: #efece4; }
+.newsletter-form { display: flex; border-bottom: 1px solid #4a463d; max-width: 360px; }
+.newsletter-form input { flex: 1; background: transparent; border: 0; color: #efece4; padding: 0.8rem 0; font: inherit; font-size: 0.9rem; }
+.newsletter-form input::placeholder { color: #837d70; }
+.newsletter-form button { color: #efece4; font-size: 0.72rem; text-transform: uppercase; letter-spacing: var(--tracking-mid); }
+.footer-bottom { border-top: 1px solid #34302a; padding-block: 1.6rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-size: 0.74rem; color: #837d70; }
+.footer-social { display: flex; gap: 1.2rem; }
+
+/* ----------------------------------------------------------------------------
+   Cart drawer / page
+---------------------------------------------------------------------------- */
+.cart-line { display: grid; grid-template-columns: 86px 1fr auto; gap: 1.1rem; padding-block: 1.4rem; border-bottom: 1px solid var(--color-line); }
+.cart-line__media { aspect-ratio: 4/5; }
+.cart-line__title { font-family: var(--font-display); font-size: 1.1rem; }
+.cart-line__dims { font-size: 0.72rem; color: var(--color-muted); }
+
+/* ----------------------------------------------------------------------------
+   Utilities
+---------------------------------------------------------------------------- */
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.text-accent { color: var(--color-accent); }
+.iridescent-text { background: var(--iridescent); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.mt-0 { margin-top: 0; } .mt-1 { margin-top: 0.5rem; } .mt-2 { margin-top: 1rem; } .mt-3 { margin-top: 1.6rem; } .mt-4 { margin-top: 2.4rem; }
+.flex { display: flex; } .items-center { align-items: center; } .justify-between { justify-content: space-between; } .gap-1 { gap: 0.6rem; } .gap-2 { gap: 1rem; } .wrap { flex-wrap: wrap; }
+
+</style>
+  <style>.ph{position:absolute;inset:0;}.preview-flag{position:fixed;bottom:14px;left:14px;z-index:90;background:rgba(28,26,23,0.9);color:#efece4;font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;padding:0.5rem 0.9rem;border-radius:2px}</style>
+  <script>document.documentElement.className='js';</script>
+</head>
+<body class="template-product">
+  <div class="announcement">Complimentary white-glove delivery on stone furniture across the contiguous US</div>
+  <header class="site-header" data-header>
+    <div class="page-width header-inner">
+      <nav class="header-nav header-nav--left"><a href="atelier-bismuth-home.html#collections" class="nav-link">Furniture</a><a href="atelier-bismuth-home.html#collections" class="nav-link">Pedestals</a><a href="atelier-bismuth-home.html#collections" class="nav-link">Decor</a></nav>
+      <a href="atelier-bismuth-home.html" class="brand-wordmark">Atelier Bismuth<small>Travertine · Natural Stone</small></a>
+      <nav class="header-nav header-nav--right"><a href="atelier-bismuth-home.html#about" class="nav-link">Atelier</a>
+        <div class="header-icons"><button class="icon-btn" aria-label="Cart"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 7h16l-1.2 11.2a2 2 0 0 1-2 1.8H7.2a2 2 0 0 1-2-1.8L4 7Z"/><path d="M8.5 7V5.5a3.5 3.5 0 0 1 7 0V7"/></svg></button></div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section bg-surface">
+      <div class="page-width">
+        <nav class="eyebrow" style="display:block;margin-bottom:1.6rem" id="crumb"><a href="atelier-bismuth-home.html">Home</a></nav>
+        <div class="pdp">
+          <div class="pdp__gallery" id="gallery"></div>
+          <div class="pdp__info">
+            <div class="flex items-center gap-2 wrap" style="margin-bottom:0.6rem"><span class="eyebrow">Atelier Bismuth</span><span class="product-card__badge" style="position:static;background:var(--color-ink);color:var(--color-bg)">Made to order</span></div>
+            <h1 class="h2" id="p-title">Travertine piece</h1>
+            <div class="flex items-baseline gap-2 mt-2" id="p-price"></div>
+            <span class="product-card__dims" id="p-dims"></span>
+            <hr class="hairline mt-3">
+            <form class="stack mt-3" style="--stack-gap:1.3rem" onsubmit="return false">
+              <div class="flex gap-2 wrap items-center">
+                <div class="qty" data-qty><button type="button" data-qty-minus aria-label="Decrease">−</button><input type="text" value="1" inputmode="numeric"><button type="button" data-qty-plus aria-label="Increase">+</button></div>
+                <button type="submit" class="btn btn--block" style="flex:1;min-width:200px"><span data-btn-label>Add to cart</span></button>
+              </div>
+            </form>
+            <div class="pdp__desc lead mt-4" id="p-desc"></div>
+            <ul class="trust-row mt-4">
+              <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M2 7h11v8H2zM13 10h4l3 3v2h-7z"/><circle cx="6" cy="17" r="1.6"/><circle cx="17" cy="17" r="1.6"/></svg> White-glove delivery</li>
+              <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M7 11V6a1.5 1.5 0 0 1 3 0v4M10 10V4.5a1.5 1.5 0 0 1 3 0V10M13 10V6a1.5 1.5 0 0 1 3 0v6c0 4-2 8-6 8s-6-3-6-6c0-1 .5-2 1.5-2"/></svg> Hand finished</li>
+              <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="8" width="20" height="8" rx="1"/><path d="M6 8v3M10 8v4M14 8v3M18 8v4"/></svg> True-to-spec dimensions</li>
+            </ul>
+            <div class="accordion mt-4">
+              <details class="accordion__item" open><summary class="accordion__trigger">Dimensions &amp; specifications<span class="accordion__icon"></span></summary>
+                <div class="accordion__panel"><table class="spec-table" id="p-specs"></table></div>
+              </details>
+              <details class="accordion__item"><summary class="accordion__trigger">Materials &amp; finish<span class="accordion__icon"></span></summary><div class="accordion__panel"><p>Quarried travertine, a natural limestone prized for its warm tone and organic veining. Each block is unique; colour and pattern will vary.</p></div></details>
+              <details class="accordion__item"><summary class="accordion__trigger">Care<span class="accordion__icon"></span></summary><div class="accordion__panel">Seal on installation and re-seal periodically. Wipe with a soft, damp cloth; avoid acidic cleaners on natural stone.</div></details>
+              <details class="accordion__item"><summary class="accordion__trigger">Shipping &amp; delivery<span class="accordion__icon"></span></summary><div class="accordion__panel">Made-to-order pieces ship in 3–6 weeks, crated and insured, delivered white-glove to your room of choice.</div></details>
+            </div>
+            <p class="mt-3" id="p-etsy" style="font-size:0.85rem"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-alt">
+      <div class="page-width">
+        <div class="center" style="margin-bottom:clamp(1.5rem,3vw,3rem)" data-reveal><span class="eyebrow">Continue browsing</span><h2 class="h3 mt-2">You may also like</h2></div>
+        <div class="grid cols-4" id="rel"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="page-width"><div class="footer-bottom" style="border:0;justify-content:center"><a href="atelier-bismuth-home.html" class="link-underline">← Back to home</a></div></div></footer>
+  <div class="preview-flag">Design preview — placeholder stone imagery</div>
+
+  <script>
+/* Generated by tools/build-preview.js from the Etsy export — do not edit by hand.
+   8 products · source: atelier-bismuth-etsy.seed.json · exported seed */
+window.AB_CATALOG = [
+  {
+    "handle": "travertine-stone-console-table-with-chiseled-legs",
+    "title": "Travertine Stone Console Table with Chiseled Legs",
+    "type": "Furniture",
+    "collections": [
+      "Furniture"
+    ],
+    "price": "$3,399.15",
+    "compareAt": "$3,999.00",
+    "dims": "W160 × D40 × H85 cm",
+    "specs": {
+      "Width": "160 cm",
+      "Depth": "40 cm",
+      "Height": "85 cm",
+      "Diameter": "",
+      "Weight": "95 kg",
+      "Materials": "Solid travertine (natural stone)",
+      "Finish": "Hand-chiselled",
+      "Edition": "Made to order",
+      "Lead time": "3–6 weeks",
+      "Origin": "Hand-finished by Atelier Bismuth"
+    },
+    "descHtml": "<p>A solid travertine console cut from a single block and finished with hand-chiselled legs. The honed top carries the natural veining of the stone; every piece is unique.</p>",
+    "images": [],
+    "url": ""
+  },
+  {
+    "handle": "asymmetrical-pebble-mirror-wabi-sabi-travertine",
+    "title": "Asymmetrical Pebble Mirror — Wabi-Sabi Travertine",
+    "type": "Mirror",
+    "collections": [
+      "Mirrors"
+    ],
+    "price": "$679.15",
+    "compareAt": "$799.00",
+    "dims": "W60 × H75 cm",
+    "specs": {
+      "Width": "60 cm",
+      "Depth": "",
+      "Height": "75 cm",
+      "Diameter": "",
+      "Weight": "",
+      "Materials": "Solid travertine (natural stone)",
+      "Finish": "Honed, organic edge",
+      "Edition": "Made to order",
+      "Lead time": "3–6 weeks",
+      "Origin": "Hand-finished by Atelier Bismuth"
+    },
+    "descHtml": "<p>An organic, pebble-shaped travertine mirror with a softly honed edge. Wabi-sabi by nature — no two outlines are alike.</p>",
+    "images": [],
+    "url": ""
+  },
+  {
+    "handle": "travertine-stone-console-desk-with-chiseled-detail",
+    "title": "Travertine Stone Console Desk with Chiseled Detail",
+    "type": "Furniture",
+    "collections": [
+      "Furniture"
+    ],
+    "price": "$10,115.00",
+    "compareAt": "$11,900.00",
+    "dims": "W180 × D75 × H74 cm",
+    "specs": {
+      "Width": "180 cm",
+      "Depth": "75 cm",
+      "Height": "74 cm",
+      "Diameter": "",
+      "Weight": "",
+      "Materials": "Solid travertine (natural stone)",
+      "Finish": "Hand-chiselled",
+      "Edition": "Made to order",
+      "Lead time": "3–6 weeks",
+      "Origin": "Hand-finished by Atelier Bismuth"
+    },
+    "descHtml": "<p>A monolithic travertine desk with chiselled detailing, made to order from solid stone.</p>",
+    "images": [],
+    "url": ""
+  },
+  {
+    "handle": "travertine-pedestal-column-sculptural-plinth",
+    "title": "Travertine Pedestal Column — Sculptural Plinth",
+    "type": "Pedestal",
+    "collections": [
+      "Pedestals"
+    ],
+    "price": "$297.50",
+    "compareAt": "$350.00",
+    "dims": "W25 × D25 × H60 cm",
+    "specs": {
+      "Width": "25 cm",
+      "Depth": "25 cm",
+      "Height": "60 cm",
+      "Diameter": "",
+      "Weight": "",
+      "Materials": "Solid travertine (natural stone)",
+      "Finish": "Honed",
+      "Edition": "Made to order",
+      "Lead time": "3–6 weeks",
+      "Origin": "Hand-finished by Atelier Bismuth"
+    },
+    "descHtml": "<p>A sculptural travertine plinth for displaying objects, busts, or plants.</p>",
+    "images": [],
+    "url": ""
+  },
+  {
+    "handle": "travertine-fountain-column-sculptural-water-feature",
+    "title": "Travertine Fountain Column — Sculptural Water Feature",
+    "type": "Pedestal",
+    "collections": [
+      "Pedestals",
+      "Fountains",
+      "Furniture"
+    ],
+    "price": "$764.15",
+    "compareAt": "$899.00",
+    "dims": "Ø30 × H120 cm",
+    "specs": {
+      "Width": "",
+      "Depth": "",
+      "Height": "120 cm",
+      "Diameter": "30 cm",
+      "Weight": "",
+      "Materials": "Solid travertine (natural stone)",
+      "Finish": "Honed",
+      "Edition": "Made to order",
+      "Lead time": "3–6 weeks",
+      "Origin": "Hand-finished by Atelier Bismuth"
+    },
+    "descHtml": "<p>A quiet travertine water feature, turned from solid stone.</p>",
+    "images": [],
+    "url": ""
+  },
+  {
+    "handle": "natural-travertine-solid-stone-gas-fire-table",
+    "title": "Natural Travertine Solid Stone Gas Fire Table",
+    "type": "Furniture",
+    "collections": [
+      "Furniture",
+      "Fireplaces"
+    ],
+    "price": "$11,041.50",
+    "compareAt": "$12,990.00",
+    "dims": "W110 × D110 × H38 cm",
+    "specs": {
+      "Width": "110 cm",
+      "Depth": "110 cm",
+      "Height": "38 cm",
+      "Diameter": "",
+      "Weight": "",
+      "Materials": "Solid travertine (natural stone)",
+      "Finish": "Honed",
+      "Edition": "Made to order",
+      "Lead time": "3–6 weeks",
+      "Origin": "Hand-finished by Atelier Bismuth"
+    },
+    "descHtml": "<p>A solid travertine gas fire table for the terrace or living room.</p>",
+    "images": [],
+    "url": ""
+  },
+  {
+    "handle": "travertine-solid-stone-bathtub-luxury-soaking-tub",
+    "title": "Travertine Solid Stone Bathtub — Luxury Soaking Tub",
+    "type": "Bath",
+    "collections": [
+      "Bath",
+      "Furniture"
+    ],
+    "price": "$14,449.15",
+    "compareAt": "$16,999.00",
+    "dims": "W170 × D80 × H58 cm",
+    "specs": {
+      "Width": "170 cm",
+      "Depth": "80 cm",
+      "Height": "58 cm",
+      "Diameter": "",
+      "Weight": "",
+      "Materials": "Solid travertine (natural stone)",
+      "Finish": "Honed",
+      "Edition": "Made to order",
+      "Lead time": "3–6 weeks",
+      "Origin": "Hand-finished by Atelier Bismuth"
+    },
+    "descHtml": "<p>A freestanding soaking tub carved from a single mass of travertine.</p>",
+    "images": [],
+    "url": ""
+  },
+  {
+    "handle": "chiseled-travertine-fireplace-hearth-natural-stone",
+    "title": "Chiseled Travertine Fireplace Hearth — Natural Stone",
+    "type": "Fireplace",
+    "collections": [
+      "Fireplaces",
+      "Furniture"
+    ],
+    "price": "$3,315.00",
+    "compareAt": "$3,900.00",
+    "dims": "W140 × D40 × H15 cm",
+    "specs": {
+      "Width": "140 cm",
+      "Depth": "40 cm",
+      "Height": "15 cm",
+      "Diameter": "",
+      "Weight": "",
+      "Materials": "Solid travertine (natural stone)",
+      "Finish": "Hand-chiselled",
+      "Edition": "Made to order",
+      "Lead time": "3–6 weeks",
+      "Origin": "Hand-finished by Atelier Bismuth"
+    },
+    "descHtml": "<p>A chiselled travertine fireplace hearth, finished by hand.</p>",
+    "images": [],
+    "url": ""
+  }
+];
+
+</script>
+  <script>
+    (function () {
+      const cat = window.AB_CATALOG || [];
+      const esc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      const phv = ['', 'v2', 'v3', 'v4'];
+      const handle = new URLSearchParams(location.search).get('handle');
+      const p = (handle && cat.find((x) => x.handle === handle)) || cat[0];
+      if (!p) return;
+
+      document.title = `${p.title} — Atelier Bismuth`;
+      const primary = (p.collections && p.collections[0]) || p.type;
+      document.getElementById('crumb').innerHTML =
+        `<a href="atelier-bismuth-home.html">Home</a> <span style="opacity:0.5">/</span> <a href="atelier-bismuth-home.html#collections">${esc(primary)}</a> <span style="opacity:0.5">/</span> <span style="color:var(--color-ink)">${esc(p.title)}</span>`;
+
+      document.getElementById('p-title').textContent = p.title;
+      document.getElementById('p-price').innerHTML = p.compareAt
+        ? `<span class="pdp__price">${esc(p.price)}</span><span class="price--was">${esc(p.compareAt)}</span>`
+        : `<span class="pdp__price">${esc(p.price)}</span>`;
+      const dimsEl = document.getElementById('p-dims');
+      if (p.dims) dimsEl.textContent = p.dims; else dimsEl.remove();
+      document.getElementById('p-desc').innerHTML = p.descHtml || '';
+
+      // Gallery — real images, else textured placeholders
+      const imgs = (p.images || []);
+      const gal = document.getElementById('gallery');
+      if (imgs.length) {
+        const cells = [];
+        cells.push(`<div class="media" style="grid-column:1/-1;aspect-ratio:3/2"><img src="${esc(imgs[0])}" alt="${esc(p.title)}"></div>`);
+        imgs.slice(1, 5).forEach((u) => cells.push(`<div class="media"><img src="${esc(u)}" alt="${esc(p.title)}" loading="lazy"></div>`));
+        gal.innerHTML = cells.join('');
+      } else {
+        gal.innerHTML =
+          `<div class="media" style="grid-column:1/-1;aspect-ratio:3/2"><div class="placeholder-iri ph"></div></div>` +
+          `<div class="media"><div class="placeholder-iri ph" style="filter:hue-rotate(-6deg)"></div></div>` +
+          `<div class="media"><div class="placeholder-iri ph" style="filter:brightness(0.96)"></div></div>`;
+      }
+
+      // Spec table — only rows with a value
+      const rows = Object.keys(p.specs || {})
+        .filter((k) => p.specs[k])
+        .map((k) => `<tr><th>${esc(k)}</th><td>${esc(p.specs[k])}</td></tr>`);
+      document.getElementById('p-specs').innerHTML = rows.join('');
+
+      if (p.url) {
+        document.getElementById('p-etsy').innerHTML =
+          `<a href="${esc(p.url)}" class="link-underline" target="_blank" rel="noopener">View this piece on Etsy →</a>`;
+      }
+
+      // Related — same type first, then fill from the rest
+      const others = cat.filter((x) => x.handle !== p.handle);
+      const sameType = others.filter((x) => x.type === p.type);
+      const rel = sameType.concat(others.filter((x) => x.type !== p.type)).slice(0, 4);
+      document.getElementById('rel').innerHTML = rel.map((x, i) => {
+        const link = `product.html?handle=${encodeURIComponent(x.handle)}`;
+        const media = (x.images && x.images.length)
+          ? `<img src="${esc(x.images[0])}" alt="${esc(x.title)}" loading="lazy">`
+          : `<div class="placeholder-iri ph ${phv[i % 4]}"></div>`;
+        const price = x.compareAt
+          ? `<span class="price--was">${esc(x.compareAt)}</span><span class="price--sale">${esc(x.price)}</span>`
+          : `<span>${esc(x.price)}</span>`;
+        return `<article class="product-card" data-reveal data-reveal-delay="${i + 1}"><a href="${link}" class="product-card__media media media-zoom">${media}</a><div class="product-card__body"><a href="${link}"><h3 class="product-card__title">${esc(x.title)}</h3></a><div class="product-card__meta"><span class="product-card__type">${esc(x.type)}</span><span class="product-card__price">${price}</span></div></div></article>`;
+      }).join('');
+    })();
+  </script>
+  <script>
+/* ============================================================================
+   Atelier Bismuth — theme behaviours (vanilla JS, no dependencies)
+   ========================================================================= */
+(function () {
+  "use strict";
+
+  const root = document.documentElement;
+  const money = window.AB && window.AB.moneyFormat ? window.AB.moneyFormat : "${{amount}}";
+
+  /* --- formatMoney (cents -> store currency) ----------------------------- */
+  function formatMoney(cents) {
+    if (typeof cents === "string") cents = cents.replace(".", "");
+    const value = (cents / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const whole = (cents / 100).toLocaleString(undefined, { maximumFractionDigits: 0 });
+    return money
+      .replace(/\{\{\s*amount\s*\}\}/g, value)
+      .replace(/\{\{\s*amount_no_decimals\s*\}\}/g, whole)
+      .replace(/\{\{\s*amount_with_comma_separator\s*\}\}/g, value);
+  }
+  window.AB = window.AB || {};
+  window.AB.formatMoney = formatMoney;
+
+  /* --- Scroll reveal ----------------------------------------------------- */
+  function initReveal() {
+    const els = document.querySelectorAll("[data-reveal]");
+    if (!("IntersectionObserver" in window) || !els.length) {
+      els.forEach((el) => el.classList.add("is-visible"));
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.06 }
+    );
+    els.forEach((el) => io.observe(el));
+  }
+
+  /* --- Header scroll state ---------------------------------------------- */
+  function initHeader() {
+    const header = document.querySelector(".site-header");
+    if (!header) return;
+    const onScroll = () => {
+      header.classList.toggle("is-scrolled", window.scrollY > 24);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+
+  /* --- Mobile drawer ----------------------------------------------------- */
+  function initDrawer() {
+    const drawer = document.querySelector("[data-drawer]");
+    if (!drawer) return;
+    const open = () => { drawer.setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden"; };
+    const close = () => { drawer.setAttribute("aria-hidden", "true"); document.body.style.overflow = ""; };
+    document.querySelectorAll("[data-drawer-open]").forEach((b) => b.addEventListener("click", open));
+    drawer.querySelectorAll("[data-drawer-close], .drawer__scrim").forEach((b) => b.addEventListener("click", close));
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+  }
+
+  /* --- Quantity steppers ------------------------------------------------- */
+  function initQty(scope) {
+    (scope || document).querySelectorAll("[data-qty]").forEach((wrap) => {
+      if (wrap.dataset.bound) return;
+      wrap.dataset.bound = "1";
+      const input = wrap.querySelector("input");
+      wrap.querySelector("[data-qty-minus]").addEventListener("click", () => {
+        input.value = Math.max(1, (parseInt(input.value, 10) || 1) - 1);
+        input.dispatchEvent(new Event("change", { bubbles: true }));
+      });
+      wrap.querySelector("[data-qty-plus]").addEventListener("click", () => {
+        input.value = (parseInt(input.value, 10) || 1) + 1;
+        input.dispatchEvent(new Event("change", { bubbles: true }));
+      });
+    });
+  }
+
+  /* --- Cart count helper ------------------------------------------------- */
+  function refreshCartCount() {
+    fetch("/cart.js", { headers: { "Content-Type": "application/json" } })
+      .then((r) => r.json())
+      .then((cart) => {
+        document.querySelectorAll("[data-cart-count]").forEach((el) => {
+          el.textContent = cart.item_count;
+          el.style.display = cart.item_count > 0 ? "" : "none";
+        });
+        document.dispatchEvent(new CustomEvent("cart:updated", { detail: cart }));
+      })
+      .catch(() => {});
+  }
+  window.AB.refreshCartCount = refreshCartCount;
+
+  /* --- Async add to cart (forms with data-cart-form) --------------------- */
+  function initCartForms() {
+    document.querySelectorAll("form[data-cart-form]").forEach((form) => {
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('[type="submit"]');
+        const label = btn ? btn.querySelector("[data-btn-label]") : null;
+        const original = label ? label.textContent : "";
+        if (label) label.textContent = "Adding…";
+        if (btn) btn.disabled = true;
+        fetch("/cart/add.js", { method: "POST", headers: { Accept: "application/json" }, body: new FormData(form) })
+          .then((r) => r.json())
+          .then((item) => {
+            if (item.status) throw new Error(item.description || "Could not add to cart");
+            refreshCartCount();
+            openCartDrawer();
+            if (label) label.textContent = "Added ✓";
+            setTimeout(() => { if (label) label.textContent = original; if (btn) btn.disabled = false; }, 1400);
+          })
+          .catch((err) => {
+            if (label) label.textContent = original;
+            if (btn) btn.disabled = false;
+            alert(err.message);
+          });
+      });
+    });
+  }
+
+  function openCartDrawer() {
+    const cd = document.querySelector("[data-cart-drawer]");
+    if (!cd) return;
+    fetch("/?section_id=cart-drawer")
+      .then((r) => r.text())
+      .then((html) => {
+        const doc = new DOMParser().parseFromString(html, "text/html");
+        const fresh = doc.querySelector("[data-cart-drawer-content]");
+        const target = cd.querySelector("[data-cart-drawer-content]");
+        if (fresh && target) target.innerHTML = fresh.innerHTML;
+        cd.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        bindCartDrawer(cd);
+      })
+      .catch(() => {});
+  }
+  window.AB.openCartDrawer = openCartDrawer;
+
+  function bindCartDrawer(cd) {
+    cd.querySelectorAll("[data-cart-close], .drawer__scrim").forEach((b) =>
+      b.addEventListener("click", () => { cd.setAttribute("aria-hidden", "true"); document.body.style.overflow = ""; })
+    );
+    cd.querySelectorAll("[data-line-change]").forEach((el) => {
+      el.addEventListener("change", () => {
+        const line = el.getAttribute("data-line");
+        const qty = el.value;
+        fetch("/cart/change.js", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({ line: parseInt(line, 10), quantity: parseInt(qty, 10) }),
+        })
+          .then((r) => r.json())
+          .then(() => { refreshCartCount(); openCartDrawer(); });
+      });
+    });
+  }
+
+  function initCartDrawerTriggers() {
+    document.querySelectorAll("[data-open-cart]").forEach((b) =>
+      b.addEventListener("click", (e) => { e.preventDefault(); openCartDrawer(); })
+    );
+  }
+
+  /* --- PDP gallery thumbnail switch ------------------------------------- */
+  function initGallery() {
+    document.querySelectorAll("[data-gallery]").forEach((gallery) => {
+      const main = gallery.querySelector("[data-gallery-main] img");
+      gallery.querySelectorAll("[data-gallery-thumb]").forEach((thumb) => {
+        thumb.addEventListener("click", () => {
+          const src = thumb.getAttribute("data-src");
+          if (main && src) main.src = src;
+          gallery.querySelectorAll("[data-gallery-thumb]").forEach((t) => t.classList.remove("is-active"));
+          thumb.classList.add("is-active");
+        });
+      });
+    });
+  }
+
+  /* --- Variant selection ------------------------------------------------- */
+  function initVariants() {
+    document.querySelectorAll("[data-product-form]").forEach((form) => {
+      const data = window[form.getAttribute("data-product-id")];
+      if (!data) return;
+      const idInput = form.querySelector('[name="id"]');
+      const priceEl = document.querySelector("[data-product-price]");
+      const compareEl = document.querySelector("[data-product-compare]");
+      const submit = form.querySelector('[type="submit"] [data-btn-label]');
+      const selects = form.querySelectorAll("[data-option-index]");
+
+      function currentVariant() {
+        const chosen = Array.from(selects).map((s) => s.value);
+        return data.variants.find((v) => chosen.every((val, i) => v.options[i] === val));
+      }
+      function update() {
+        const v = currentVariant();
+        if (!v) { if (submit) submit.textContent = "Unavailable"; return; }
+        idInput.value = v.id;
+        if (priceEl) priceEl.textContent = formatMoney(v.price);
+        if (compareEl) {
+          if (v.compare_at_price && v.compare_at_price > v.price) {
+            compareEl.textContent = formatMoney(v.compare_at_price);
+            compareEl.style.display = "";
+          } else { compareEl.style.display = "none"; }
+        }
+        if (submit) submit.textContent = v.available ? "Add to cart" : "Sold out";
+      }
+      selects.forEach((s) => s.addEventListener("change", update));
+      // pill / swatch click → set hidden select
+      form.querySelectorAll("[data-variant-pill]").forEach((pill) => {
+        pill.addEventListener("click", () => {
+          const idx = pill.getAttribute("data-option-target");
+          const sel = form.querySelector('[data-option-index="' + idx + '"]');
+          if (sel) { sel.value = pill.getAttribute("data-value"); sel.dispatchEvent(new Event("change")); }
+          pill.parentElement.querySelectorAll("[data-variant-pill]").forEach((p) => p.classList.remove("is-active"));
+          pill.classList.add("is-active");
+        });
+      });
+      update();
+    });
+  }
+
+  /* --- Init -------------------------------------------------------------- */
+  document.addEventListener("DOMContentLoaded", function () {
+    initReveal();
+    initHeader();
+    initDrawer();
+    initQty();
+    initCartForms();
+    initCartDrawerTriggers();
+    initGallery();
+    initVariants();
+    refreshCartCount();
+  });
+})();
+
+</script>
+</body>
+</html>

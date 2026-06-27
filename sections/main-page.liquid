@@ -1,0 +1,12 @@
+<section class="section bg-surface">
+  <div class="content-width">
+    <header class="center" style="margin-bottom:clamp(2rem,4vw,3.5rem);">
+      <span class="eyebrow" data-reveal>{{ shop.name }}</span>
+      <h1 class="h1 mt-2" data-reveal data-reveal-delay="1">{{ page.title }}</h1>
+    </header>
+    <div class="rte lead" data-reveal data-reveal-delay="2" style="color:var(--color-ink-soft);">{{ page.content }}</div>
+  </div>
+</section>
+{% schema %}
+{ "name": "Page" }
+{% endschema %}

@@ -1,0 +1,50 @@
+<section class="section {{ section.settings.bg }}">
+  <div class="content-width center">
+    {%- if section.settings.heading != blank -%}
+      <span class="eyebrow" data-reveal>{{ section.settings.eyebrow }}</span>
+      <h2 class="h3 mt-2" data-reveal data-reveal-delay="1" style="margin-bottom:clamp(2rem,4vw,3.5rem);">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    <div class="grid cols-{{ section.blocks.size | at_most: 4 }}">
+      {%- for block in section.blocks -%}
+        <div class="stack center" style="--stack-gap:0.7rem;" data-reveal data-reveal-delay="{{ forloop.index }}" {{ block.shopify_attributes }}>
+          <div class="text-accent" style="display:flex;justify-content:center;">{% render 'icon', name: block.settings.icon, size: 30 %}</div>
+          <h3 class="h4">{{ block.settings.title }}</h3>
+          <p style="font-size:0.92rem;color:var(--color-ink-soft);max-width:30ch;margin-inline:auto;">{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Values",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why Atelier Bismuth" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Heirlooms, not inventory" },
+    { "type": "select", "id": "bg", "label": "Background", "options": [ {"value":"","label":"Bone"}, {"value":"bg-surface","label":"White"}, {"value":"bg-alt","label":"Oat"} ], "default": "bg-alt" }
+  ],
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "options": [ {"value":"hand","label":"Hand"}, {"value":"ruler","label":"Ruler"}, {"value":"leaf","label":"Leaf"}, {"value":"truck","label":"Delivery"} ], "default": "hand" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Hand finished" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Each piece is finished by hand in our atelier — no two are identical." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Values",
+      "blocks": [
+        { "type": "value", "settings": { "icon": "hand", "title": "Hand finished", "text": "Each piece is finished by hand in our atelier — no two are identical." } },
+        { "type": "value", "settings": { "icon": "ruler", "title": "Every dimension, exposed", "text": "Full measurements published on every piece, so it fits your space precisely." } },
+        { "type": "value", "settings": { "icon": "leaf", "title": "Considered materials", "text": "Solid woods, stone, and metals chosen to age beautifully." } },
+        { "type": "value", "settings": { "icon": "truck", "title": "White-glove delivery", "text": "Insured, room-of-choice delivery on furniture." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

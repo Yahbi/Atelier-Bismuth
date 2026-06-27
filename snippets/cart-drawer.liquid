@@ -1,0 +1,50 @@
+{%- comment -%} Cart drawer contents — refreshed via fetch(?section_id=cart-drawer) {%- endcomment -%}
+<div class="cart-drawer">
+  <div class="flex items-center justify-between" style="margin-bottom:1.5rem;">
+    <h2 class="h4">{{ 'cart.title' | t }} <span class="text-accent">({{ cart.item_count }})</span></h2>
+    <button class="icon-btn" data-cart-close aria-label="{{ 'accessibility.close' | t }}">{% render 'icon', name: 'close' %}</button>
+  </div>
+
+  {%- if cart.item_count == 0 -%}
+    <div class="stack center" style="padding-block:3rem;">
+      <p class="lead">{{ 'cart.empty' | t }}</p>
+      <a href="{{ routes.all_products_collection_url }}" class="btn btn--outline" data-cart-close>{{ 'cart.empty_cta' | t }}</a>
+    </div>
+  {%- else -%}
+    <div class="cart-lines">
+      {%- for item in cart.items -%}
+        <div class="cart-line">
+          <a href="{{ item.url }}" class="cart-line__media media">
+            {%- if item.image -%}<img src="{{ item.image | image_url: width: 200 }}" width="86" height="108" alt="{{ item.title | escape }}">{%- else -%}<div class="placeholder-iri" style="position:absolute;inset:0;"></div>{%- endif -%}
+          </a>
+          <div>
+            <a href="{{ item.url }}"><h3 class="cart-line__title">{{ item.product.title }}</h3></a>
+            {%- unless item.product.has_only_default_variant -%}<p class="cart-line__dims">{{ item.variant.title }}</p>{%- endunless -%}
+            {%- if item.product.metafields.specs.width != blank -%}
+              <p class="cart-line__dims">{% render 'dimensions', product: item.product, mode: 'inline' %}</p>
+            {%- endif -%}
+            <div class="flex items-center gap-2 mt-2">
+              <div class="qty" data-qty style="transform:scale(0.85);transform-origin:left;">
+                <button data-qty-minus aria-label="Decrease">−</button>
+                <input type="text" value="{{ item.quantity }}" data-line-change data-line="{{ forloop.index }}" inputmode="numeric">
+                <button data-qty-plus aria-label="Increase">+</button>
+              </div>
+              <a href="{{ item.url_to_remove }}" class="link-underline" style="font-size:0.66rem;" onclick="event.preventDefault();fetch('{{ routes.cart_change_url }}',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({line:{{ forloop.index }},quantity:0})}).then(()=>{AB.refreshCartCount();AB.openCartDrawer();});">{{ 'cart.remove' | t }}</a>
+            </div>
+          </div>
+          <div class="cart-line__price">{{ item.final_line_price | money }}</div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <div style="margin-top:1.6rem;">
+      <div class="flex items-center justify-between" style="margin-bottom:0.4rem;">
+        <span class="eyebrow eyebrow--ink">{{ 'cart.subtotal' | t }}</span>
+        <span class="h4">{{ cart.total_price | money }}</span>
+      </div>
+      <p class="product-card__dims" style="margin-bottom:1.2rem;">{{ 'cart.taxes_note' | t }}</p>
+      <a href="{{ routes.cart_url }}" class="btn btn--outline btn--block" style="margin-bottom:0.6rem;">View cart</a>
+      <a href="{{ routes.cart_url }}" class="btn btn--block" name="checkout" onclick="this.setAttribute('href','/checkout')">{{ 'cart.checkout' | t }}</a>
+    </div>
+  {%- endif -%}
+</div>

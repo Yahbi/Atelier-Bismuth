@@ -1,0 +1,81 @@
+{%- liquid
+  assign coll = collection
+  assign img = coll.image | default: coll.featured_image
+  paginate_by = section.settings.per_page | default: 12
+-%}
+
+{%- if section.settings.show_hero -%}
+<section class="section--flush">
+  <div class="collection-hero">
+    <div class="collection-hero__media">
+      {%- if img -%}
+        <img src="{{ img | image_url: width: 2400 }}" srcset="{{ img | image_url: width: 1400 }} 1400w, {{ img | image_url: width: 2400 }} 2400w" sizes="100vw" width="2400" height="1100" fetchpriority="high" alt="{{ coll.title | escape }}">
+      {%- else -%}
+        <div class="placeholder-iri" style="position:absolute;inset:0;"></div>
+      {%- endif -%}
+    </div>
+    <div class="page-width" style="position:relative;z-index:1;">
+      <div class="measure" data-reveal>
+        <span class="eyebrow" style="color:rgba(244,241,234,0.85);">{{ shop.name }}</span>
+        <h1 class="h1 mt-2" style="color:#f4f1ea;">{{ coll.title }}</h1>
+        {%- if coll.description != blank -%}<div class="lead mt-2" style="color:rgba(244,241,234,0.88);max-width:46ch;">{{ coll.description }}</div>{%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+{%- else -%}
+<div class="page-width section--tight center">
+  <h1 class="h1">{{ coll.title }}</h1>
+  {%- if coll.description != blank -%}<div class="lead mt-2 measure">{{ coll.description }}</div>{%- endif -%}
+</div>
+{%- endif -%}
+
+<section class="section bg-surface">
+  <div class="page-width">
+    {%- paginate coll.products by paginate_by -%}
+      <div class="collection-toolbar">
+        <span class="eyebrow eyebrow--ink">{{ 'collections.general.items_count' | t: count: coll.products_count }}</span>
+        {%- assign sort_by = coll.sort_by | default: coll.default_sort_by -%}
+        <form>
+          <label class="visually-hidden" for="sort">{{ 'collections.general.sort_by' | t }}</label>
+          <select id="sort" name="sort_by" onchange="this.form.submit()">
+            <option value="manual" {% if sort_by == 'manual' %}selected{% endif %}>{{ 'collections.sorting.featured' | t }}</option>
+            <option value="best-selling" {% if sort_by == 'best-selling' %}selected{% endif %}>{{ 'collections.sorting.best_selling' | t }}</option>
+            <option value="title-ascending" {% if sort_by == 'title-ascending' %}selected{% endif %}>{{ 'collections.sorting.az' | t }}</option>
+            <option value="title-descending" {% if sort_by == 'title-descending' %}selected{% endif %}>{{ 'collections.sorting.za' | t }}</option>
+            <option value="price-ascending" {% if sort_by == 'price-ascending' %}selected{% endif %}>{{ 'collections.sorting.price_low' | t }}</option>
+            <option value="price-descending" {% if sort_by == 'price-descending' %}selected{% endif %}>{{ 'collections.sorting.price_high' | t }}</option>
+            <option value="created-descending" {% if sort_by == 'created-descending' %}selected{% endif %}>{{ 'collections.sorting.newest' | t }}</option>
+          </select>
+        </form>
+      </div>
+
+      <div class="grid cols-{{ section.settings.columns }}" style="margin-top:clamp(1.5rem,3vw,2.5rem);">
+        {%- for product in coll.products -%}
+          {%- render 'product-card', product: product, reveal_delay: forloop.index | modulo: 4 -%}
+        {%- else -%}
+          <p class="lead" style="grid-column:1/-1;">No pieces here yet — they are likely in the atelier. Check back soon.</p>
+        {%- endfor -%}
+      </div>
+
+      {%- if paginate.pages > 1 -%}
+        <nav class="flex items-center justify-between" style="margin-top:clamp(2.5rem,5vw,4rem);" aria-label="Pagination">
+          {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" class="link-underline">{{ 'general.pagination.previous' | t }}</a>{%- else -%}<span></span>{%- endif -%}
+          <span class="eyebrow">{{ paginate.current_page }} / {{ paginate.pages }}</span>
+          {%- if paginate.next -%}<a href="{{ paginate.next.url }}" class="link-underline link-arrow">{{ 'general.pagination.next' | t }} {% render 'icon', name: 'arrow-sm' %}</a>{%- else -%}<span></span>{%- endif -%}
+        </nav>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    { "type": "checkbox", "id": "show_hero", "label": "Show banner hero", "default": true },
+    { "type": "range", "id": "columns", "min": 2, "max": 4, "step": 1, "label": "Columns", "default": 3 },
+    { "type": "range", "id": "per_page", "min": 8, "max": 24, "step": 4, "label": "Products per page", "default": 12 }
+  ]
+}
+{% endschema %}
