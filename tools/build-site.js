@@ -164,11 +164,11 @@ const footer = () => `
         <p class="footer-title" style="margin-top:1.4rem">5.0 ★ · 445 sales · 11 years on Etsy</p>
       </div>
       <div><p class="footer-title">Shop</p><ul class="footer-links">${NAV.map(([t, h]) => `<li><a href="${h}" style="font-size:0.9rem">${t}</a></li>`).join('')}</ul></div>
-      <div><p class="footer-title">Atelier</p><ul class="footer-links"><li><a href="#">Our story</a></li><li><a href="#">Custom orders</a></li><li><a href="#">Trade program</a></li><li><a href="#">Contact</a></li></ul></div>
+      <div><p class="footer-title">Atelier</p><ul class="footer-links"><li><a href="about.html#story">Our story</a></li><li><a href="about.html#custom">Custom orders</a></li><li><a href="about.html#trade">Trade program</a></li><li><a href="about.html#contact">Contact</a></li></ul></div>
       <div><p class="footer-title">The Atelier Letter</p><p style="font-size:0.92rem;margin-bottom:1.2rem;color:#b9b3a6">Early access to new stone editions, restocks, and private sales.</p>
         <form class="newsletter-form" onsubmit="return false"><input type="email" placeholder="Email address"><button type="submit">→</button></form></div>
     </div>
-    <div class="footer-bottom"><span>© 2026 Atelier Bismuth. All editions reserved.</span><span class="footer-social" style="gap:1.4rem"><a href="#">Privacy</a><a href="#">Returns</a><a href="#">Shipping</a><a href="https://www.etsy.com/shop/AtelierBismuth" target="_blank" rel="noopener">Etsy</a></span></div>
+    <div class="footer-bottom"><span>© 2026 Atelier Bismuth. All editions reserved.</span><span class="footer-social" style="gap:1.4rem"><a href="about.html#privacy">Privacy</a><a href="about.html#returns">Returns</a><a href="about.html#shipping">Shipping</a><a href="https://www.etsy.com/shop/AtelierBismuth" target="_blank" rel="noopener">Etsy</a></span></div>
   </div>
 </footer>
 <script src="./site.js"></script></body></html>`;
@@ -421,6 +421,9 @@ const SITE_CSS = `/* Atelier Bismuth — luxe additions on top of base.css */
 .product-card.is-hidden{display:none}
 .sub-band{margin-top:clamp(2.6rem,5vw,5rem)}
 .sub-band:first-of-type{margin-top:0}
+.sub-band,.about-block{scroll-margin-top:130px}
+.about-block{padding-block:clamp(2.2rem,4vw,4rem);border-bottom:1px solid var(--color-line)}
+.about-block:last-child{border-bottom:0}
 .sub-band__head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;padding-bottom:1rem;margin-bottom:clamp(1.3rem,2.5vw,2.2rem);border-bottom:1px solid var(--color-line)}
 .chips-jump{position:sticky;top:0;background:color-mix(in srgb,var(--color-surface) 92%,transparent);backdrop-filter:blur(8px);z-index:5;padding-block:.9rem;margin-bottom:1.5rem}
 .chips-jump .chip{text-decoration:none}
@@ -531,6 +534,36 @@ function collectionPage() {
   fs.writeFileSync(path.join(docs, 'collection.html'), html);
   console.log('wrote collection.html —', items.length, 'pieces (filterable)');
 }
-collectionPage();
+function aboutPage() {
+  const heroImg = (P.find((p) => p.group === 'Pedestals' && p.images[0]) || P[0]).images[0];
+  const block = (id, eyebrow, title, body) => `<section class="section about-block" id="${id}"><div class="content-width">
+    <span class="eyebrow" data-reveal>${eyebrow}</span>
+    <h2 class="h3 mt-2" data-reveal data-reveal-delay="1">${title}</h2>
+    <div class="lead measure-wide mt-3" data-reveal data-reveal-delay="2" style="color:var(--color-ink-soft)">${body}</div>
+  </div></section>`;
+  const html = head('Atelier', 'The story, craft, and care behind Atelier Bismuth — sculptural travertine furniture made in Los Angeles.') + header('') + `
+<main>
+  <section class="collection-hero" style="min-height:60vh">
+    <div class="collection-hero__media"><img src="${heroImg}" alt="Atelier Bismuth"></div>
+    <div class="page-width" style="position:relative;z-index:1"><div class="measure" data-reveal>
+      <span class="eyebrow" style="color:rgba(244,241,234,.85)">Los Angeles · Est. 2015</span>
+      <h1 class="h1 mt-2" style="color:#f4f1ea">The atelier</h1>
+      <p class="lead mt-2" style="color:rgba(244,241,234,.88)">Sculptural travertine furniture and objects, cut from solid stone and finished by hand.</p>
+    </div></div>
+  </section>
+  ${block('story', 'Our story', 'One material, worked slowly', '<p>Atelier Bismuth began on Etsy and has grown into a small Los Angeles studio devoted to a single, ancient material: travertine. Over 11 years and 445 orders, our conviction hasn’t changed — that everyday objects can carry the weight of sculpture.</p><p>Each piece is cut from solid stone and finished by hand — chiselled, honed, or left raw — so the grain of the earth stays visible in your home. No veneers, no shortcuts.</p>')}
+  ${block('craft', 'The craft', 'Finished by hand, in small batches', '<p>We work in limited runs so every piece can be considered, weighed, and finished with the care a one-of-one deserves. Natural travertine means no two pieces share the same veining — the variation is the point.</p>')}
+  ${block('custom', 'Custom orders', 'Made to your dimensions', '<p>Most pieces can be made to order in your choice of size and finish, and we welcome bespoke commissions — a console to a precise width, a basin for a specific vanity, a sculptural plinth for a gallery wall. Tell us the dimensions and the room, and we’ll quote the piece.</p><p><a class="link-underline" href="about.html#contact">Start a custom order →</a></p>')}
+  ${block('trade', 'Trade program', 'For designers & architects', '<p>We partner with interior designers, architects, and stylists on residential and hospitality projects, with trade pricing and white-glove logistics. <a class="link-underline" href="about.html#contact">Enquire about trade →</a></p>')}
+  ${block('shipping', 'Shipping & delivery', 'Crated, insured, white-glove', '<p>Made-to-order pieces ship in 3–6 weeks. Heavy stone furniture is delivered white-glove — crated, fully insured, and placed in your room of choice. Smaller objects are packed by hand and ship within 3–5 business days.</p>')}
+  ${block('returns', 'Returns', 'Considered, like the work', '<p>Because pieces are made to order from natural stone, we ask that you confirm dimensions and finish before production. If a piece arrives damaged in transit, we’ll make it right — repair or replace, at our cost. Reach out within 7 days of delivery.</p>')}
+  ${block('care', 'Care', 'How to keep stone beautiful', '<p>Seal travertine on installation and re-seal periodically. Wipe with a soft, damp cloth; avoid acidic or abrasive cleaners. A natural patina over time is part of the material’s character.</p>')}
+  ${block('privacy', 'Privacy', 'Your details, protected', '<p>We collect only what we need to fulfil your order and to contact you about it. We never sell your information. Full policy available on request.</p>')}
+  ${block('contact', 'Contact', 'Speak with the atelier', '<p>For commissions, trade enquiries, or questions about a piece, message us directly through our Etsy shop while our storefront finishes launching:</p><p><a class="btn btn--outline mt-2" href="https://www.etsy.com/shop/AtelierBismuth" target="_blank" rel="noopener">Contact via Etsy</a></p>')}
+</main>` + footer();
+  fs.writeFileSync(path.join(docs, 'about.html'), html);
+  console.log('wrote about.html — story, custom, trade, shipping, returns, care, privacy, contact');
+}
+aboutPage();
 
 console.log('\nDone. ' + P.length + ' products. Furniture: ' + P.filter((p) => p.category === 'Furniture').length + ', Objects & Decor: ' + P.filter((p) => p.category === 'Objects & Decor').length + '. Next: node tools/build-standalone.js');

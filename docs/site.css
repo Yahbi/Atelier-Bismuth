@@ -56,6 +56,9 @@
 .product-card.is-hidden{display:none}
 .sub-band{margin-top:clamp(2.6rem,5vw,5rem)}
 .sub-band:first-of-type{margin-top:0}
+.sub-band,.about-block{scroll-margin-top:130px}
+.about-block{padding-block:clamp(2.2rem,4vw,4rem);border-bottom:1px solid var(--color-line)}
+.about-block:last-child{border-bottom:0}
 .sub-band__head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;padding-bottom:1rem;margin-bottom:clamp(1.3rem,2.5vw,2.2rem);border-bottom:1px solid var(--color-line)}
 .chips-jump{position:sticky;top:0;background:color-mix(in srgb,var(--color-surface) 92%,transparent);backdrop-filter:blur(8px);z-index:5;padding-block:.9rem;margin-bottom:1.5rem}
 .chips-jump .chip{text-decoration:none}
