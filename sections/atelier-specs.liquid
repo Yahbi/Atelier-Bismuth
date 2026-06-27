@@ -1,0 +1,112 @@
+{%- comment -%}
+  Atelier Bismuth — Product Specifications
+  Renders the dimensions/specs table on product pages, mirroring the bespoke
+  /docs design. Per-product values come from the `specs` metafield namespace
+  (dimensions, materials, finish); the constants below are section settings.
+{%- endcomment -%}
+{%- liquid
+  assign m = product.metafields.specs
+-%}
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div
+    class="page-width atelier-specs"
+    style="padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px;"
+  >
+    <p class="atelier-specs__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    <h2 class="atelier-specs__title">{{ section.settings.heading | escape }}</h2>
+
+    <dl class="atelier-specs__grid">
+      {%- if m.dimensions != blank -%}
+        <div class="atelier-specs__row"><dt>Dimensions</dt><dd>{{ m.dimensions }}</dd></div>
+      {%- endif -%}
+      {%- if m.materials != blank -%}
+        <div class="atelier-specs__row"><dt>Material</dt><dd>{{ m.materials }}</dd></div>
+      {%- endif -%}
+      {%- if m.finish != blank -%}
+        <div class="atelier-specs__row"><dt>Finish</dt><dd>{{ m.finish }}</dd></div>
+      {%- endif -%}
+      {%- if section.settings.edition != blank -%}
+        <div class="atelier-specs__row"><dt>Edition</dt><dd>{{ section.settings.edition | escape }}</dd></div>
+      {%- endif -%}
+      {%- if section.settings.lead_time != blank -%}
+        <div class="atelier-specs__row"><dt>Lead time</dt><dd>{{ section.settings.lead_time | escape }}</dd></div>
+      {%- endif -%}
+      {%- if section.settings.origin != blank -%}
+        <div class="atelier-specs__row"><dt>Made in</dt><dd>{{ section.settings.origin | escape }}</dd></div>
+      {%- endif -%}
+    </dl>
+
+    {%- if section.settings.care != blank -%}
+      <p class="atelier-specs__care"><span>Care</span>{{ section.settings.care | escape }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.note != blank -%}
+      <p class="atelier-specs__note">{{ section.settings.note | escape }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- style -%}
+  .atelier-specs { max-width: 78rem; }
+  .atelier-specs__eyebrow {
+    font-size: 1.1rem; letter-spacing: .28em; text-transform: uppercase;
+    opacity: .6; margin: 0 0 .8rem; font-weight: 500;
+  }
+  .atelier-specs__title {
+    margin: 0 0 2.4rem; font-weight: 400; letter-spacing: .01em;
+    line-height: 1.1;
+  }
+  .atelier-specs__grid {
+    margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0; border-top: 1px solid rgba(var(--color-foreground), .14);
+  }
+  .atelier-specs__row {
+    display: flex; align-items: baseline; gap: 1.6rem;
+    padding: 1.5rem .2rem;
+    border-bottom: 1px solid rgba(var(--color-foreground), .14);
+  }
+  .atelier-specs__row dt {
+    flex: 0 0 11rem; margin: 0;
+    font-size: 1.25rem; letter-spacing: .14em; text-transform: uppercase;
+    opacity: .55; font-weight: 500;
+  }
+  .atelier-specs__row dd {
+    margin: 0; font-size: 1.7rem; line-height: 1.4;
+  }
+  .atelier-specs__care {
+    margin: 2.4rem 0 0; font-size: 1.45rem; line-height: 1.7; opacity: .8;
+    max-width: 60rem;
+  }
+  .atelier-specs__care span {
+    display: block; font-size: 1.1rem; letter-spacing: .14em;
+    text-transform: uppercase; opacity: .55; margin-bottom: .5rem; font-weight: 500;
+  }
+  .atelier-specs__note { margin: 1.6rem 0 0; font-size: 1.3rem; opacity: .55; font-style: italic; }
+  @media screen and (max-width: 749px) {
+    .atelier-specs__grid { grid-template-columns: 1fr; }
+    .atelier-specs__row dt { flex-basis: 9rem; }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Specifications",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Atelier Bismuth" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Dimensions & Specifications" },
+    { "type": "text", "id": "edition", "label": "Edition", "default": "Made to order · one of a kind" },
+    { "type": "text", "id": "lead_time", "label": "Lead time", "default": "3–6 weeks" },
+    { "type": "text", "id": "origin", "label": "Made in", "default": "Hand-finished in Los Angeles" },
+    { "type": "textarea", "id": "care", "label": "Care", "default": "Seal on installation and re-seal periodically. Wipe with a soft, damp cloth; avoid acidic cleaners on natural stone." },
+    { "type": "textarea", "id": "note", "label": "Footnote", "default": "Natural stone — colour, veining and surface vary piece to piece. No two are identical." },
+    {
+      "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "background-2"
+    },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Top padding", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Bottom padding", "default": 48 }
+  ],
+  "presets": [{ "name": "Specifications" }]
+}
+{% endschema %}
