@@ -80,7 +80,6 @@ const head = (title, desc) => `<!doctype html>
 <body class="template-${esc(title.toLowerCase().replace(/[^a-z]+/g,'-'))}">`;
 
 const header = (active) => `
-<div class="announcement">Complimentary white-glove delivery on stone furniture · Made to order in Los Angeles</div>
 <header class="site-header" data-header>
   <div class="page-width header-inner">
     <nav class="header-nav header-nav--left">
