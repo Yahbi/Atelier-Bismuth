@@ -6,8 +6,8 @@
 .header-side{display:flex;align-items:center;gap:1rem}
 .site-header .brand-wordmark{text-align:center}
 .header-bar{border-top:1px solid var(--color-line)}
-.header-bar__inner{display:flex;justify-content:center;flex-wrap:wrap;gap:clamp(1.3rem,3vw,2.8rem);padding:.9rem 0}
-.header-bar .nav-link{font-size:.72rem}
+.header-bar__inner{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;padding:.95rem 0;text-align:center}
+.header-bar .nav-link{font-size:.72rem;letter-spacing:.16em;padding:.35rem clamp(1rem,2vw,1.9rem)}
 .nav-toggle{display:none}
 @media (max-width:900px){.header-bar{display:none}.nav-toggle{display:inline-flex}.header-top{min-height:58px;grid-template-columns:auto 1fr auto}.site-header .brand-wordmark{text-align:left}}
 .hero__scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,13,11,.62),rgba(15,13,11,.1) 45%,rgba(15,13,11,.28))}

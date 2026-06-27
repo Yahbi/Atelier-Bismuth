@@ -19,6 +19,43 @@ const data = JSON.parse(fs.readFileSync(path.join(__dirname, 'catalog.json'), 'u
 const EXCLUDE = /\bfee\b|shipping replacement|custom order for|\bdeposit\b|reserved for|gift ?card|add[- ]?on|payment plan|balance due/i;
 let P = data.products.filter((p) => !EXCLUDE.test(p.title));
 
+/* ---- sub-category grouping + corrected top-level placement ----
+   Furniture: tables/consoles, shelves, pedestals, tubs (+ fireplaces, benches)
+   Objects & Decor: mirrors, fountains, candle holders, book ends (+ plates/trays, objects) */
+function classify(title, tags) {
+  const t = (title + ' ' + (tags || []).join(' ')).toLowerCase();
+  const F = 'Furniture', D = 'Objects & Decor';
+  const has = (...w) => w.some((x) => t.includes(x));
+  // Objects & Decor — specific objects first (order matters: bookend before shelf, tray before jewelry)
+  if (has('mirror')) return [D, 'Mirrors', 'Mirror'];
+  if (has('bookend', 'book end', 'bookstop', 'bookshelf')) return [D, 'Book Ends', 'Book end'];
+  if (has('fountain', 'water feature', 'water element')) return [D, 'Fountains', 'Fountain'];
+  if (has('plate', 'tray', 'trivet', 'board', 'coaster')) return [D, 'Plates & Trays', 'Plate'];
+  if (has('candle', 'candlestick')) return [D, 'Candle Holders', 'Candle holder'];
+  if (has('cutlery rest', 'chopstick')) return [D, 'Objects', 'Tableware'];
+  if (has('jewelry', 'jewellery')) return [D, 'Objects', 'Jewelry stand'];
+  if (has('knob', 'door pull', 'hook', 'cable', 'soap', 'blocks', 'chunk', 'boulder', 'accent stone', 'prop', 'wine')) return [D, 'Objects', 'Object'];
+  // Furniture
+  if (has('console', 'coffee table', 'side table', 'dining table', 'banquet', 'waterfall', 'tv stand', 'desk', 'workstation', 'reception', 'front desk')) return [F, 'Tables & Consoles', 'Console'];
+  if (has('bench', 'sofa', 'seating', 'bed frame')) return [F, 'Benches', 'Bench'];
+  if (has('vanity', 'bathtub', 'bath tub', ' tub', 'basin', 'sink')) return [F, 'Tubs & Baths', 'Bath'];
+  if (has('fireplace', 'hearth', 'fire pit')) return [F, 'Fireplaces', 'Fireplace'];
+  if (has('floating shelf', 'shelf', 'mantle', 'mantel')) return [F, 'Shelves', 'Shelf'];
+  if (has('pedestal', 'column', 'plinth', 'monolith', 'cylinder')) return [F, 'Pedestals', 'Pedestal'];
+  if (has('table')) return [F, 'Tables & Consoles', 'Table'];
+  if (has('stand', 'block')) return [F, 'Pedestals', 'Pedestal'];
+  return [D, 'Objects', 'Object'];
+}
+P.forEach((p) => { const [c, g, s] = classify(p.title, p.tags); p.category = c; p.group = g; p.subtype = s; });
+const FURN_ORDER = ['Tables & Consoles', 'Shelves', 'Pedestals', 'Tubs & Baths', 'Fireplaces', 'Benches'];
+const DECOR_ORDER = ['Mirrors', 'Fountains', 'Candle Holders', 'Book Ends', 'Plates & Trays', 'Objects'];
+function groupChips(items, order) {
+  const present = [...new Set(items.map((p) => p.group))];
+  const ordered = order.filter((g) => present.includes(g)).concat(present.filter((g) => !order.includes(g)));
+  return ['<button class="chip is-active" data-f="all">All ' + items.length + '</button>']
+    .concat(ordered.map((g) => `<button class="chip" data-f="${esc(g)}">${esc(g)}</button>`)).join('');
+}
+
 /* ---------- helpers ---------- */
 const esc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const money = (n) => (n == null ? '' : '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
@@ -49,9 +86,9 @@ function paras(desc) {
 // New Arrivals: first 12 in shop/export order (editor-adjustable).
 P.forEach((p, i) => { p.newArrival = i < 12; });
 // Best Sellers: a varied signature cross-section — first piece of each key subtype.
-const bsOrder = ['Console', 'Coffee table', 'Pedestal', 'Mirror', 'Fountain', 'Shelf', 'Vanity', 'Dining table', 'Bath', 'Bookend', 'Bench', 'Tray', 'Candle'];
+const bsGroups = ['Tables & Consoles', 'Pedestals', 'Mirrors', 'Fountains', 'Shelves', 'Tubs & Baths', 'Book Ends', 'Candle Holders', 'Plates & Trays', 'Fireplaces', 'Benches'];
 const bsPicked = new Set();
-bsOrder.forEach((st) => { const c = P.find((p) => p.subtype === st && !bsPicked.has(p.handle)); if (c) bsPicked.add(c.handle); });
+bsGroups.forEach((g) => { const c = P.find((p) => p.group === g && p.images.length && !bsPicked.has(p.handle)); if (c) bsPicked.add(c.handle); });
 P.forEach((p) => { p.bestSeller = bsPicked.has(p.handle); });
 
 function badge(p) {
@@ -138,7 +175,7 @@ function card(p, i) {
   const img = p.images[0] || '';
   const alt = p.images[1] || '';
   const dims = dimsLabel(p);
-  return `<article class="product-card" data-reveal data-reveal-delay="${(i % 4) + 1}">
+  return `<article class="product-card" data-cat="${esc(p.category)}" data-sub="${esc(p.subtype)}" data-group="${esc(p.group || '')}" data-reveal data-reveal-delay="${(i % 4) + 1}">
     <a href="product.html?h=${p.handle}" class="product-card__media media media-zoom" aria-label="${esc(p.title)}">
       <span class="product-card__badge">${badge(p)}</span>
       ${img ? `<img src="${img}" loading="lazy" width="700" height="875" alt="${esc(p.title)}">` : '<div class="placeholder-iri" style="position:absolute;inset:0"></div>'}
@@ -180,14 +217,14 @@ function listingPage({ file, nav, eyebrow, title, copy, items, chips }) {
 
 /* ---------- HOME ---------- */
 function home() {
-  const hero = P.find((p) => p.subtype === 'Console' && p.images[0]) || P[0];
-  const tileFurniture = P.find((p) => p.category === 'Furniture' && p.images[0]);
-  const tilePedestal = P.find((p) => p.subtype === 'Pedestal' && p.images[0]);
+  const hero = P.find((p) => p.group === 'Tables & Consoles' && p.images[0]) || P[0];
+  const tileFurniture = P.find((p) => p.category === 'Furniture' && p !== hero && p.images[0]);
+  const tilePedestal = P.find((p) => p.group === 'Pedestals' && p.images[0]);
   const tileDecor = P.find((p) => p.category === 'Objects & Decor' && p.images[0]);
   const newItems = P.filter((p) => p.newArrival).slice(0, 8);
   const bestItems = P.filter((p) => p.bestSeller).slice(0, 4);
-  const story = P.find((p) => p.subtype === 'Pedestal' && p !== hero && p.images[0]) || P[3];
-  const lookbook = P.find((p) => p.subtype === 'Coffee table' && p.images[0]) || P[5];
+  const story = P.find((p) => p.group === 'Pedestals' && p !== tilePedestal && p.images[0]) || P[3];
+  const lookbook = P.find((p) => (p.group === 'Tubs & Baths' || p.group === 'Tables & Consoles') && p !== hero && p.images[0]) || P[5];
   const tile = (p, label, link, sub) => `<a href="${link}" class="collection-tile" data-reveal>
     <div class="media media--tall media-zoom"><img src="${p.images[0]}" loading="lazy" alt="${esc(label)}">
       <div class="tile-grad"></div>
@@ -211,7 +248,7 @@ function home() {
     <div class="center" style="margin-bottom:clamp(2rem,4vw,4rem)" data-reveal><span class="eyebrow">The Collections</span><h2 class="h2 mt-2">Furniture &amp; objects in stone</h2></div>
     <div class="grid cols-3">
       ${tile(tileFurniture, 'Furniture', 'furniture.html', 'Consoles · Tables · Benches')}
-      ${tile(tilePedestal, 'Pedestals', 'collection.html?f=Pedestal', 'Sculptural plinths')}
+      ${tile(tilePedestal, 'Pedestals', 'furniture.html?f=Pedestals', 'Sculptural plinths')}
       ${tile(tileDecor, 'Objects &amp; Decor', 'objects-decor.html', 'Mirrors · Plates · Shelves')}
     </div>
   </div></section>
@@ -277,8 +314,8 @@ const SITE_CSS = `/* Atelier Bismuth — luxe additions on top of base.css */
 .header-side{display:flex;align-items:center;gap:1rem}
 .site-header .brand-wordmark{text-align:center}
 .header-bar{border-top:1px solid var(--color-line)}
-.header-bar__inner{display:flex;justify-content:center;flex-wrap:wrap;gap:clamp(1.3rem,3vw,2.8rem);padding:.9rem 0}
-.header-bar .nav-link{font-size:.72rem}
+.header-bar__inner{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;padding:.95rem 0;text-align:center}
+.header-bar .nav-link{font-size:.72rem;letter-spacing:.16em;padding:.35rem clamp(1rem,2vw,1.9rem)}
 .nav-toggle{display:none}
 @media (max-width:900px){.header-bar{display:none}.nav-toggle{display:inline-flex}.header-top{min-height:58px;grid-template-columns:auto 1fr auto}.site-header .brand-wordmark{text-align:left}}
 .hero__scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,13,11,.62),rgba(15,13,11,.1) 45%,rgba(15,13,11,.28))}
@@ -315,7 +352,7 @@ const SITE_JS = `(function(){
 function reveal(){var els=document.querySelectorAll('[data-reveal]');if(!('IntersectionObserver'in window)){els.forEach(function(e){e.classList.add('is-visible')});return}var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('is-visible');io.unobserve(en.target)}})},{rootMargin:'0px 0px -8% 0px',threshold:.05});els.forEach(function(e){io.observe(e)})}
 function header(){var h=document.querySelector('.site-header');if(!h)return;var f=function(){h.classList.toggle('is-scrolled',window.scrollY>24)};f();addEventListener('scroll',f,{passive:true})}
 function drawer(){var d=document.querySelector('[data-drawer]');if(!d)return;var o=function(){d.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'},c=function(){d.setAttribute('aria-hidden','true');document.body.style.overflow=''};document.querySelectorAll('[data-drawer-open]').forEach(function(b){b.onclick=o});d.querySelectorAll('[data-drawer-close],.drawer__scrim').forEach(function(b){b.onclick=c})}
-function chips(){var bar=document.querySelector('[data-filter]');if(!bar)return;var grid=document.querySelector('[data-grid]');bar.addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;bar.querySelectorAll('.chip').forEach(function(x){x.classList.remove('is-active')});c.classList.add('is-active');var f=c.getAttribute('data-f');grid.querySelectorAll('.product-card').forEach(function(card){var t=card.getAttribute('data-cat')||'';var s=card.getAttribute('data-sub')||'';card.classList.toggle('is-hidden',!(f==='all'||t===f||s===f))})})}
+function chips(){var bar=document.querySelector('[data-filter]');if(!bar)return;var grid=document.querySelector('[data-grid]');bar.addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;bar.querySelectorAll('.chip').forEach(function(x){x.classList.remove('is-active')});c.classList.add('is-active');var f=c.getAttribute('data-f');grid.querySelectorAll('.product-card').forEach(function(card){var t=card.getAttribute('data-cat')||'';var s=card.getAttribute('data-sub')||'';var g=card.getAttribute('data-group')||'';card.classList.toggle('is-hidden',!(f==='all'||t===f||s===f||g===f))})});var pf=new URLSearchParams(location.search).get('f');if(pf){var pb=bar.querySelector('[data-f="'+pf+'"]');if(pb)pb.click()}}
 function money(){}
 function pdp(){
   var mount=document.getElementById('pdp-mount');if(!mount||!window.__CATALOG__)return;
@@ -368,8 +405,10 @@ fs.writeFileSync(path.join(docs, 'site.js'), SITE_JS);
 /* ---------- generate everything ---------- */
 home();
 productPage();
-listingPage({ file: 'furniture.html', nav: 'furniture.html', eyebrow: 'The Collection', title: 'Furniture', copy: 'Consoles, dining and coffee tables, benches, vanities, fountains, hearths and sculptural pedestals — each cut from solid travertine and finished by hand.', items: P.filter((p) => p.category === 'Furniture') });
-listingPage({ file: 'objects-decor.html', nav: 'objects-decor.html', eyebrow: 'The Collection', title: 'Objects &amp; Decor', copy: 'Mirrors, plates and trays, floating shelves, candle holders and bookends — small stone objects with the same considered hand.', items: P.filter((p) => p.category === 'Objects & Decor') });
+const furnItems = P.filter((p) => p.category === 'Furniture');
+listingPage({ file: 'furniture.html', nav: 'furniture.html', eyebrow: 'The Collection', title: 'Furniture', copy: 'Tables and consoles, floating shelves, sculptural pedestals, tubs, hearths and benches — each cut from solid travertine and finished by hand.', items: furnItems, chips: groupChips(furnItems, FURN_ORDER) });
+const decorItems = P.filter((p) => p.category === 'Objects & Decor');
+listingPage({ file: 'objects-decor.html', nav: 'objects-decor.html', eyebrow: 'The Collection', title: 'Objects &amp; Decor', copy: 'Mirrors, fountains, candle holders, book ends, plates and trays — small stone objects with the same considered hand.', items: decorItems, chips: groupChips(decorItems, DECOR_ORDER) });
 listingPage({ file: 'new-arrivals.html', nav: 'new-arrivals.html', eyebrow: 'Just added', title: 'New Arrivals', copy: 'The latest pieces to leave the atelier.', items: P.filter((p) => p.newArrival) });
 listingPage({ file: 'best-sellers.html', nav: 'best-sellers.html', eyebrow: 'Signature pieces', title: 'Best Sellers', copy: 'The pieces our collectors return for, across every category.', items: P.filter((p) => p.bestSeller) });
 
@@ -393,7 +432,7 @@ function collectionPage() {
   <section class="section bg-surface" style="padding-top:clamp(1.5rem,3vw,2.5rem)"><div class="page-width">
     <div class="filter-chips" data-filter>${chipList}</div>
     <div class="grid cols-4" data-grid>
-      ${items.map((p, i) => card(p, i).replace('<article class="product-card"', `<article class="product-card" data-cat="${p.category}" data-sub="${p.subtype}"`)).join('\n')}
+      ${items.map((p, i) => card(p, i)).join('\n')}
     </div>
   </div></section>
 </main>` + footer();
