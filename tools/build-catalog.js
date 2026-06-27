@@ -85,7 +85,7 @@ if (arg) {
   items = (exp.products || []).map((p) => ({
     title: p.title,
     price: p.price ? Number(p.price) : null,
-    compare: null,
+    compare: p.compare != null ? Number(p.compare) : null,
     type: p.title && /console|desk|table|bench/i.test(p.title) ? 'Furniture'
       : p.title && /pedestal|column/i.test(p.title) ? 'Pedestal'
       : p.title && /mirror/i.test(p.title) ? 'Mirror'
