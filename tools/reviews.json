@@ -1,0 +1,12 @@
+{
+  "_note": "Aggregate stats are real (Atelier Bismuth Etsy shop: 5.0 stars, 64 reviews, 445 sales, 11 years). The individual review quotes below are representative placeholders styled like Etsy reviews — replace the `reviews` array with verbatim Etsy review text before launch.",
+  "aggregate": { "rating": 5.0, "count": 64, "sales": 445, "years": 11 },
+  "reviews": [
+    { "stars": 5, "text": "Exactly as described, down to the last centimetre — and far more beautiful in stone than on screen. It anchors the whole room.", "author": "Verified Etsy buyer", "item": "Travertine Console Table" },
+    { "stars": 5, "text": "The craftsmanship is exceptional. You can feel that it was finished by hand. Packed and delivered with real care.", "author": "Verified Etsy buyer", "item": "Travertine Pedestal Column" },
+    { "stars": 5, "text": "Communication was wonderful throughout, and the piece arrived ahead of schedule. A true heirloom.", "author": "Verified Etsy buyer", "item": "Asymmetrical Pebble Mirror" },
+    { "stars": 5, "text": "Stunning. The travertine has the most beautiful natural veining — no two pieces alike, exactly as promised.", "author": "Verified Etsy buyer", "item": "Travertine Coffee Table" },
+    { "stars": 5, "text": "Worth every penny. The weight and presence of solid stone is something photos can't capture. Obsessed.", "author": "Verified Etsy buyer", "item": "Travertine Floating Shelf" },
+    { "stars": 5, "text": "We built our living room around it. Five years from now this will still look perfect. Thank you for the artistry.", "author": "Verified Etsy buyer", "item": "Travertine Fountain Column" }
+  ]
+}

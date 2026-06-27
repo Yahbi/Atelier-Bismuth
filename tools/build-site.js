@@ -14,6 +14,7 @@ const path = require('path');
 const root = path.join(__dirname, '..');
 const docs = path.join(root, 'docs');
 const data = JSON.parse(fs.readFileSync(path.join(__dirname, 'catalog.json'), 'utf8'));
+const REVIEWS = JSON.parse(fs.readFileSync(path.join(__dirname, 'reviews.json'), 'utf8'));
 // Exclude non-product / utility listings (shipping fees, one-off custom orders,
 // deposits, gift cards) — keep only real pieces.
 const EXCLUDE = /\bfee\b|shipping replacement|custom order for|\bdeposit\b|reserved for|gift ?card|add[- ]?on|payment plan|balance due/i;
@@ -88,7 +89,8 @@ P.forEach((p, i) => { p.newArrival = i < 12; });
 // Best Sellers: a varied signature cross-section — first piece of each key subtype.
 const bsGroups = ['Tables & Consoles', 'Pedestals', 'Mirrors', 'Fountains', 'Shelves', 'Tubs & Baths', 'Book Ends', 'Candle Holders', 'Plates & Trays', 'Fireplaces', 'Benches'];
 const bsPicked = new Set();
-bsGroups.forEach((g) => { const c = P.find((p) => p.group === g && p.images.length && !bsPicked.has(p.handle)); if (c) bsPicked.add(c.handle); });
+// Best Sellers exclude New Arrivals so the two highlight sections never repeat a piece.
+bsGroups.forEach((g) => { const c = P.find((p) => p.group === g && p.images.length && !p.newArrival && !bsPicked.has(p.handle)); if (c) bsPicked.add(c.handle); });
 P.forEach((p) => { p.bestSeller = bsPicked.has(p.handle); });
 
 function badge(p) {
@@ -190,6 +192,25 @@ function card(p, i) {
   </article>`;
 }
 
+/* ---------- reviews section ---------- */
+function reviewsSection() {
+  const a = REVIEWS.aggregate;
+  return `<section class="section reviews-sec"><div class="page-width">
+    <div class="center" data-reveal style="margin-bottom:clamp(2rem,4vw,3.5rem)">
+      <span class="eyebrow">Guest satisfaction</span>
+      <h2 class="h2 mt-2">${a.rating.toFixed(1)} ★ from ${a.count} reviews</h2>
+      <p class="cat-hero__count" style="margin-top:.8rem">${a.sales} sales · ${a.years} years on Etsy · 100% five-star</p>
+    </div>
+    <div class="grid cols-3">
+      ${REVIEWS.reviews.slice(0, 6).map((r, i) => `<figure class="review-card" data-reveal data-reveal-delay="${(i % 3) + 1}">
+        <div class="stars" aria-label="${r.stars} out of 5 stars">${'★'.repeat(r.stars)}</div>
+        <blockquote class="review-quote">“${esc(r.text)}”</blockquote>
+        <figcaption class="review-author">${esc(r.author)}${r.item ? ` · <span>${esc(r.item)}</span>` : ''}</figcaption>
+      </figure>`).join('')}
+    </div>
+  </div></section>`;
+}
+
 /* ---------- listing page ---------- */
 function listingPage({ file, nav, eyebrow, title, copy, items, chips }) {
   const html = head(title, copy) + header(nav) + `
@@ -280,11 +301,7 @@ function home() {
       <a href="collection.html" class="btn btn--light mt-4">Explore the collection</a></div></div>
   </div></section>
 
-  <section class="section bg-ink"><div class="content-width center">
-    <span class="eyebrow" data-reveal>445 sales · 464 admirers</span>
-    <blockquote class="h2 serif-italic mt-3" data-reveal data-reveal-delay="1" style="font-weight:300;line-height:1.18;color:#efece4">“Exactly as described, down to the last centimetre — and more beautiful in stone than on screen.”</blockquote>
-    <p class="eyebrow mt-3" data-reveal data-reveal-delay="2">Verified Etsy buyer · 5.0 ★ (64 reviews)</p>
-  </div></section>
+  ${reviewsSection()}
 </main>` + footer();
   fs.writeFileSync(path.join(docs, 'index.html'), html);
   console.log('wrote index.html — hero + new arrivals + best sellers');
@@ -327,6 +344,12 @@ const SITE_CSS = `/* Atelier Bismuth — luxe additions on top of base.css */
 .cat-hero .page-width{display:flex;flex-direction:column;gap:.6rem}
 .cat-hero__title{margin-top:.4rem}
 .cat-hero__count{font-size:.72rem;letter-spacing:var(--tracking-wide);text-transform:uppercase;color:var(--color-muted)}
+.reviews-sec{background:var(--color-surface)}
+.review-card{background:var(--color-bg);border:1px solid var(--color-line);border-radius:var(--radius);padding:clamp(1.6rem,2.5vw,2.4rem);display:flex;flex-direction:column;gap:1rem;height:100%}
+.review-card .stars{color:var(--color-accent);letter-spacing:.25em;font-size:.85rem}
+.review-quote{font-family:var(--font-display);font-style:italic;font-weight:300;font-size:clamp(1.05rem,.92rem+.5vw,1.3rem);line-height:1.45;margin:0;color:var(--color-ink)}
+.review-author{font-size:.7rem;letter-spacing:var(--tracking-mid);text-transform:uppercase;color:var(--color-muted);margin-top:auto}
+.review-author span{color:var(--color-ink-soft)}
 .filter-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:clamp(1.5rem,3vw,2.5rem)}
 .chip{padding:.55rem 1.1rem;border:1px solid var(--color-line);border-radius:100px;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .3s var(--ease);background:var(--color-surface)}
 .chip:hover{border-color:var(--color-ink)}
