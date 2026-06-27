@@ -1,6 +1,9 @@
 {%- liquid
   assign img = section.settings.image
-  assign reverse = section.settings.layout == 'reverse'
+  assign reverse = false
+  if section.settings.layout == 'reverse'
+    assign reverse = true
+  endif
 -%}
 <section class="section {{ section.settings.bg }}">
   <div class="page-width">
