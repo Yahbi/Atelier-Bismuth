@@ -244,7 +244,7 @@ function listingPage({ file, nav, eyebrow, title, copy, items, chips }) {
 /* ---------- HOME ---------- */
 function home() {
   const hero = P.find((p) => p.group === 'Tables & Consoles' && p.images[0]) || P[0];
-  const tileFurniture = P.find((p) => p.category === 'Furniture' && p !== hero && p.images[0]);
+  const tileFurniture = P.find((p) => /limestone coffee table/i.test(p.title) && p.images[0]) || P.find((p) => p.category === 'Furniture' && p !== hero && p.images[0]);
   const tilePedestal = P.find((p) => p.group === 'Pedestals' && p.images[0]);
   const tileDecor = P.find((p) => p.category === 'Objects & Decor' && p.images[0]);
   const newItems = P.filter((p) => p.newArrival).slice(0, 8);
