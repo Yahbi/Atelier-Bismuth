@@ -1,7 +1,7 @@
 {%- liquid
   assign coll = collection
   assign img = coll.image | default: coll.featured_image
-  paginate_by = section.settings.per_page | default: 12
+  assign paginate_by = section.settings.per_page | default: 12
 -%}
 
 {%- if section.settings.show_hero -%}
