@@ -14,7 +14,10 @@ const path = require('path');
 const root = path.join(__dirname, '..');
 const docs = path.join(root, 'docs');
 const data = JSON.parse(fs.readFileSync(path.join(__dirname, 'catalog.json'), 'utf8'));
-let P = data.products;
+// Exclude non-product / utility listings (shipping fees, one-off custom orders,
+// deposits, gift cards) — keep only real pieces.
+const EXCLUDE = /\bfee\b|shipping replacement|custom order for|\bdeposit\b|reserved for|gift ?card|add[- ]?on|payment plan|balance due/i;
+let P = data.products.filter((p) => !EXCLUDE.test(p.title));
 
 /* ---------- helpers ---------- */
 const esc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
