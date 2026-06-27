@@ -22,8 +22,8 @@ let P = data.products.filter((p) => !EXCLUDE.test(p.title));
 /* ---- sub-category grouping + corrected top-level placement ----
    Furniture: tables/consoles, shelves, pedestals, tubs (+ fireplaces, benches)
    Objects & Decor: mirrors, fountains, candle holders, book ends (+ plates/trays, objects) */
-function classify(title, tags) {
-  const t = (title + ' ' + (tags || []).join(' ')).toLowerCase();
+function classify(title) {
+  const t = String(title).toLowerCase();
   const F = 'Furniture', D = 'Objects & Decor';
   const has = (...w) => w.some((x) => t.includes(x));
   // Objects & Decor — specific objects first (order matters: bookend before shelf, tray before jewelry)
@@ -46,7 +46,7 @@ function classify(title, tags) {
   if (has('stand', 'block')) return [F, 'Pedestals', 'Pedestal'];
   return [D, 'Objects', 'Object'];
 }
-P.forEach((p) => { const [c, g, s] = classify(p.title, p.tags); p.category = c; p.group = g; p.subtype = s; });
+P.forEach((p) => { const [c, g, s] = classify(p.title); p.category = c; p.group = g; p.subtype = s; });
 const FURN_ORDER = ['Tables & Consoles', 'Shelves', 'Pedestals', 'Tubs & Baths', 'Fireplaces', 'Benches'];
 const DECOR_ORDER = ['Mirrors', 'Fountains', 'Candle Holders', 'Book Ends', 'Plates & Trays', 'Objects'];
 function groupChips(items, order) {
