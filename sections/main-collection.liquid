@@ -1,7 +1,6 @@
 {%- liquid
   assign coll = collection
   assign img = coll.image | default: coll.featured_image
-  assign paginate_by = section.settings.per_page | default: 12
 -%}
 
 {%- if section.settings.show_hero -%}
@@ -32,7 +31,7 @@
 
 <section class="section bg-surface">
   <div class="page-width">
-    {%- paginate coll.products by paginate_by -%}
+    {%- paginate coll.products by 50 -%}
       <div class="collection-toolbar">
         <span class="eyebrow eyebrow--ink">{{ 'collections.general.items_count' | t: count: coll.products_count }}</span>
         {%- assign sort_by = coll.sort_by | default: coll.default_sort_by -%}
@@ -50,7 +49,7 @@
         </form>
       </div>
 
-      <div class="grid cols-{{ section.settings.columns }}" style="margin-top:clamp(1.5rem,3vw,2.5rem);">
+      <div id="ProductGrid" class="grid cols-{{ section.settings.columns }}" data-next="{{ paginate.next.url }}" style="margin-top:clamp(1.5rem,3vw,2.5rem);">
         {%- for product in coll.products -%}
           {%- render 'product-card', product: product, reveal_delay: forloop.index | modulo: 4 -%}
         {%- else -%}
@@ -58,16 +57,62 @@
         {%- endfor -%}
       </div>
 
-      {%- if paginate.pages > 1 -%}
-        <nav class="flex items-center justify-between" style="margin-top:clamp(2.5rem,5vw,4rem);" aria-label="Pagination">
-          {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" class="link-underline">{{ 'general.pagination.previous' | t }}</a>{%- else -%}<span></span>{%- endif -%}
-          <span class="eyebrow">{{ paginate.current_page }} / {{ paginate.pages }}</span>
-          {%- if paginate.next -%}<a href="{{ paginate.next.url }}" class="link-underline link-arrow">{{ 'general.pagination.next' | t }} {% render 'icon', name: 'arrow-sm' %}</a>{%- else -%}<span></span>{%- endif -%}
-        </nav>
-      {%- endif -%}
+      <div id="InfiniteSentinel" aria-hidden="true" style="height:1px;"></div>
+
+      <div class="center" id="ScrollHint" style="margin-top:2.5rem;{% if paginate.next == blank %}display:none;{% endif %}">
+        <span class="eyebrow" style="opacity:.5;">Loading more pieces…</span>
+      </div>
+
+      <noscript>
+        {%- if paginate.pages > 1 -%}
+          <nav class="flex items-center justify-between" style="margin-top:clamp(2.5rem,5vw,4rem);" aria-label="Pagination">
+            {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" class="link-underline">{{ 'general.pagination.previous' | t }}</a>{%- else -%}<span></span>{%- endif -%}
+            <span class="eyebrow">{{ paginate.current_page }} / {{ paginate.pages }}</span>
+            {%- if paginate.next -%}<a href="{{ paginate.next.url }}" class="link-underline link-arrow">{{ 'general.pagination.next' | t }} {% render 'icon', name: 'arrow-sm' %}</a>{%- else -%}<span></span>{%- endif -%}
+          </nav>
+        {%- endif -%}
+      </noscript>
     {%- endpaginate -%}
   </div>
 </section>
+
+<script>
+  (function () {
+    var grid = document.getElementById('ProductGrid');
+    var sentinel = document.getElementById('InfiniteSentinel');
+    var hint = document.getElementById('ScrollHint');
+    if (!grid || !sentinel || !('IntersectionObserver' in window)) return;
+    var next = grid.getAttribute('data-next');
+    var loading = false;
+
+    function show(el) {
+      el.removeAttribute('data-reveal');
+      var kids = el.querySelectorAll('[data-reveal]');
+      for (var i = 0; i < kids.length; i++) kids[i].removeAttribute('data-reveal');
+    }
+    function finish() { if (hint) hint.style.display = 'none'; obs.disconnect(); }
+    function load() {
+      if (loading || !next) return;
+      loading = true;
+      fetch(next).then(function (r) { return r.text(); }).then(function (html) {
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        var ng = doc.getElementById('ProductGrid');
+        if (ng) {
+          var cards = Array.prototype.slice.call(ng.children);
+          for (var i = 0; i < cards.length; i++) { show(cards[i]); grid.appendChild(cards[i]); }
+          next = ng.getAttribute('data-next') || '';
+        } else { next = ''; }
+        loading = false;
+        if (!next) finish();
+      }).catch(function () { loading = false; });
+    }
+    var obs = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) if (entries[i].isIntersecting) load();
+    }, { rootMargin: '800px 0px' });
+    obs.observe(sentinel);
+    if (!next) finish();
+  })();
+</script>
 
 {% schema %}
 {
@@ -75,7 +120,7 @@
   "settings": [
     { "type": "checkbox", "id": "show_hero", "label": "Show banner hero", "default": true },
     { "type": "range", "id": "columns", "min": 2, "max": 4, "step": 1, "label": "Columns", "default": 3 },
-    { "type": "range", "id": "per_page", "min": 8, "max": 24, "step": 4, "label": "Products per page", "default": 12 }
+    { "type": "paragraph", "content": "Products load continuously as the visitor scrolls — there are no pages." }
   ]
 }
 {% endschema %}
