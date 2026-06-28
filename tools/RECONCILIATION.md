@@ -38,3 +38,39 @@ build is kept; this pass fills in what was missing.
 ### D. Not started yet
 - **Reviews** — a separate reviews scrape is needed to replace the homepage carousel placeholders.
 - **Full descriptions** — captured in `etsy-full-export.json` (`description`), can be pushed to refresh any truncated copy.
+
+---
+
+## UPDATE — New products created + verification
+
+### Created 5 new products (David's listings missing from Shopify)
+All ACTIVE, with full per-size variants, regular prices (Etsy sale-adjusted),
+all images (READY on CDN), and correct collection tags:
+| Product | Variants | From price |
+|---|---|---|
+| Natural Travertine Gas Fire Pit | 2 (Shape) | $12,990 |
+| Chiseled Travertine Fireplace Hearth | 15 (W×D) | $3,900 |
+| Travertine Wine Bottle Rack | 3 (Width) | $9,900 |
+| Travertine Fountain Column | 44 (Color×Height) | $899 |
+| Chiseled Travertine Live-Edge Floating Shelf | 24 (W×D) | $390 |
+
+Tagged into Furniture / Objects & Decor / New Arrivals / Fireplaces / Shelves /
+Fountains (smart collections auto-populate).
+
+### Correctly SKIPPED (not David's shop)
+The scrape's "related listings" noise — verified by Etsy shop id on the images:
+- "Long Slim 16" Wood Wall Pocket" — shop 24669047 (not David's)
+- "Universal Mounting Plates" — shop 29049809 (not David's)
+
+### Descriptions
+Spot-checked: existing Shopify descriptions are already full/complete from the
+original import. No refresh needed.
+
+## STILL OPEN (need David's input — not auto-applied)
+1. **2 diverged products** — Etsy changed the variation structure vs the Shopify
+   import (pedestal now Color×Size; one console gained a face-finish option).
+   Rebuilding deletes existing variants, and the "right" structure is a judgment
+   call — left as-is pending David's decision.
+2. **Reviews** — need the reviews scrape to replace homepage carousel placeholders.
+3. **SKUs / per-variant quantities / materials (17 listings)** — not on public Etsy
+   pages; need David's Etsy seller CSV (Shop Manager → Settings → Download Data).
