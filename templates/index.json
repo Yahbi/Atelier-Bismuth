@@ -168,14 +168,23 @@
         "bg": ""
       }
     },
-    "quote": {
-      "type": "quote",
+    "reviews": {
+      "type": "reviews",
       "settings": {
-        "eyebrow": "445 sales · 64 reviews",
-        "quote": "Exactly as described, down to the last centimetre — and more beautiful in stone than on screen.",
-        "attribution": "Verified Etsy buyer · 5 stars",
-        "bg": "bg-ink"
-      }
+        "eyebrow": "Guest satisfaction",
+        "heading": "5.0 ★ from 64 reviews",
+        "subtext": "445 sales · 11 years on Etsy · 100% five-star",
+        "bg": "bg-surface"
+      },
+      "blocks": {
+        "r1": { "type": "review", "settings": { "stars": 5, "quote": "Exactly as described, down to the last centimetre — and far more beautiful in stone than on screen. It anchors the whole room.", "author": "Verified Etsy buyer", "item": "Travertine Console Table" } },
+        "r2": { "type": "review", "settings": { "stars": 5, "quote": "The craftsmanship is exceptional. You can feel that it was finished by hand. Packed and delivered with real care.", "author": "Verified Etsy buyer", "item": "Travertine Pedestal Column" } },
+        "r3": { "type": "review", "settings": { "stars": 5, "quote": "Communication was wonderful throughout, and the piece arrived ahead of schedule. A true heirloom.", "author": "Verified Etsy buyer", "item": "Asymmetrical Pebble Mirror" } },
+        "r4": { "type": "review", "settings": { "stars": 5, "quote": "Stunning. The travertine has the most beautiful natural veining — no two pieces alike, exactly as promised.", "author": "Verified Etsy buyer", "item": "Travertine Coffee Table" } },
+        "r5": { "type": "review", "settings": { "stars": 5, "quote": "Worth every penny. The weight and presence of solid stone is something photos can't capture. Obsessed.", "author": "Verified Etsy buyer", "item": "Travertine Floating Shelf" } },
+        "r6": { "type": "review", "settings": { "stars": 5, "quote": "We built our living room around it. Five years from now this will still look perfect. Thank you for the artistry.", "author": "Verified Etsy buyer", "item": "Travertine Fountain Column" } }
+      },
+      "block_order": ["r1", "r2", "r3", "r4", "r5", "r6"]
     },
     "newsletter": {
       "type": "newsletter",
@@ -195,7 +204,7 @@
     "values",
     "lookbook",
     "featured_decor",
-    "quote",
+    "reviews",
     "newsletter"
   ]
 }

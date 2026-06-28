@@ -1,0 +1,153 @@
+{%- comment -%}
+  Atelier Bismuth — Reviews carousel
+  A horizontally scroll/swipeable row of customer reviews, with an aggregate
+  header. Each review is a block so it can be edited in the theme editor and
+  populated with verbatim Etsy review text.
+{%- endcomment -%}
+<section class="section reviews-sec {{ section.settings.bg }}" data-reviews>
+  <div class="page-width">
+    <div class="reviews-head center" data-reveal>
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="h2 mt-2">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.subtext != blank -%}<p class="reviews-sub mt-2">{{ section.settings.subtext }}</p>{%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="reviews-carousel" data-reveal data-reveal-delay="1">
+        <button class="reviews-arrow reviews-arrow--prev" type="button" data-reviews-prev aria-label="Previous reviews">{% render 'icon', name: 'arrow-sm' %}</button>
+
+        <div class="reviews-track" data-reviews-track tabindex="0">
+          {%- for block in section.blocks -%}
+            <figure class="review-card" {{ block.shopify_attributes }}>
+              {%- assign s = block.settings.stars | default: 5 -%}
+              <div class="stars" aria-label="{{ s }} out of 5 stars">{% for i in (1..s) %}★{% endfor %}</div>
+              <blockquote class="review-quote">{{ block.settings.quote }}</blockquote>
+              <figcaption class="review-author">
+                {{ block.settings.author | default: 'Verified Etsy buyer' }}
+                {%- if block.settings.item != blank -%} · <span>{{ block.settings.item }}</span>{%- endif -%}
+              </figcaption>
+            </figure>
+          {%- endfor -%}
+        </div>
+
+        <button class="reviews-arrow reviews-arrow--next" type="button" data-reviews-next aria-label="Next reviews">{% render 'icon', name: 'arrow-sm' %}</button>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{%- style -%}
+  .reviews-sec .reviews-head { margin-bottom: clamp(2rem, 4vw, 3.5rem); }
+  .reviews-sub { color: var(--color-muted); letter-spacing: var(--tracking-mid); text-transform: uppercase; font-size: 0.72rem; }
+  .reviews-carousel { position: relative; }
+  .reviews-track {
+    display: flex; gap: clamp(1rem, 2vw, 1.6rem);
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; scroll-behavior: smooth;
+    padding-bottom: 1rem; margin-bottom: -1rem;
+    scrollbar-width: none;
+  }
+  .reviews-track::-webkit-scrollbar { display: none; }
+  .reviews-track:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; }
+  .review-card {
+    flex: 0 0 86%; scroll-snap-align: start;
+    background: var(--color-bg); border: 1px solid var(--color-line); border-radius: var(--radius);
+    padding: clamp(1.6rem, 2.5vw, 2.4rem);
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .reviews-sec.bg-surface .review-card { background: var(--color-bg); }
+  .review-card .stars { color: var(--color-accent); letter-spacing: 0.25em; font-size: 0.85rem; }
+  .review-quote {
+    font-family: var(--font-display); font-style: italic; font-weight: 300;
+    font-size: clamp(1.05rem, 0.92rem + 0.5vw, 1.3rem); line-height: 1.45; margin: 0; color: var(--color-ink);
+  }
+  .review-author {
+    font-size: 0.7rem; letter-spacing: var(--tracking-mid); text-transform: uppercase;
+    color: var(--color-muted); margin-top: auto;
+  }
+  .review-author span { color: var(--color-ink-soft); }
+  .reviews-arrow {
+    display: none; position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+    width: 46px; height: 46px; border-radius: 50%; background: var(--color-bg);
+    border: 1px solid var(--color-line); align-items: center; justify-content: center;
+    transition: background 0.3s var(--ease), color 0.3s var(--ease), opacity 0.3s var(--ease);
+  }
+  .reviews-arrow:hover { background: var(--color-ink); color: var(--color-bg); }
+  .reviews-arrow[disabled] { opacity: 0.3; pointer-events: none; }
+  .reviews-arrow--prev { left: calc(-1 * clamp(0.5rem, 1.5vw, 1.4rem)); }
+  .reviews-arrow--next { right: calc(-1 * clamp(0.5rem, 1.5vw, 1.4rem)); }
+  .reviews-arrow svg { width: 16px; height: 16px; }
+  .reviews-arrow--prev svg { transform: rotate(180deg); }
+  @media (min-width: 700px) {
+    .review-card { flex-basis: calc((100% - clamp(1rem,2vw,1.6rem)) / 2); }
+  }
+  @media (min-width: 1000px) {
+    .review-card { flex-basis: calc((100% - 2 * clamp(1rem,2vw,1.6rem)) / 3); }
+    .reviews-arrow { display: inline-flex; }
+  }
+{%- endstyle -%}
+
+<script>
+  (function () {
+    var root = document.querySelector('[data-reviews]');
+    if (!root) return;
+    var track = root.querySelector('[data-reviews-track]');
+    var prev = root.querySelector('[data-reviews-prev]');
+    var next = root.querySelector('[data-reviews-next]');
+    if (!track) return;
+
+    function step() {
+      var card = track.querySelector('.review-card');
+      if (!card) return track.clientWidth;
+      var gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || 0) || 0;
+      return card.offsetWidth + gap;
+    }
+    function update() {
+      if (!prev || !next) return;
+      var max = track.scrollWidth - track.clientWidth - 1;
+      prev.disabled = track.scrollLeft <= 1;
+      next.disabled = track.scrollLeft >= max;
+    }
+    if (prev) prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    if (next) next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Reviews",
+  "tag": "section",
+  "class": "section-reviews",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Guest satisfaction" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "5.0 ★ from 64 reviews" },
+    { "type": "text", "id": "subtext", "label": "Subtext", "default": "445 sales · 11 years on Etsy · 100% five-star" },
+    { "type": "select", "id": "bg", "label": "Background", "options": [ {"value":"","label":"Bone"}, {"value":"bg-surface","label":"White"}, {"value":"bg-alt","label":"Oat"} ], "default": "bg-surface" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "range", "id": "stars", "min": 1, "max": 5, "step": 1, "label": "Stars", "default": 5 },
+        { "type": "textarea", "id": "quote", "label": "Review text", "default": "A beautiful, one-of-a-kind piece — exactly as described." },
+        { "type": "text", "id": "author", "label": "Author", "default": "Verified Etsy buyer" },
+        { "type": "text", "id": "item", "label": "Item purchased" }
+      ]
+    }
+  ],
+  "max_blocks": 24,
+  "presets": [
+    {
+      "name": "Reviews",
+      "blocks": [
+        { "type": "review" }, { "type": "review" }, { "type": "review" },
+        { "type": "review" }, { "type": "review" }, { "type": "review" }
+      ]
+    }
+  ]
+}
+{% endschema %}
