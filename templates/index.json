@@ -96,13 +96,6 @@
         "bg": ""
       }
     },
-    "marquee": {
-      "type": "marquee",
-      "settings": {
-        "text": "Solid travertine, Hand chiselled, One of a kind, Wabi-sabi by nature, Made to order, Built to outlast us",
-        "bg": "bg-surface"
-      }
-    },
     "values": {
       "type": "values",
       "blocks": {
@@ -199,7 +192,6 @@
     "collections",
     "featured",
     "story",
-    "marquee",
     "values",
     "lookbook",
     "featured_decor",
