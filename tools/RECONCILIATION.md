@@ -74,3 +74,28 @@ original import. No refresh needed.
 2. **Reviews** — need the reviews scrape to replace homepage carousel placeholders.
 3. **SKUs / per-variant quantities / materials (17 listings)** — not on public Etsy
    pages; need David's Etsy seller CSV (Shop Manager → Settings → Download Data).
+
+---
+
+## UPDATE — Pricing & size availability fix
+
+### Extra sizes (sizes the site offers beyond Etsy's ~71-variation cap)
+Kept all sizes; **corrected 153 variant prices** across 15 products. Method:
+fit each product's additive per-size price pattern from Etsy's data, then price
+the extra (larger) sizes by extending David's own boundary rate (e.g. shelves
++$100 per 2″ width; pedestals +$100 per 2″). Validated: residual < $1.50 on the
+fitted points; no absurd values (range $370–$2,699). Applied via
+productVariantsBulkUpdate.
+
+### Missing sizes (Etsy offers, site lacked)
+Added **8 variants** at exact Etsy regular prices:
+- Seashell pedestal: +14″ ($520)
+- Travertine front desk: +50″ ($9,900), +60″ ($10,900)
+- Travertine pedestal (plinth/monolith): +34–42″ ($1,399–$1,799)
+
+### Deliberately NOT changed (need David)
+- **Diverged structure** (Etsy variation set differs from the import) — need a rebuild decision:
+  - Pedestal "sculpture-stand…solid-stone-block": Etsy now **Color × Size** (68 combos) vs site Width × Height
+  - Coffee table: Etsy adds a Height dimension
+  - TV-stand console: Etsy adds a **face-finish** dimension (+70″)
+- **Ambiguous pricing** (no reliable pattern): jewelry-stand styles G/H, vanity "+walnut" option, boulder-bed sizes
