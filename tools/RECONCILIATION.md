@@ -99,3 +99,25 @@ Added **8 variants** at exact Etsy regular prices:
   - Coffee table: Etsy adds a Height dimension
   - TV-stand console: Etsy adds a **face-finish** dimension (+70″)
 - **Ambiguous pricing** (no reliable pattern): jewelry-stand styles G/H, vanity "+walnut" option, boulder-bed sizes
+
+---
+
+## UPDATE — Display verification ("is pricing/sizes showing everywhere?")
+
+**Theme:** product template renders price, sale strikethrough, a size pill for
+every option value, sold-out state, and a JS variant map (price updates on size
+select). Collection cards show price. ✅
+
+**Data audit (live, all ~104 products):**
+- No $0 / empty prices anywhere; every product has ≥1 priced variant. ✅
+- Fixed one more flat shelf found in the audit:
+  `chiseled-travertine-floating-shelf…invisible-shelf` (76 sizes) → now $549–$2,599
+  (matched its Etsy listing, 0.99 confidence).
+
+**Still flat (ambiguous near-duplicate products — need David to confirm the Etsy
+source before pricing; flat is safer than a wrong guess):**
+- `chiseled-travertine-floating-shelf…invisible-shelves` (24 @ $390)
+- `travertine-pedestal-column-plinth-monolith-solid-stone-block` (14 @ $380)
+- `marble-pedestal-column-sculpture-stand-plinth-monolith-solid-stone-block` (13 @ $380)
+- `limestone-coffee-table-stone-table` (3 @ $3,799)
+- `handcrafted-limestone-floating-shelf-chiseled-edge` (6 @ $330, unlisted)
