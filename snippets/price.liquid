@@ -14,7 +14,8 @@
     <span class="price--sale">{{ target.price | money }}</span>
   {%- else -%}
     {%- if show_from and target.price_varies -%}
-      {{ 'products.product.from_price' | t: price: target.price | money }}
+      {%- assign price_from = target.price | money -%}
+      {{ 'products.product.from_price' | t: price: price_from }}
     {%- else -%}
       {{ target.price | money }}
     {%- endif -%}
