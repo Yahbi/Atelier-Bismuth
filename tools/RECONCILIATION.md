@@ -143,3 +143,27 @@ corrected 4 reversed dimension specs ("30–24″" → real ranges).
 - **Every ACTIVE multi-size product now varies by size.** The only remaining
   single-price multi-variant products are UNLISTED and legitimately flat
   (jewelry stand priced by style, raw prop chunks, an unlisted sofa set).
+
+---
+
+## Price re-verification vs Etsy source (2026-06-29)
+
+Pulled ALL live Shopify variants (107 products, 1,215 variants) and compared every
+variant against `tools/etsy-full-export.json` (`variation_offerings`, regular = sale ÷ 0.85).
+
+Robust 1:1 matcher (`tools/verify-prices2.py`): handle-prefix + title-similarity +
+offering-coverage disambiguation, HTML-entity-aware option normalization. This resolved
+prefix collisions (e.g. singular "Invisible Shelf" vs plural "Invisible Shelves" both
+matching one truncated Etsy handle; three identical pedestal listings).
+
+Result: **863 variants already matched Etsy exactly; 57 confident mismatches corrected; 1 ambiguous flagged; 225 unverified (size combos Etsy never enumerated → extrapolated, kept); 18 products with no Etsy listing (archived custom orders + unscraped items).**
+
+Corrections applied (productVariantsBulkUpdate, 0 userErrors):
+- **Charcoal Pedestal Column** (44 variants): was flat $300/$350 → real Etsy driven prices $479–$1,699. *(This was the user's "$0.00 / wrong price" complaint root cause for this product.)*
+- **Chiseled Travertine Floating Shelves** (duplicate of the singular listing, 12 variants): Width 24–30 → Etsy driven $599–$999. Its singular twin was already correct.
+- **Onyx Bookend** (1 variant): $220 → $200 (170 ÷ 0.85).
+
+Flagged for David (NOT auto-changed):
+- **Travertine Pedestal Block – Bookend** ($330 live vs $599 Etsy "Sculpture Stand" listing): likely a different/smaller size class than the matched Etsy listing — low title confidence (0.80). Needs human confirmation.
+- **Charcoal Pedestal heights 16–20"**: not present in Etsy data (Etsy starts at 22"); extrapolated prices are non-monotonic (e.g. 18" < 16"). Decide whether these sizes should exist / be re-priced.
+- **225 extrapolated size combos** across large floating-shelf/pedestal grids: no Etsy ground truth; current values are model-extrapolated.
