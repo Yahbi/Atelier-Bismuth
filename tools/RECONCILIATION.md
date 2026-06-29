@@ -121,3 +121,25 @@ source before pricing; flat is safer than a wrong guess):**
 - `marble-pedestal-column-sculpture-stand-plinth-monolith-solid-stone-block` (13 @ $380)
 - `limestone-coffee-table-stone-table` (3 @ $3,799)
 - `handcrafted-limestone-floating-shelf-chiseled-edge` (6 @ $330, unlisted)
+
+---
+
+## UPDATE — Final pricing completeness pass
+
+Made every ACTIVE size-varying product price by size. Filled the remaining flats
+using each product's own base price + its sibling's per-size increments:
+- 2 marble/travertine pedestals (Height): $380 → $380–$1,480 / $1,680
+- Chiseled travertine shelf (W×D): $390 → $390–$750 (copied live-edge ladder)
+- Limestone coffee table (Width): → $3,800–$4,000
+- TV-stand console (Width): → $4,000–$4,200
+- Limestone floating shelf (Depth, unlisted): $330 → $330–$480
+- Boulder bed frame: King / Cal-king → $12,399 (queen $11,399, from Etsy)
+
+Also fixed: created the **About / "Our Story" page** (hero + story links were 404),
+corrected 4 reversed dimension specs ("30–24″" → real ranges).
+
+### Verified final state (live)
+- **No $0 / empty prices** on any product.
+- **Every ACTIVE multi-size product now varies by size.** The only remaining
+  single-price multi-variant products are UNLISTED and legitimately flat
+  (jewelry stand priced by style, raw prop chunks, an unlisted sofa set).
