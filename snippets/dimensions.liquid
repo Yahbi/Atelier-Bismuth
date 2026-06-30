@@ -1,9 +1,12 @@
 {%- comment -%}
   Renders product dimensions & specifications from metafields.
-  Namespace: `specs`. Recognised keys (all optional, plain text):
-    width, depth, height, diameter, seat_height, weight,
-    materials, finish, wood, upholstery, origin, lead_time, edition,
-    assembly, care, sustainability
+  Namespace: `specs`.
+    Primary key: `dimensions` — a ready-to-display string with units baked in,
+      e.g. "50″ L × 24″ D × 14″ H" or "Ø 12″ × 18″ H". Preferred when present.
+    Per-axis fallback keys (plain numbers, `unit` appended): width, depth, height,
+      diameter, seat_height.
+    Other keys: weight, materials, finish, wood, upholstery, origin, lead_time,
+      edition, assembly, care, sustainability.
   Params:
     product : the product object
     mode    : 'table' (default) | 'inline'  (inline = compact one-liner for cards)
@@ -12,16 +15,21 @@
   assign s = product.metafields.specs
   assign mode = mode | default: 'table'
   assign unit = s.unit.value | default: 'cm'
+  assign dims = s.dimensions
 -%}
 
 {%- if mode == 'inline' -%}
-  {%- assign parts = '' -%}
-  {%- if s.width != blank -%}{%- assign parts = parts | append: 'W' | append: s.width -%}{%- endif -%}
-  {%- if s.depth != blank -%}{%- assign parts = parts | append: ' × D' | append: s.depth -%}{%- endif -%}
-  {%- if s.height != blank -%}{%- assign parts = parts | append: ' × H' | append: s.height -%}{%- endif -%}
-  {%- if s.diameter != blank and s.width == blank -%}{%- assign parts = parts | append: 'Ø' | append: s.diameter -%}{%- endif -%}
-  {%- if parts != blank -%}
-    <span class="product-card__dims">{{ parts | strip }} {{ unit }}</span>
+  {%- if dims != blank -%}
+    <span class="product-card__dims">{{ dims }}</span>
+  {%- else -%}
+    {%- assign parts = '' -%}
+    {%- if s.width != blank -%}{%- assign parts = parts | append: 'W' | append: s.width -%}{%- endif -%}
+    {%- if s.depth != blank -%}{%- assign parts = parts | append: ' × D' | append: s.depth -%}{%- endif -%}
+    {%- if s.height != blank -%}{%- assign parts = parts | append: ' × H' | append: s.height -%}{%- endif -%}
+    {%- if s.diameter != blank and s.width == blank -%}{%- assign parts = parts | append: 'Ø' | append: s.diameter -%}{%- endif -%}
+    {%- if parts != blank -%}
+      <span class="product-card__dims">{{ parts | strip }} {{ unit }}</span>
+    {%- endif -%}
   {%- endif -%}
 
 {%- else -%}
@@ -35,7 +43,9 @@
     endfor
   -%}
   <table class="spec-table">
-    {%- if has_dims -%}
+    {%- if dims != blank -%}
+      <tr><th>{{ 'Dimensions' }}</th><td>{{ dims }}</td></tr>
+    {%- elsif has_dims -%}
       {%- if s.width != blank -%}<tr><th>{{ 'Width' }}</th><td>{{ s.width }} {{ unit }}</td></tr>{%- endif -%}
       {%- if s.depth != blank -%}<tr><th>{{ 'Depth' }}</th><td>{{ s.depth }} {{ unit }}</td></tr>{%- endif -%}
       {%- if s.height != blank -%}<tr><th>{{ 'Height' }}</th><td>{{ s.height }} {{ unit }}</td></tr>{%- endif -%}
@@ -51,8 +61,8 @@
     {%- if s.origin != blank -%}<tr><th>{{ 'Made in' }}</th><td>{{ s.origin }}</td></tr>{%- endif -%}
     {%- if s.lead_time != blank -%}<tr><th>{{ 'Lead time' }}</th><td>{{ s.lead_time }}</td></tr>{%- endif -%}
     {%- if s.assembly != blank -%}<tr><th>{{ 'Assembly' }}</th><td>{{ s.assembly }}</td></tr>{%- endif -%}
-    {%- comment -%} Fallback: if no metafields configured yet, derive from variant weight {%- endcomment -%}
-    {%- unless has_dims or s.materials != blank -%}
+    {%- comment -%} Fallback: if nothing configured yet, derive from variant weight {%- endcomment -%}
+    {%- unless dims != blank or has_dims or s.materials != blank -%}
       {%- if product.selected_or_first_available_variant.weight > 0 -%}
         <tr><th>{{ 'Shipping weight' }}</th><td>{{ product.selected_or_first_available_variant.weight | weight_with_unit }}</td></tr>
       {%- endif -%}

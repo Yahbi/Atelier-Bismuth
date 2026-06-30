@@ -35,9 +35,7 @@
   {
     "name": "Typography",
     "settings": [
-      { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "assistant_n4" },
-      { "type": "font_picker", "id": "body_font", "label": "Body font", "default": "assistant_n4" },
-      { "type": "paragraph", "content": "The theme ships with Cormorant Garamond (display) + Jost (body) loaded via Google Fonts. Choosing fonts here overrides those with the Shopify font library." }
+      { "type": "paragraph", "content": "The brand typeface — Cormorant Garamond (display) + Jost (body) — is loaded via Google Fonts and locked in the theme stylesheet to keep the Atelier Bismuth identity consistent. No font picker is exposed by design." }
     ]
   },
   {
