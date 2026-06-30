@@ -167,3 +167,36 @@ Flagged for David (NOT auto-changed):
 - **Travertine Pedestal Block – Bookend** ($330 live vs $599 Etsy "Sculpture Stand" listing): likely a different/smaller size class than the matched Etsy listing — low title confidence (0.80). Needs human confirmation.
 - **Charcoal Pedestal heights 16–20"**: not present in Etsy data (Etsy starts at 22"); extrapolated prices are non-monotonic (e.g. 18" < 16"). Decide whether these sizes should exist / be re-priced.
 - **225 extrapolated size combos** across large floating-shelf/pedestal grids: no Etsy ground truth; current values are model-extrapolated.
+
+---
+
+## Comprehensive store audit + fixes (2026-06-29)
+
+Ran a 7-dimension multi-agent audit (pricing, theme, design, content, collections, config,
+SEO/a11y), each high/critical finding adversarially re-verified. 59 confirmed findings
+(2 critical, 14 high, 18 medium, 16 low). Full report: `docs/AUDIT-2026-06-29.md`.
+
+**Verified-correct:** pricing (live variants match Etsy, zero $0.00), no Liquid errors, homepage
+matches `/docs`, collections/taxonomy clean, SEO/a11y fundamentals strong.
+
+**Fixed (code, committed):**
+- `snippets/dimensions.liquid` — render real `specs.dimensions` string (was reading nonexistent
+  width/depth/height keys → PDP accordion + cards showed no measurements). Critical.
+- `config/settings_schema.json` — removed font_picker settings defaulting to `assistant_n4` that
+  overrode the brand fonts; `base.css` + Google Fonts now govern Cormorant Garamond / Jost.
+
+**Staged (deterministic, ready to apply when Shopify Admin API is reachable):**
+- D1: Width-48 dips on 3 chiseled shelves → W46↔W50 midpoints (9 variants).
+- M1: Charcoal 18″/20″ × 6×6 extrapolation artifacts ($280/$290) → monotonic (~$478). Surgical rule:
+  only fix cells that are BOTH extrapolated (not in Etsy) AND a strict local minimum. Etsy-sourced
+  dips left untouched (`tools/staged/etsy_sourced_dips_for_david.txt`).
+- 12 title light-cleanups (strip trailing "- GIFT"; handles unchanged) — `tools/staged/titles_before_after.txt`.
+
+**Pending (need Admin API / live text):** alt text (~70 products), description cleanup + polish,
+`themeFilesUpsert` deploy of the two theme fixes to the unpublished theme.
+
+**Owner/admin handoff:** `LAUNCH-CHECKLIST.md` (rename store, policies, footer menus, UNLISTED
+products, publish theme as final step, etc.).
+
+Tooling added: `tools/verify-prices.py`, `verify-detail.py`, `verify-prices2.py`, `stage-fixes.py`,
+`classify-inversions.py`, `surgical-monotonic.py`.
