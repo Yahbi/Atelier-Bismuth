@@ -7,35 +7,32 @@
 -%}
 <header class="site-header{% if transparent %} is-transparent{% endif %}" data-header>
   <div class="page-width header-inner">
-    <div class="header-top">
-      <button class="nav-toggle icon-btn" data-drawer-open aria-label="{{ 'accessibility.menu' | t }}">{% render 'icon', name: 'menu' %}</button>
+    <button class="nav-toggle icon-btn" data-drawer-open aria-label="{{ 'accessibility.menu' | t }}">{% render 'icon', name: 'menu' %}</button>
 
-      <a href="{{ routes.root_url }}" class="brand-wordmark" aria-label="{{ shop.name }}">
-        {%- if settings.logo != blank -%}
-          <img src="{{ settings.logo | image_url: width: 360 }}" alt="{{ shop.name | escape }}" width="180" style="max-height:42px;width:auto;">
-        {%- else -%}
-          {{ settings.wordmark | default: shop.name }}
-          {%- if settings.wordmark_tagline != blank -%}<small>{{ settings.wordmark_tagline }}</small>{%- endif -%}
-        {%- endif -%}
-      </a>
-
-      <div class="header-icons">
-        <a href="{{ routes.search_url }}" class="icon-btn" aria-label="{{ 'general.search.submit' | t }}">{% render 'icon', name: 'search' %}</a>
-        {%- if shop.customer_accounts_enabled -%}
-          <a href="{{ routes.account_url }}" class="icon-btn" aria-label="{{ 'accessibility.cart' | t }}">{% render 'icon', name: 'account' %}</a>
-        {%- endif -%}
-        <button class="icon-btn" data-open-cart aria-label="{{ 'accessibility.cart' | t }}">
-          {% render 'icon', name: 'cart' %}
-          <span class="cart-count" data-cart-count {% if cart.item_count == 0 %}style="display:none;"{% endif %}>{{ cart.item_count }}</span>
-        </button>
-      </div>
-    </div>
+    <a href="{{ routes.root_url }}" class="brand-wordmark" aria-label="{{ shop.name }}">
+      {%- if settings.logo != blank -%}
+        <img src="{{ settings.logo | image_url: width: 360 }}" alt="{{ shop.name | escape }}" width="180" style="max-height:42px;width:auto;">
+      {%- else -%}
+        {{ settings.wordmark | default: shop.name }}
+      {%- endif -%}
+    </a>
 
     <nav class="header-nav header-nav--center" aria-label="Primary">
       {%- for link in menu.links -%}
         <a href="{{ link.url }}" class="nav-link">{{ link.title }}</a>
       {%- endfor -%}
     </nav>
+
+    <div class="header-icons">
+      <a href="{{ routes.search_url }}" class="icon-btn" aria-label="{{ 'general.search.submit' | t }}">{% render 'icon', name: 'search' %}</a>
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{{ routes.account_url }}" class="icon-btn" aria-label="{{ 'accessibility.cart' | t }}">{% render 'icon', name: 'account' %}</a>
+      {%- endif -%}
+      <button class="icon-btn" data-open-cart aria-label="{{ 'accessibility.cart' | t }}">
+        {% render 'icon', name: 'cart' %}
+        <span class="cart-count" data-cart-count {% if cart.item_count == 0 %}style="display:none;"{% endif %}>{{ cart.item_count }}</span>
+      </button>
+    </div>
   </div>
 </header>
 

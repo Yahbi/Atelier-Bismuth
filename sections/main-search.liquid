@@ -14,7 +14,7 @@
     {%- if search.performed -%}
       {%- if search.results_count > 0 -%}
         <p class="eyebrow center" style="margin-bottom:2rem;">{{ search.results_count }} results for “{{ search.terms }}”</p>
-        <div class="grid cols-4">
+        <div class="grid cols-3">
           {%- for item in search.results -%}
             {%- if item.object_type == 'product' -%}
               {%- render 'product-card', product: item, reveal_delay: forloop.index | modulo: 4 -%}

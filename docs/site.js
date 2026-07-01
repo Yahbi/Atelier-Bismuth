@@ -22,7 +22,7 @@ function pdp(){
   '<div class="pdp__info">'+
     '<div class="flex items-center gap-2 wrap" style="margin-bottom:.6rem"><span class="eyebrow">Atelier Bismuth</span><span class="product-card__badge" style="position:static;background:var(--color-ink);color:var(--color-bg)">'+p.badge+'</span></div>'+
     '<h1 class="h2">'+p.title.split(' - ')[0]+'</h1>'+
-    '<div class="flex items-baseline gap-2 mt-2"><span class="pdp__price">'+p.price+'</span>'+(p.compare?'<span class="price--was">'+p.compare+'</span>':'')+'</div>'+
+    '<div class="flex items-baseline gap-2 mt-2"><span class="pdp__price">'+p.price+'</span></div>'+
     (p.dims?'<span class="product-card__dims">'+p.dims+'</span>':'')+
     '<hr class="hairline mt-3">'+
     (sizes?'<div class="mt-3"><span class="eyebrow eyebrow--ink" style="display:block;margin-bottom:.6rem">'+sizes.type+' (in)</span><div class="size-grid">'+sizes.values.map(function(v,i){return '<button class="size-opt'+(i===0?' is-active':'')+'" data-size>'+v+'</button>'}).join('')+'</div></div>':'')+
@@ -37,8 +37,8 @@ function pdp(){
       '<details class="accordion__item"><summary class="accordion__trigger">Shipping &amp; delivery<span class="accordion__icon"></span></summary><div class="accordion__panel">Made to order in 3–6 weeks, crated and insured, delivered white-glove to your room of choice.</div></details>'+
     '</div>'+
   '</div></div>'+
-  '<section class="section" style="padding-bottom:0"><div class="center" style="margin-bottom:2rem"><span class="eyebrow">More from '+p.category+'</span><h2 class="h3 mt-2">You may also like</h2></div><div class="grid cols-4">'+
-    rel.map(function(x){return '<article class="product-card"><a href="product.html?h='+x.handle+'" class="product-card__media media media-zoom"><img src="'+(x.images[0]||'')+'" loading="lazy" alt="'+x.title.replace(/"/g,'&quot;')+'"></a><div class="product-card__body"><a href="product.html?h='+x.handle+'"><h3 class="product-card__title">'+x.title.split(' - ')[0]+'</h3></a><div class="product-card__meta"><span class="product-card__type">'+x.subtype+'</span><span class="product-card__price">'+(x.compare?'<span class="price--was">'+x.compare+'</span>':'')+x.price+'</span></div></div></article>'}).join('')+
+  '<section class="section" style="padding-bottom:0"><div class="center" style="margin-bottom:2rem"><span class="eyebrow">More from '+p.category+'</span><h2 class="h3 mt-2">You may also like</h2></div><div class="grid cols-3">'+
+    rel.map(function(x){return '<article class="product-card"><a href="product.html?h='+x.handle+'" class="product-card__media media media-zoom"><img src="'+(x.images[0]||'')+'" loading="lazy" alt="'+x.title.replace(/"/g,'&quot;')+'"></a><div class="product-card__body"><a href="product.html?h='+x.handle+'"><h3 class="product-card__title">'+x.title.split(' - ')[0]+'</h3></a><div class="product-card__meta"><span class="product-card__type">'+x.subtype+'</span><span class="product-card__price">'+x.price+'</span></div></div></article>'}).join('')+
   '</div></section>';
   document.title=p.title.split(' - ')[0]+' — Atelier Bismuth';
   // gallery thumbs

@@ -4,16 +4,16 @@
       <span class="eyebrow">{{ section.settings.eyebrow }}</span>
       <h2 class="h3 mt-2">{{ section.settings.heading }}</h2>
     </div>
-    <div class="grid cols-4">
+    <div class="grid cols-3">
       {%- assign shown = 0 -%}
       {%- if recommendations.performed and recommendations.products_count > 0 -%}
-        {%- for product in recommendations.products limit: 4 -%}
+        {%- for product in recommendations.products limit: 3 -%}
           {%- render 'product-card', product: product, reveal_delay: forloop.index -%}
         {%- endfor -%}
       {%- else -%}
         {%- assign coll = product.collections.first -%}
-        {%- for p in coll.products limit: 5 -%}
-          {%- if p.id != product.id and shown < 4 -%}
+        {%- for p in coll.products limit: 4 -%}
+          {%- if p.id != product.id and shown < 3 -%}
             {%- render 'product-card', product: p, reveal_delay: forloop.index -%}
             {%- assign shown = shown | plus: 1 -%}
           {%- endif -%}

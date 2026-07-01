@@ -1,6 +1,7 @@
 {%- liquid
   assign coll = collections[section.settings.collection]
-  assign limit = section.settings.limit | default: 4
+  assign limit = section.settings.limit | default: 6
+  assign cols = section.settings.columns | default: 3
 -%}
 <section class="section {{ section.settings.bg }}">
   <div class="page-width">
@@ -14,14 +15,14 @@
       {%- endif -%}
     </div>
 
-    <div class="grid cols-4">
+    <div class="grid cols-{{ cols }}">
       {%- if coll.products.size > 0 -%}
         {%- for product in coll.products limit: limit -%}
           {%- render 'product-card', product: product, reveal_delay: forloop.index -%}
         {%- endfor -%}
       {%- else -%}
         {%- comment -%} Onboarding placeholders when no collection is connected yet {%- endcomment -%}
-        {%- for i in (1..4) -%}
+        {%- for i in (1..cols) -%}
           <article class="product-card" data-reveal data-reveal-delay="{{ i }}">
             <div class="product-card__media media"><div class="placeholder-iri" style="position:absolute;inset:0;"></div></div>
             <h3 class="product-card__title">Edition No. {{ i }}</h3>
@@ -42,7 +43,8 @@
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "New & Notable" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Recent editions" },
     { "type": "text", "id": "cta", "label": "Link text", "default": "View all" },
-    { "type": "range", "id": "limit", "min": 2, "max": 8, "step": 1, "label": "Products", "default": 4 },
+    { "type": "range", "id": "limit", "min": 2, "max": 8, "step": 1, "label": "Products", "default": 6 },
+    { "type": "range", "id": "columns", "min": 2, "max": 4, "step": 1, "label": "Columns", "default": 3 },
     { "type": "select", "id": "bg", "label": "Background", "options": [ {"value":"","label":"Bone"}, {"value":"bg-surface","label":"White"}, {"value":"bg-alt","label":"Oat"} ], "default": "bg-surface" }
   ],
   "presets": [{ "name": "Featured collection" }]

@@ -1,18 +1,11 @@
 {%- comment -%}
-  Price display. Params: product (or variant), show_from (bool)
+  Price display. Params: product (or variant), show_from (bool).
+  One confident price. No compare-at / strikethrough — sale grammar is
+  intentionally absent (design-direction-v2, P0.1).
 {%- endcomment -%}
-{%- liquid
-  assign target = product
-  assign on_sale = false
-  if target.compare_at_price > target.price
-    assign on_sale = true
-  endif
--%}
-<span class="price{% if on_sale %} price--has-sale{% endif %}">
-  {%- if on_sale -%}
-    <span class="price--was">{{ target.compare_at_price | money }}</span>
-    <span class="price--sale">{{ target.price | money }}</span>
-  {%- else -%}
+{%- assign target = product -%}
+<span class="price">
+  {%- if target.price != blank -%}
     {%- if show_from and target.price_varies -%}
       {%- assign price_from = target.price | money -%}
       {{ 'products.product.from_price' | t: price: price_from }}

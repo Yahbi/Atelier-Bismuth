@@ -36,15 +36,13 @@
       <div class="pdp__info">
         <div class="flex items-center gap-2 wrap" style="margin-bottom:0.6rem;">
           {%- if product.vendor != blank -%}<span class="eyebrow">{{ product.vendor }}</span>{%- endif -%}
-          {%- if product.metafields.specs.edition.value contains 'one' -%}<span class="product-card__badge" style="position:static;background:var(--color-ink);color:var(--color-bg);">One of one</span>
-          {%- elsif product.tags contains 'made-to-order' -%}<span class="product-card__badge" style="position:static;">Made to order</span>{%- endif -%}
+          {%- if product.metafields.specs.edition.value contains 'one' -%}<span class="product-card__badge" style="position:static;background:var(--color-ink);color:var(--color-bg);">One of one</span>{%- endif -%}
         </div>
 
         <h1 class="h2">{{ product.title }}</h1>
 
         <div class="flex items-baseline gap-2 mt-2">
           <span class="pdp__price" data-product-price>{{ current.price | money }}</span>
-          <span class="price--was" data-product-compare {% unless current.compare_at_price > current.price %}style="display:none;"{% endunless %}>{{ current.compare_at_price | money }}</span>
         </div>
 
         {%- render 'dimensions', product: product, mode: 'inline' -%}
@@ -94,11 +92,11 @@
           <div class="pdp__desc lead mt-4">{{ product.description }}</div>
         {%- endif -%}
 
-        {%- comment -%} Trust row {%- endcomment -%}
+        {%- comment -%} Trust row — words, no accent icons {%- endcomment -%}
         <ul class="trust-row mt-4">
-          <li>{% render 'icon', name: 'truck', size: 18 %} White-glove delivery</li>
-          <li>{% render 'icon', name: 'hand', size: 18 %} Hand finished</li>
-          <li>{% render 'icon', name: 'ruler', size: 18 %} True-to-spec dimensions</li>
+          <li>White-glove delivery</li>
+          <li>Hand finished</li>
+          <li>True-to-spec dimensions</li>
         </ul>
 
         {%- comment -%} Accordions: specs / materials / care / shipping {%- endcomment -%}

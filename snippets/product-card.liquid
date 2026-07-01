@@ -13,10 +13,6 @@
   <a href="{{ product.url }}" class="product-card__media media media-zoom" aria-label="{{ product.title | escape }}">
     {%- if product.metafields.specs.edition.value contains 'one' or product.tags contains 'one-of-one' -%}
       <span class="product-card__badge">One of one</span>
-    {%- elsif product.compare_at_price > product.price -%}
-      <span class="product-card__badge">Sale</span>
-    {%- elsif product.tags contains 'made-to-order' -%}
-      <span class="product-card__badge">Made to order</span>
     {%- endif -%}
     {%- if sold -%}<span class="product-card__badge product-card__badge--sold" style="left:auto;right:1rem;">Sold</span>{%- endif -%}
 

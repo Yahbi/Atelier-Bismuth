@@ -188,7 +188,6 @@
       if (!data) return;
       const idInput = form.querySelector('[name="id"]');
       const priceEl = document.querySelector("[data-product-price]");
-      const compareEl = document.querySelector("[data-product-compare]");
       const submit = form.querySelector('[type="submit"] [data-btn-label]');
       const selects = form.querySelectorAll("[data-option-index]");
 
@@ -201,12 +200,6 @@
         if (!v) { if (submit) submit.textContent = "Unavailable"; return; }
         idInput.value = v.id;
         if (priceEl) priceEl.textContent = formatMoney(v.price);
-        if (compareEl) {
-          if (v.compare_at_price && v.compare_at_price > v.price) {
-            compareEl.textContent = formatMoney(v.compare_at_price);
-            compareEl.style.display = "";
-          } else { compareEl.style.display = "none"; }
-        }
         if (submit) submit.textContent = v.available ? "Add to cart" : "Sold out";
       }
       selects.forEach((s) => s.addEventListener("change", update));

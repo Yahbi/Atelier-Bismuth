@@ -15,11 +15,10 @@
               {%- else -%}
                 <div class="placeholder-iri" style="position:absolute;inset:0;"></div>
               {%- endif -%}
-              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(15,13,11,0.5),transparent 55%);"></div>
-              <div style="position:absolute;left:1.6rem;bottom:1.5rem;color:#f4f1ea;">
-                <h2 class="h3">{{ coll.title }}</h2>
-                <span class="product-card__dims" style="color:rgba(244,241,234,0.85);">{{ coll.products_count }} pieces</span>
-              </div>
+            </div>
+            <div class="collection-tile__caption">
+              <h2 class="h3">{{ coll.title }}</h2>
+              <span class="product-card__dims">{{ coll.products_count }} pieces</span>
             </div>
           </a>
         {%- endunless -%}
