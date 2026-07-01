@@ -41,6 +41,31 @@
     els.forEach((el) => io.observe(el));
   }
 
+  /* --- Flagship editorial reveal (.flag-reveal → .in) --------------------
+     Powers the monumental homepage sections (hero, editorial-chapter,
+     dark-feature, manifesto, closing). Gated on prefers-reduced-motion. */
+  function initFlagReveal() {
+    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const els = document.querySelectorAll(".flag-reveal");
+    if (!els.length) return;
+    if (reduce || !("IntersectionObserver" in window)) {
+      els.forEach((el) => el.classList.add("in"));
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.16 }
+    );
+    els.forEach((el) => { if (!el.classList.contains("in")) io.observe(el); });
+  }
+
   /* --- Header scroll state ---------------------------------------------- */
   function initHeader() {
     const header = document.querySelector(".site-header");
@@ -220,6 +245,7 @@
   /* --- Init -------------------------------------------------------------- */
   document.addEventListener("DOMContentLoaded", function () {
     initReveal();
+    initFlagReveal();
     initHeader();
     initDrawer();
     initQty();

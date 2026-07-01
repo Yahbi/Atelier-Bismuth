@@ -12,179 +12,98 @@
     "hero": {
       "type": "hero",
       "settings": {
-        "image": "shopify://shop_images/il_fullxfull.8140949678_akm6.jpg",
-        "image_mobile": "shopify://shop_images/il_fullxfull.8140949678_akm6.jpg",
-        "video": "",
-        "eyebrow": "",
-        "heading": "Carved from a single stone",
-        "subheading": "Sculptural travertine furniture and objects — consoles, pedestals, basins and hearths, shaped by hand for the considered home.",
-        "cta_text": "Shop the collection",
-        "cta_link": "shopify://collections/all",
-        "cta2_text": "Our story",
-        "cta2_link": "shopify://pages/about",
-        "layout": "left",
+        "image": "",
+        "image_fallback_url": "https://i.etsystatic.com/8535050/r/il/14fc6a/8160767980/il_fullxfull.8160767980_43hy.jpg",
+        "eyebrow": "Atelier Bismuth — Los Angeles",
+        "heading_line_1": "Carved from",
+        "heading_line_2": "a single stone",
+        "subheading": "Furniture and objects cut from solid stone, finished by hand.",
         "show_scroll_cue": true
       }
     },
-    "collections": {
-      "type": "collection-list",
-      "blocks": {
-        "furniture": {
-          "type": "tile",
-          "settings": {
-            "collection": "furniture",
-            "title": "Furniture",
-            "count_label": "Consoles · Desks · Benches",
-            "cta": "Explore furniture",
-            "link": ""
-          }
-        },
-        "pedestals": {
-          "type": "tile",
-          "settings": {
-            "collection": "pedestals",
-            "title": "Pedestals & Columns",
-            "count_label": "Sculptural plinths",
-            "cta": "Explore pedestals",
-            "link": ""
-          }
-        },
-        "decor": {
-          "type": "tile",
-          "settings": {
-            "collection": "objects-decor",
-            "title": "Home Decor",
-            "count_label": "Mirrors · Plates · Objects",
-            "cta": "Explore décor",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "furniture",
-        "pedestals",
-        "decor"
-      ],
+    "chapter_furniture": {
+      "type": "editorial-chapter",
       "settings": {
-        "eyebrow": "The Collections",
-        "heading": "Furniture & objects in stone",
-        "bg": ""
+        "image": "",
+        "image_fallback_url": "https://i.etsystatic.com/8535050/r/il/11e44e/8140952048/il_fullxfull.8140952048_isll.jpg",
+        "eyebrow": "The furniture",
+        "heading": "A table with\nthe weight\nof the earth",
+        "body": "Consoles, tables and benches cut from solid travertine — each edge left chiselled, each face a record of the quarry it came from.",
+        "cta_label": "View furniture",
+        "cta_link": "shopify://collections/furniture",
+        "media_side": "left",
+        "bg_variant": "bone"
+      }
+    },
+    "chapter_pedestals": {
+      "type": "editorial-chapter",
+      "settings": {
+        "image": "",
+        "image_fallback_url": "https://i.etsystatic.com/8535050/r/il/34f8f6/8231024393/il_fullxfull.8231024393_g1g0.jpg",
+        "eyebrow": "The pedestals",
+        "heading": "Made to hold\nwhat matters",
+        "body": "Monoliths and plinths that stand still in a room and let a single object become the whole of it.",
+        "cta_label": "View pedestals",
+        "cta_link": "shopify://collections/pedestals",
+        "media_side": "right",
+        "bg_variant": "paper"
+      }
+    },
+    "dark_band": {
+      "type": "dark-feature",
+      "settings": {
+        "image": "",
+        "image_fallback_url": "https://i.etsystatic.com/8535050/r/il/3b7f1e/6748838439/il_fullxfull.6748838439_lgia.jpg",
+        "eyebrow": "Shou sugi ban",
+        "heading": "Wood, charred\nby hand until\nit turns to shadow",
+        "body": "The old Japanese craft of burning cedar — the grain preserved, the surface made permanent. A darkness that holds the light.",
+        "cta_label": "See the charred pieces",
+        "cta_link": "shopify://collections/all"
+      }
+    },
+    "chapter_objects": {
+      "type": "editorial-chapter",
+      "settings": {
+        "image": "",
+        "image_fallback_url": "https://i.etsystatic.com/8535050/r/il/6d5400/8137455616/il_fullxfull.8137455616_22hw.jpg",
+        "eyebrow": "Objects",
+        "heading": "The small\nweight of stone\nin the hand",
+        "body": "Trays, bowls, bookends and mirrors — the daily objects, given the gravity of the pieces they sit beside.",
+        "cta_label": "View objects",
+        "cta_link": "shopify://collections/objects-decor",
+        "media_side": "left",
+        "bg_variant": "bone"
+      }
+    },
+    "manifesto": {
+      "type": "manifesto",
+      "settings": {
+        "eyebrow": "One material, worked by hand",
+        "body": "<p>Every piece begins as a block pulled from the earth and ends in a quiet room. Nothing is cast, nothing is veneered — only <em>stone, chiselled, honed, and left</em> with the marks of the making.</p>"
       }
     },
     "featured": {
       "type": "featured-collection",
       "settings": {
         "collection": "new-arrivals",
-        "eyebrow": "New & Notable",
-        "heading": "Recent pieces",
-        "cta": "View all new arrivals",
-        "limit": 4,
-        "bg": "bg-surface"
-      }
-    },
-    "story": {
-      "type": "image-with-text",
-      "settings": {
-        "image": "shopify://shop_images/il_1000x794.7049185714_2pgs.jpg",
-        "ratio": "media--portrait",
-        "layout": "normal",
-        "eyebrow": "The Atelier",
-        "heading": "One material, worked by hand",
-        "text": "<p>Atelier Bismuth began on Etsy with a devotion to a single, ancient material: travertine. Each piece is cut from solid stone and finished by hand — chiselled, honed, or left raw — so the grain of the earth stays visible in your home.</p><p>Every measurement is published, so the piece you imagine is the piece that arrives.</p>",
-        "cta_text": "Read our story",
-        "cta_link": "shopify://pages/about",
+        "eyebrow": "The pieces",
+        "heading": "In the atelier now",
+        "cta": "View all pieces",
+        "limit": 3,
+        "columns": 3,
         "bg": ""
       }
     },
-    "values": {
-      "type": "values",
-      "blocks": {
-        "v1": {
-          "type": "value",
-          "settings": {
-            "icon": "hand",
-            "title": "Solid, not veneer",
-            "text": "Cut from solid travertine and finished by hand — no two stones are alike."
-          }
-        },
-        "v2": {
-          "type": "value",
-          "settings": {
-            "icon": "ruler",
-            "title": "Every dimension, exposed",
-            "text": "Full measurements and weights published on every piece, so it fits your space precisely."
-          }
-        },
-        "v3": {
-          "type": "value",
-          "settings": {
-            "icon": "leaf",
-            "title": "A natural material",
-            "text": "Travertine is quarried stone that patinas beautifully and lasts for generations."
-          }
-        },
-        "v4": {
-          "type": "value",
-          "settings": {
-            "icon": "truck",
-            "title": "White-glove delivery",
-            "text": "Insured, crated, room-of-choice delivery for heavy stone pieces."
-          }
-        }
-      },
-      "block_order": [
-        "v1",
-        "v2",
-        "v3",
-        "v4"
-      ],
+    "closing": {
+      "type": "closing",
       "settings": {
-        "eyebrow": "Why Atelier Bismuth",
-        "heading": "Heirlooms in stone",
-        "bg": "bg-alt"
-      }
-    },
-    "lookbook": {
-      "type": "lookbook",
-      "settings": {
-        "image": "shopify://shop_images/lookbook-interior.webp",
-        "height": 80,
-        "align": "left",
-        "eyebrow": "Lookbook · 2026",
-        "heading": "Stone, light, and quiet rooms",
-        "text": "A study in mass and warmth — our travertine pieces photographed in lived-in interiors.",
-        "cta_text": "Explore the collection",
+        "image": "",
+        "image_fallback_url": "https://i.etsystatic.com/8535050/r/il/c7f630/7123890373/il_fullxfull.7123890373_auor.jpg",
+        "eyebrow": "Made in Los Angeles",
+        "heading": "Built to\noutlast us",
+        "cta_label": "Enter the collection",
         "cta_link": "shopify://collections/all"
       }
-    },
-    "featured_decor": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "objects-decor",
-        "eyebrow": "Home Decor",
-        "heading": "Objects for the table & shelf",
-        "cta": "View all décor",
-        "limit": 4,
-        "bg": ""
-      }
-    },
-    "reviews": {
-      "type": "reviews",
-      "settings": {
-        "eyebrow": "Guest satisfaction",
-        "heading": "5.0 ★ from 64 reviews",
-        "subtext": "445 sales · 11 years on Etsy · 100% five-star",
-        "bg": "bg-surface"
-      },
-      "blocks": {
-        "r1": { "type": "review", "settings": { "stars": 5, "quote": "Exactly as described, down to the last centimetre — and far more beautiful in stone than on screen. It anchors the whole room.", "author": "Verified Etsy buyer", "item": "Travertine Console Table" } },
-        "r2": { "type": "review", "settings": { "stars": 5, "quote": "The craftsmanship is exceptional. You can feel that it was finished by hand. Packed and delivered with real care.", "author": "Verified Etsy buyer", "item": "Travertine Pedestal Column" } },
-        "r3": { "type": "review", "settings": { "stars": 5, "quote": "Communication was wonderful throughout, and the piece arrived ahead of schedule. A true heirloom.", "author": "Verified Etsy buyer", "item": "Asymmetrical Pebble Mirror" } },
-        "r4": { "type": "review", "settings": { "stars": 5, "quote": "Stunning. The travertine has the most beautiful natural veining — no two pieces alike, exactly as promised.", "author": "Verified Etsy buyer", "item": "Travertine Coffee Table" } },
-        "r5": { "type": "review", "settings": { "stars": 5, "quote": "Worth every penny. The weight and presence of solid stone is something photos can't capture. Obsessed.", "author": "Verified Etsy buyer", "item": "Travertine Floating Shelf" } },
-        "r6": { "type": "review", "settings": { "stars": 5, "quote": "We built our living room around it. Five years from now this will still look perfect. Thank you for the artistry.", "author": "Verified Etsy buyer", "item": "Travertine Fountain Column" } }
-      },
-      "block_order": ["r1", "r2", "r3", "r4", "r5", "r6"]
     },
     "newsletter": {
       "type": "newsletter",
@@ -198,13 +117,13 @@
   },
   "order": [
     "hero",
-    "collections",
+    "chapter_furniture",
+    "chapter_pedestals",
+    "dark_band",
+    "chapter_objects",
+    "manifesto",
     "featured",
-    "story",
-    "values",
-    "lookbook",
-    "featured_decor",
-    "reviews",
+    "closing",
     "newsletter"
   ]
 }

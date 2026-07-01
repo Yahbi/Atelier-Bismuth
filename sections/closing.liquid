@@ -1,0 +1,45 @@
+{%- liquid
+  assign img = section.settings.image
+  assign fallback = section.settings.image_fallback_url
+  assign heading_html = section.settings.heading | newline_to_br
+-%}
+<section class="flag-closing" data-section-id="{{ section.id }}">
+  <div class="flag-closing__bg" aria-hidden="true">
+    {%- if img != blank -%}
+      <img src="{{ img | image_url: width: 2400 }}"
+           srcset="{{ img | image_url: width: 1200 }} 1200w, {{ img | image_url: width: 2000 }} 2000w, {{ img | image_url: width: 2800 }} 2800w"
+           sizes="100vw"
+           width="2400" height="1500"
+           loading="lazy"
+           alt="">
+    {%- elsif fallback != blank -%}
+      <img src="{{ fallback }}" width="2400" height="1500" loading="lazy" alt="">
+    {%- endif -%}
+  </div>
+  <div class="flag-closing__inner">
+    {%- if section.settings.eyebrow != blank -%}
+      <div class="flag-eyebrow flag-eyebrow--light flag-reveal">{{ section.settings.eyebrow }}</div>
+    {%- endif -%}
+    {%- if section.settings.heading != blank -%}
+      <h2 class="flag-closing__heading flag-reveal">{{ heading_html }}</h2>
+    {%- endif -%}
+    {%- if section.settings.cta_label != blank -%}
+      <a class="flag-cta flag-cta--light flag-reveal" href="{{ section.settings.cta_link | default: '#' }}">{{ section.settings.cta_label }}</a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Closing band",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Background image" },
+    { "type": "url", "id": "image_fallback_url", "label": "Fallback image URL", "info": "Used when no image is picked." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Made in Los Angeles" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "info": "Line breaks become <br>.", "default": "Built to\noutlast us" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Enter the collection" },
+    { "type": "url", "id": "cta_link", "label": "CTA link" }
+  ],
+  "presets": [{ "name": "Closing band" }]
+}
+{% endschema %}
