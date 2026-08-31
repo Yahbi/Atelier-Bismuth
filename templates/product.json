@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "main": { "type": "main-product" },
+    "related": {
+      "type": "related-products",
+      "settings": { "eyebrow": "Continue browsing", "heading": "You may also like", "bg": "bg-alt" }
+    }
+  },
+  "order": ["main", "related"]
+}

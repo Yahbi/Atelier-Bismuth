@@ -1,0 +1,14 @@
+These inversions come ENTIRELY from David's own Etsy prices (every size is Etsy-sourced).
+Left UNCHANGED to stay faithful to Etsy. David may want to review on Etsy:
+
+[Carved Pedestal Column - Shou sugi ban Wood Plinth - Monolith - Sculpture Stand - Gift]  Sizing inches fixed=('Clear wood',)
+  6x6x20=$549, 6x6x24=$599, 6x6x28=$649, 6x6x30=$699, 6x6x36=$749, 8x8x20=$749, 8x8x24=$849, 8x8x28=$779, 8x8x30=$799, 8x8x32=$849, 8x8x36=$899, 8x8x40=$999, 10x10x20=$799, 10x10x24=$849, 10x10x28=$899, 10x10x30=$999, 10x10x32=$1049, 10x10x36=$1099, 10x10x40=$1149, 10x10x42=$1199, 12x12x24=$999, 12x12x26=$949, 12x12x28=$1049, 12x12x30=$1099, 12x12x32=$1149, 12x12x34=$1099, 12x12x36=$1149, 12x12x38=$1199, 12x12x40=$1299, 12x12x42=$1399
+
+[Carved Pedestal Column - Shou sugi ban Wood Plinth - Monolith - Sculpture Stand - Gift]  Sizing inches fixed=('Charred wood',)
+  6x6x20=$549, 6x6x24=$599, 6x6x28=$649, 6x6x30=$699, 6x6x36=$749, 8x8x20=$749, 8x8x24=$849, 8x8x28=$779, 8x8x30=$799, 8x8x32=$849, 8x8x36=$899, 8x8x40=$999, 10x10x20=$799, 10x10x24=$849, 10x10x28=$899, 10x10x30=$999, 10x10x32=$1049, 10x10x36=$1099, 10x10x40=$1149, 10x10x42=$1199, 12x12x24=$999, 12x12x26=$949, 12x12x28=$1049, 12x12x30=$1099, 12x12x32=$1149, 12x12x34=$1099, 12x12x36=$1149, 12x12x38=$1199, 12x12x40=$1299, 12x12x42=$1399
+
+[White Marble pedestal column - plinth - monolith]  Height fixed=()
+  16=$499, 18=$599, 20=$410, 22=$650, 24=$699, 26=$750, 27=$775, 28=$799, 30=$850, 32=$899, 34=$950, 36=$999, 38=$1099
+
+[Black and white Marble pedestal column - Plinth - Solid Stone Block]  Height fixed=()
+  16=$450, 18=$475, 20=$410, 22=$499, 24=$550, 26=$599, 27=$640, 28=$650, 30=$699, 32=$750, 34=$799, 36=$850, 38=$950

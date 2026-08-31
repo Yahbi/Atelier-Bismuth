@@ -1,0 +1,46 @@
+<section class="section bg-surface">
+  <div class="page-width">
+    <div class="center" style="margin-bottom:2.5rem;">
+      <span class="eyebrow">{{ shop.name }}</span>
+      <h1 class="h1 mt-2">Search</h1>
+      <form action="{{ routes.search_url }}" method="get" role="search" style="max-width:520px;margin:1.6rem auto 0;">
+        <div class="newsletter-form" style="border-color:var(--color-line);">
+          <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" style="color:var(--color-ink);">
+          <button type="submit" style="color:var(--color-ink);">{% render 'icon', name: 'search' %}</button>
+        </div>
+      </form>
+    </div>
+
+    {%- if search.performed -%}
+      {%- if search.results_count > 0 -%}
+        <p class="eyebrow center" style="margin-bottom:2rem;">{{ search.results_count }} results for “{{ search.terms }}”</p>
+        <div class="grid cols-3">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' -%}
+              {%- render 'product-card', product: item, reveal_delay: forloop.index, modulo: 4 -%}
+            {%- else -%}
+              <a href="{{ item.url }}" class="stack" data-reveal><h3 class="h4">{{ item.title }}</h3><p style="font-size:0.9rem;color:var(--color-ink-soft);">{{ item.content | strip_html | truncate: 120 }}</p></a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <p class="lead center">{{ 'general.search.no_results' | t: terms: search.terms }}</p>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{ "name": "Search" }
+{% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- render 'product-card', product: item, reveal_delay: forloop.index | modulo:
+    4 -%}"
+  to: "{%- render 'product-card', product: item, reveal_delay: forloop.index, modulo:
+    4 -%}"
+  position: 1063..1147
+{% endcomment %}

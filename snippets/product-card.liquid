@@ -1,0 +1,48 @@
+{%- comment -%}
+  Product card. Params: product, reveal_delay (optional)
+{%- endcomment -%}
+{%- liquid
+  assign img = product.featured_media
+  assign alt_img = product.media[1]
+  assign sold = false
+  unless product.available
+    assign sold = true
+  endunless
+-%}
+<article class="product-card" data-reveal {% if reveal_delay %}data-reveal-delay="{{ reveal_delay }}"{% endif %}>
+  <a href="{{ product.url }}" class="product-card__media media media-zoom" aria-label="{{ product.title | escape }}">
+    {%- if product.metafields.specs.edition.value contains 'one' or product.tags contains 'one-of-one' -%}
+      <span class="product-card__badge">One of one</span>
+    {%- endif -%}
+    {%- if sold -%}<span class="product-card__badge product-card__badge--sold" style="left:auto;right:1rem;">Sold</span>{%- endif -%}
+
+    {%- if img -%}
+      <img src="{{ img | image_url: width: 700 }}" srcset="{{ img | image_url: width: 500 }} 500w, {{ img | image_url: width: 800 }} 800w, {{ img | image_url: width: 1100 }} 1100w" sizes="(max-width:600px) 90vw, 28vw" width="700" height="875" loading="lazy" alt="{{ img.alt | escape | default: product.title | escape }}">
+      {%- if alt_img -%}
+        <img class="alt-img" src="{{ alt_img | image_url: width: 700 }}" width="700" height="875" loading="lazy" alt="" aria-hidden="true">
+      {%- endif -%}
+    {%- else -%}
+      <div class="placeholder-iri" style="position:absolute;inset:0;"></div>
+    {%- endif -%}
+
+    {%- if settings.enable_quick_add and product.available and product.variants.size == 1 -%}
+      <div class="quick-add">
+        <form data-cart-form method="post" action="{{ routes.cart_add_url }}">
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          <button type="submit" class="btn btn--light btn--block" onclick="event.stopPropagation();event.preventDefault();this.closest('form').requestSubmit();"><span data-btn-label>Add to cart</span></button>
+        </form>
+      </div>
+    {%- endif -%}
+  </a>
+
+  <div class="product-card__body">
+    <a href="{{ product.url }}"><h3 class="product-card__title">{{ product.title }}</h3></a>
+    {%- if settings.show_dimensions_on_card -%}
+      {%- render 'dimensions', product: product, mode: 'inline' -%}
+    {%- endif -%}
+    <div class="product-card__meta">
+      <span class="product-card__type">{{ product.type | default: product.vendor }}</span>
+      <span class="product-card__price">{%- render 'price', product: product, show_from: true -%}</span>
+    </div>
+  </div>
+</article>

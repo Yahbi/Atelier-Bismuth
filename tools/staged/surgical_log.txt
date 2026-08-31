@@ -1,0 +1,12 @@
+
+[Charcoal Pedestal Column - Shou sugi ban Wood Plinth - Monolith - Sculpture Stand - Gift] Height fixed=('6x6',)
+  charcoal-pedestal-column-shou-sugi-ban-wood-plinth-monolith-sculpture-stand-gift
+  final: 16=$479, 18=$478, 20=$478, 22=$479, 24=$489, 26=$499, 28=$529, 30=$559, 32=$579, 34=$589, 36=$599, 38=$629, 40=$649, 42=$699
+    Height=18: $280 -> $384
+    Height=20: $290 -> $432
+    Height=18: $384 -> $456
+    Height=20: $432 -> $468
+    Height=18: $456 -> $474
+    Height=20: $468 -> $476
+    Height=18: $474 -> $478
+    Height=20: $476 -> $478

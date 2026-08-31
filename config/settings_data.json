@@ -1,0 +1,32 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "wordmark": "Atelier Bismuth",
+    "wordmark_tagline": "",
+    "color_bg": "#f4f1ea",
+    "color_surface": "#ffffff",
+    "color_surface_alt": "#ece7dc",
+    "color_ink": "#1c1a17",
+    "color_ink_soft": "#4a463f",
+    "color_muted": "#8a8479",
+    "color_line": "#d8d2c4",
+    "color_accent": "#6b5b4a",
+    "page_width": 1600,
+    "show_dimensions_on_card": true,
+    "enable_quick_add": true,
+    "social_instagram": "",
+    "social_pinterest": "",
+    "social_etsy": "https://www.etsy.com/shop/AtelierBismuth"
+  },
+  "presets": {
+    "Atelier Bismuth": {}
+  }
+}

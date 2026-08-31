@@ -14,3 +14,6 @@ npm-debug.log*
 tools/atelier-bismuth-etsy.json
 tools/atelier-bismuth-images.txt
 tools/products_shopify_import.csv
+
+# Personal Claude Code overrides (not committed)
+.claude/settings.local.json

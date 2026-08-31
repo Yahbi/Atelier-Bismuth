@@ -1,0 +1,18 @@
+{%- assign phrases = section.settings.text | split: ',' -%}
+<div class="marquee {{ section.settings.bg }}" aria-hidden="true">
+  <div class="marquee__track">
+    {%- for n in (1..2) -%}
+      {%- for p in phrases -%}<span>{{ p | strip }}</span>{%- endfor -%}
+    {%- endfor -%}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Marquee",
+  "settings": [
+    { "type": "text", "id": "text", "label": "Phrases (comma separated)", "default": "Made to order, One of one, Hand finished, Limited editions, Sculptural by nature" },
+    { "type": "select", "id": "bg", "label": "Background", "options": [ {"value":"","label":"Bone"}, {"value":"bg-surface","label":"White"}, {"value":"bg-alt","label":"Oat"} ], "default": "bg-surface" }
+  ],
+  "presets": [{ "name": "Marquee" }]
+}
+{% endschema %}

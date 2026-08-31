@@ -1,0 +1,69 @@
+{%- liquid
+  assign menu = linklists[section.settings.menu]
+  assign transparent = false
+  if section.settings.transparent_on_home and template.name == 'index'
+    assign transparent = true
+  endif
+-%}
+<header class="site-header{% if transparent %} is-transparent{% endif %}" data-header>
+  <div class="page-width header-inner">
+    <button class="nav-toggle icon-btn" data-drawer-open aria-label="{{ 'accessibility.menu' | t }}">{% render 'icon', name: 'menu' %}</button>
+
+    <a href="{{ routes.root_url }}" class="brand-wordmark" aria-label="{{ shop.name }}">
+      {%- if settings.logo != blank -%}
+        <img src="{{ settings.logo | image_url: width: 360 }}" alt="{{ shop.name | escape }}" width="180" style="max-height:42px;width:auto;">
+      {%- else -%}
+        {{ settings.wordmark | default: shop.name }}
+      {%- endif -%}
+    </a>
+
+    <nav class="header-nav header-nav--center" aria-label="Primary">
+      {%- for link in menu.links -%}
+        <a href="{{ link.url }}" class="nav-link">{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+
+    <div class="header-icons">
+      <a href="{{ routes.search_url }}" class="icon-btn" aria-label="{{ 'general.search.submit' | t }}">{% render 'icon', name: 'search' %}</a>
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{{ routes.account_url }}" class="icon-btn" aria-label="{{ 'accessibility.cart' | t }}">{% render 'icon', name: 'account' %}</a>
+      {%- endif -%}
+      <button class="icon-btn" data-open-cart aria-label="{{ 'accessibility.cart' | t }}">
+        {% render 'icon', name: 'cart' %}
+        <span class="cart-count" data-cart-count {% if cart.item_count == 0 %}style="display:none;"{% endif %}>{{ cart.item_count }}</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+{%- comment -%} Mobile navigation drawer {%- endcomment -%}
+<div class="drawer" data-drawer aria-hidden="true" role="dialog" aria-label="Menu">
+  <div class="drawer__scrim" data-drawer-close></div>
+  <div class="drawer__panel">
+    <div class="flex items-center justify-between" style="margin-bottom:1rem;">
+      <span class="brand-wordmark" style="font-size:1.4rem;">{{ settings.wordmark | default: shop.name }}</span>
+      <button class="icon-btn" data-drawer-close aria-label="{{ 'accessibility.close' | t }}">{% render 'icon', name: 'close' %}</button>
+    </div>
+    <nav class="stack" style="--stack-gap:0.4rem;">
+      {%- for link in menu.links -%}
+        <a href="{{ link.url }}" class="nav-link" data-drawer-close>{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+    <hr class="hairline" style="margin-block:auto 1rem;">
+    <div class="flex gap-2 wrap">
+      <a href="{{ routes.search_url }}" class="link-underline" data-drawer-close>Search</a>
+      {%- if settings.social_etsy != blank -%}<a href="{{ settings.social_etsy }}" class="link-underline" target="_blank" rel="noopener">Etsy</a>{%- endif -%}
+      {%- if settings.social_instagram != blank -%}<a href="{{ settings.social_instagram }}" class="link-underline" target="_blank" rel="noopener">Instagram</a>{%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "checkbox", "id": "transparent_on_home", "label": "Transparent header over homepage hero", "default": true }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,64 @@
+{%- liquid
+  assign img = section.settings.image
+  assign fallback = section.settings.image_fallback_url
+  assign flip_class = ''
+  if section.settings.media_side == 'right'
+    assign flip_class = ' flag-chapter--flip'
+  endif
+  assign bg_class = ' flag-chapter--bone'
+  if section.settings.bg_variant == 'paper'
+    assign bg_class = ' flag-chapter--paper'
+  endif
+  assign heading_html = section.settings.heading | newline_to_br
+-%}
+<section class="flag-chapter{{ flip_class }}{{ bg_class }}" data-section-id="{{ section.id }}">
+  <div class="flag-chapter__media flag-reveal">
+    {%- if img != blank -%}
+      <img src="{{ img | image_url: width: 1600 }}"
+           srcset="{{ img | image_url: width: 900 }} 900w, {{ img | image_url: width: 1400 }} 1400w, {{ img | image_url: width: 2000 }} 2000w"
+           sizes="(max-width: 860px) 100vw, 50vw"
+           width="1600" height="2000"
+           loading="lazy"
+           alt="{{ img.alt | escape | default: section.settings.heading | escape }}">
+    {%- elsif fallback != blank -%}
+      <img src="{{ fallback }}"
+           width="1600" height="2000"
+           loading="lazy"
+           alt="{{ section.settings.heading | escape }}">
+    {%- else -%}
+      <div class="placeholder-iri" style="position:absolute;inset:0;"></div>
+    {%- endif -%}
+  </div>
+  <div class="flag-chapter__body">
+    {%- if section.settings.eyebrow != blank -%}
+      <div class="flag-eyebrow flag-reveal">{{ section.settings.eyebrow }}</div>
+    {%- endif -%}
+    {%- if section.settings.heading != blank -%}
+      <h2 class="flag-chapter__heading flag-reveal">{{ heading_html }}</h2>
+    {%- endif -%}
+    {%- if section.settings.body != blank -%}
+      <p class="flag-chapter__body-text flag-reveal">{{ section.settings.body }}</p>
+    {%- endif -%}
+    {%- if section.settings.cta_label != blank -%}
+      <a class="flag-cta flag-reveal" href="{{ section.settings.cta_link | default: '#' }}">{{ section.settings.cta_label }}</a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Editorial chapter",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "url", "id": "image_fallback_url", "label": "Fallback image URL", "info": "Used when no image is picked." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The furniture" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "info": "Line breaks in this field become <br> in the heading.", "default": "A table with\nthe weight\nof the earth" },
+    { "type": "textarea", "id": "body", "label": "Body", "default": "Consoles, tables and benches cut from solid travertine — each edge left chiselled, each face a record of the quarry it came from." },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "View furniture" },
+    { "type": "url", "id": "cta_link", "label": "CTA link" },
+    { "type": "select", "id": "media_side", "label": "Image side", "options": [ {"value":"left","label":"Left"}, {"value":"right","label":"Right"} ], "default": "left" },
+    { "type": "select", "id": "bg_variant", "label": "Body background", "options": [ {"value":"bone","label":"Bone"}, {"value":"paper","label":"Paper"} ], "default": "bone" }
+  ],
+  "presets": [{ "name": "Editorial chapter" }]
+}
+{% endschema %}

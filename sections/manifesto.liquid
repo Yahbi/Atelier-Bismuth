@@ -1,0 +1,22 @@
+{%- liquid
+  assign body = section.settings.body
+-%}
+<section class="flag-manifesto" data-section-id="{{ section.id }}">
+  {%- if section.settings.eyebrow != blank -%}
+    <div class="flag-eyebrow flag-reveal">{{ section.settings.eyebrow }}</div>
+  {%- endif -%}
+  {%- if body != blank -%}
+    <div class="flag-manifesto__body flag-reveal flag-reveal--slow">{{ body }}</div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Manifesto",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "One material, worked by hand" },
+    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Every piece begins as a block pulled from the earth and ends in a quiet room. Nothing is cast, nothing is veneered — only <em>stone, chiselled, honed, and left</em> with the marks of the making.</p>" }
+  ],
+  "presets": [{ "name": "Manifesto" }]
+}
+{% endschema %}

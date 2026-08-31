@@ -1,0 +1,64 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Atelier Bismuth",
+    "theme_version": "1.0.0",
+    "theme_author": "Atelier Bismuth",
+    "theme_documentation_url": "https://github.com/yahbi/atelier-bismuth",
+    "theme_support_url": "https://github.com/yahbi/atelier-bismuth/issues"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      { "type": "image_picker", "id": "logo", "label": "Logo image (optional, overrides wordmark)" },
+      { "type": "text", "id": "wordmark", "label": "Wordmark", "default": "Atelier Bismuth" },
+      { "type": "text", "id": "wordmark_tagline", "label": "Wordmark tagline", "default": "Travertine · Natural Stone" },
+      { "type": "image_picker", "id": "favicon", "label": "Favicon" }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      { "type": "header", "content": "Surfaces" },
+      { "type": "color", "id": "color_bg", "label": "Background (bone)", "default": "#f4f1ea" },
+      { "type": "color", "id": "color_surface", "label": "Surface", "default": "#ffffff" },
+      { "type": "color", "id": "color_surface_alt", "label": "Alt surface (oat)", "default": "#ece7dc" },
+      { "type": "header", "content": "Ink & text" },
+      { "type": "color", "id": "color_ink", "label": "Ink", "default": "#1c1a17" },
+      { "type": "color", "id": "color_ink_soft", "label": "Soft ink", "default": "#4a463f" },
+      { "type": "color", "id": "color_muted", "label": "Muted", "default": "#8a8479" },
+      { "type": "color", "id": "color_line", "label": "Hairline", "default": "#d8d2c4" },
+      { "type": "header", "content": "Accent" },
+      { "type": "color", "id": "color_accent", "label": "Accent (bronze-taupe)", "default": "#6b5b4a" }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      { "type": "paragraph", "content": "The brand typeface — Cormorant Garamond (display) + Jost (body) — is loaded via Google Fonts and locked in the theme stylesheet to keep the Atelier Bismuth identity consistent. No font picker is exposed by design." }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      { "type": "range", "id": "page_width", "min": 1200, "max": 1800, "step": 20, "unit": "px", "label": "Page width", "default": 1600 }
+    ]
+  },
+  {
+    "name": "Product",
+    "settings": [
+      { "type": "checkbox", "id": "show_dimensions_on_card", "label": "Show dimensions on product cards", "default": true },
+      { "type": "checkbox", "id": "enable_quick_add", "label": "Enable quick add on cards", "default": true },
+      { "type": "paragraph", "content": "Dimensions and specs are read from product metafields (namespace `specs`). See README for setup." }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      { "type": "text", "id": "social_instagram", "label": "Instagram URL" },
+      { "type": "text", "id": "social_pinterest", "label": "Pinterest URL" },
+      { "type": "text", "id": "social_tiktok", "label": "TikTok URL" },
+      { "type": "text", "id": "social_etsy", "label": "Etsy shop URL", "default": "https://www.etsy.com/shop/AtelierBismuth" }
+    ]
+  }
+]

@@ -1,0 +1,62 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "lookbook",
+      "settings": {
+        "height": 70,
+        "align": "center",
+        "eyebrow": "Est. on Etsy · Now at home",
+        "heading": "The Atelier Bismuth story",
+        "text": "What began as a handful of one-of-one pieces has become a small atelier devoted to objects with weight and patience."
+      }
+    },
+    "intro": {
+      "type": "rich-text",
+      "settings": { "align": "center", "bg": "" },
+      "blocks": {
+        "e": { "type": "eyebrow", "settings": { "text": "Our philosophy" } },
+        "h": { "type": "heading", "settings": { "text": "We make few things, slowly", "size": "h2" } },
+        "t": { "type": "text", "settings": { "text": "<p>Bismuth is a humble element that forms astonishing, iridescent crystals when given time and care. We took its name as a promise: ordinary materials, transformed through patience into something you keep. Every piece is made in a limited run, finished by hand, and documented down to the millimetre — so the object you imagine is the object that arrives.</p>" } }
+      },
+      "block_order": ["e", "h", "t"]
+    },
+    "craft": {
+      "type": "image-with-text",
+      "settings": {
+        "ratio": "media--landscape", "layout": "normal",
+        "eyebrow": "The making", "heading": "From raw material to finished object",
+        "text": "<p>We work with solid woods, stone, metal and resin — materials chosen because they age into something better. Each is cut, joined and finished in small batches in our studio.</p>",
+        "bg": "bg-alt"
+      }
+    },
+    "values": {
+      "type": "values",
+      "settings": { "eyebrow": "What you can count on", "heading": "Made to be lived with", "bg": "" },
+      "blocks": {
+        "v1": { "type": "value", "settings": { "icon": "hand", "title": "Hand finished", "text": "Finished by hand — no two are identical." } },
+        "v2": { "type": "value", "settings": { "icon": "ruler", "title": "Fully specified", "text": "Every dimension published, openly." } },
+        "v3": { "type": "value", "settings": { "icon": "leaf", "title": "Built to last", "text": "Materials selected to patina, not wear out." } },
+        "v4": { "type": "value", "settings": { "icon": "truck", "title": "Delivered with care", "text": "Insured, white-glove delivery." } }
+      },
+      "block_order": ["v1", "v2", "v3", "v4"]
+    },
+    "quote": {
+      "type": "quote",
+      "settings": { "eyebrow": "From our buyers", "quote": "Exactly as described, down to the last centimetre — and more beautiful in person.", "attribution": "Verified Etsy buyer", "bg": "bg-ink" }
+    },
+    "cta": {
+      "type": "newsletter",
+      "settings": { "eyebrow": "Stay close", "heading": "Follow the atelier", "text": "New editions, restocks, and studio notes — first to your inbox.", "bg": "bg-alt" }
+    }
+  },
+  "order": ["hero", "intro", "craft", "values", "quote", "cta"]
+}

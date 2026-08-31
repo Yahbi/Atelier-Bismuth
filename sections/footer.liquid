@@ -1,0 +1,75 @@
+<footer class="site-footer">
+  <div class="page-width">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-wordmark">{{ settings.wordmark | default: shop.name }}</p>
+        <p class="lead" style="color:#b9b3a6;max-width:34ch;margin-top:1rem;font-size:1.05rem;">{{ section.settings.brand_line | default: 'Sculptural travertine furniture and objects for the considered home. Cut from solid stone, finished by hand.' }}</p>
+        <div class="footer-social mt-3">
+          {%- if settings.social_instagram != blank -%}<a href="{{ settings.social_instagram }}" aria-label="Instagram" target="_blank" rel="noopener">{% render 'icon', name: 'instagram' %}</a>{%- endif -%}
+          {%- if settings.social_pinterest != blank -%}<a href="{{ settings.social_pinterest }}" aria-label="Pinterest" target="_blank" rel="noopener">{% render 'icon', name: 'pinterest' %}</a>{%- endif -%}
+          {%- if settings.social_tiktok != blank -%}<a href="{{ settings.social_tiktok }}" aria-label="TikTok" target="_blank" rel="noopener">{% render 'icon', name: 'tiktok' %}</a>{%- endif -%}
+          {%- if settings.social_etsy != blank -%}<a href="{{ settings.social_etsy }}" class="link-underline" style="font-size:0.7rem;align-self:center;" target="_blank" rel="noopener">Etsy</a>{%- endif -%}
+        </div>
+      </div>
+
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'menu' -%}
+          {%- assign fmenu = linklists[block.settings.menu] -%}
+          <div {{ block.shopify_attributes }}>
+            <p class="footer-title">{{ block.settings.heading }}</p>
+            <ul class="footer-links">
+              {%- for link in fmenu.links -%}
+                <li><a href="{{ link.url }}" class="link-underline" style="font-size:0.9rem;letter-spacing:0;text-transform:none;">{{ link.title }}</a></li>
+              {%- else -%}
+                <li><a href="{{ routes.all_products_collection_url }}">All pieces</a></li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+
+      <div>
+        <p class="footer-title">{{ section.settings.newsletter_heading }}</p>
+        <p style="font-size:0.92rem;margin-bottom:1.2rem;color:#b9b3a6;">{{ section.settings.newsletter_text }}</p>
+        {%- form 'customer', class: 'newsletter-form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <label class="visually-hidden" for="footer-email">Email</label>
+          <input id="footer-email" type="email" name="contact[email]" placeholder="{{ 'general.newsletter.placeholder' | t }}" required>
+          <button type="submit" aria-label="{{ 'general.newsletter.submit' | t }}">{% render 'icon', name: 'arrow' %}</button>
+          {%- if form.posted_successfully? -%}<p style="color:#cfc9bc;font-size:0.8rem;margin-top:0.6rem;">{{ 'general.newsletter.success' | t }}</p>{%- endif -%}
+        {%- endform -%}
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© {{ 'now' | date: '%Y' }} {{ shop.name }}. All editions reserved.</span>
+      <span class="footer-social" style="gap:1.4rem;">
+        {%- assign policy = linklists['footer-legal'] -%}
+        {%- for link in policy.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+        {%- if shop.privacy_policy -%}<a href="{{ shop.privacy_policy.url }}">Privacy</a>{%- endif -%}
+        {%- if shop.refund_policy -%}<a href="{{ shop.refund_policy.url }}">Returns</a>{%- endif -%}
+      </span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "text", "id": "brand_line", "label": "Brand line", "default": "Sculptural travertine furniture and objects for the considered home. Cut from solid stone, finished by hand." },
+    { "type": "text", "id": "newsletter_heading", "label": "Newsletter heading", "default": "The Atelier Letter" },
+    { "type": "textarea", "id": "newsletter_text", "label": "Newsletter text", "default": "Early access to new editions, atelier stories, and private sales." }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Shop" },
+        { "type": "link_list", "id": "menu", "label": "Menu" }
+      ]
+    }
+  ]
+}
+{% endschema %}
