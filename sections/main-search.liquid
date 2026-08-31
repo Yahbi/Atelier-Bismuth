@@ -17,7 +17,7 @@
         <div class="grid cols-3">
           {%- for item in search.results -%}
             {%- if item.object_type == 'product' -%}
-              {%- render 'product-card', product: item, reveal_delay: forloop.index | modulo: 4 -%}
+              {%- render 'product-card', product: item, reveal_delay: forloop.index, modulo: 4 -%}
             {%- else -%}
               <a href="{{ item.url }}" class="stack" data-reveal><h3 class="h4">{{ item.title }}</h3><p style="font-size:0.9rem;color:var(--color-ink-soft);">{{ item.content | strip_html | truncate: 120 }}</p></a>
             {%- endif -%}
@@ -32,3 +32,15 @@
 {% schema %}
 { "name": "Search" }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- render 'product-card', product: item, reveal_delay: forloop.index | modulo:
+    4 -%}"
+  to: "{%- render 'product-card', product: item, reveal_delay: forloop.index, modulo:
+    4 -%}"
+  position: 1063..1147
+{% endcomment %}

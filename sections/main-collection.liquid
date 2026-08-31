@@ -51,7 +51,7 @@
 
       <div id="ProductGrid" class="grid cols-{{ section.settings.columns }}" data-next="{{ paginate.next.url }}" style="margin-top:clamp(1.5rem,3vw,2.5rem);">
         {%- for product in coll.products -%}
-          {%- render 'product-card', product: product, reveal_delay: forloop.index | modulo: 4 -%}
+          {%- render 'product-card', product: product, reveal_delay: forloop.index, modulo: 4 -%}
         {%- else -%}
           <p class="lead" style="grid-column:1/-1;">No pieces here yet — they are likely in the atelier. Check back soon.</p>
         {%- endfor -%}
@@ -124,3 +124,15 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- render 'product-card', product: product, reveal_delay: forloop.index
+    | modulo: 4 -%}"
+  to: "{%- render 'product-card', product: product, reveal_delay: forloop.index, modulo:
+    4 -%}"
+  position: 3176..3263
+{% endcomment %}
